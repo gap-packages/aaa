@@ -109,7 +109,7 @@ Dependencies := rec(
   SuggestedOtherPackages := [],
   ExternalConditions := []),
 
-BannerString := "TODO"
+BannerString := "TODO",
 ##Concatenation(
 ##  "----------------------------------------------------------------------",
 ##  "-------\n",
