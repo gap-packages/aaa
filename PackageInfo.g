@@ -110,23 +110,23 @@ Dependencies := rec(
   ExternalConditions := []),
 
 BannerString := "TODO"
-%Concatenation(
-%  "----------------------------------------------------------------------",
-%  "-------\n",
-%  "Loading  aaa ", ~.Version, "\n",
-%  "by ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
-%        " (", ~.Persons[1].WWWHome, ")\n",
-%  "with contributions by:\n",
-%  Concatenation(Concatenation(List(~.Persons{[2 .. Length(~.Persons) - 1]},
-%       p -> ["     ", p.FirstNames, " ", p.LastName,
-%       _RecogsFunnyNameFormatterFunction(
-%         _RecogsFunnyWWWURLFunction(p)), ",\n"]))),
-%  " and ", ~.Persons[Length(~.Persons)].FirstNames, " ",
-%  ~.Persons[Length(~.Persons)].LastName,
-%  _RecogsFunnyNameFormatterFunction(
-%    _RecogsFunnyWWWURLFunction(~.Persons[Length(~.Persons)])), ".\n",
-%  "-----------------------------------------------------------------------",
-%  "------\n"),
+##Concatenation(
+##  "----------------------------------------------------------------------",
+##  "-------\n",
+##  "Loading  aaa ", ~.Version, "\n",
+##  "by ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
+##        " (", ~.Persons[1].WWWHome, ")\n",
+##  "with contributions by:\n",
+##  Concatenation(Concatenation(List(~.Persons{[2 .. Length(~.Persons) - 1]},
+##       p -> ["     ", p.FirstNames, " ", p.LastName,
+##       _RecogsFunnyNameFormatterFunction(
+##         _RecogsFunnyWWWURLFunction(p)), ",\n"]))),
+##  " and ", ~.Persons[Length(~.Persons)].FirstNames, " ",
+##  ~.Persons[Length(~.Persons)].LastName,
+##  _RecogsFunnyNameFormatterFunction(
+##    _RecogsFunnyWWWURLFunction(~.Persons[Length(~.Persons)])), ".\n",
+##  "-----------------------------------------------------------------------",
+##  "------\n"),
 
 AvailabilityTest := ReturnTrue,
 
