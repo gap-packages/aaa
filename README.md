@@ -6,3 +6,6 @@
 This is a GAP package that introduces algorithms for asynchronous automata.
 You can download GAP from https://www.gap-system.org/
 and place this package in the pkg directory.
+
+To check coverage run:
+scripts/code-coverage-test-gap.py tst/standard/toperations.tst tst/standard/woperations.tst tst/standard/transducer.tst

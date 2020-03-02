@@ -18,12 +18,28 @@ gap> w := TransducerFunction(f, [0, 1], 1)[1];
 [ 2, 0 ]
 gap> TransducerFunction(g, w, 1)[1];
 [ 0, 1 ]
+gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],  
+>  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
+>  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
+gap> T^-1;
+Error, aaa: ^: usage,
+the given transducer must be bijective
 
 #T# TransducerProduct
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 3 states.>
+gap> t := AlphabetChangeTransducer(2, 3);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+3 symbols, and 2 states.>
+gap> TransducerProduct(t, t);            
+Error, aaa: TransducerProduct: usage,
+the output alphabet of the first argument must be the input alphabet
+of the second argument,
+gap> t^2;
+Error, aaa: ^: usage,
+the given transducer must have the same domain and range
 gap> ff := TransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 9 states.>
@@ -57,6 +73,11 @@ gap> OutputFunction(R);
   [ [ 0, 1, 1 ], [ 0, 1, 1 ] ] ]
 gap> TransitionFunction(R);
 [ [ 5, 4 ], [ 2, 2 ], [ 3, 3 ], [ 4, 4 ], [ 5, 5 ] ]
+gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
+> [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
+gap> RemoveStatesWithIncompleteResponse(T);
+Error, aaa: RemoveStatesWithIncompleteResponce: usage,
+the given transducer must be nondegenerate 
 
 #T# RemoveInaccessibleStates
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
@@ -408,6 +429,11 @@ gap> C1 := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 gap> C2 := Transducer(3, 3, [[1, 1, 1]], [[[0], [2], [1]]]);;
 gap> T^(C1*C2)= (T^C1)^C2;
 true
+gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
+>  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
+>  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
+gap> T^T;
+fail
 
 #T# TransducerOrder
 gap> T := IdentityTransducer(5);;
