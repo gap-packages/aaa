@@ -40,5 +40,21 @@ gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 gap> ImageConeLongestPrefix([], 2, t);
 [ 1 ]
 
+#T# MaximalWords
+gap> MaximalWords([]);
+[  ]
+gap> MaximalWords([[0]]);
+[ [ 0 ] ]
+gap> MaximalWords([[0], [0, 1]]);
+[ [ 0, 1 ] ]
+gap> MaximalWords([[0], [0, 1], [1]]);
+[ [ 0, 1 ], [ 1 ] ]
+gap> MaximalWords([[0], [0, 1], [1], [1, 1]]);
+[ [ 0, 1 ], [ 1, 1 ] ]
+gap> MaximalWords([[0], [0, 1], [1], [1, 1], [2, 1, 1]]);
+[ [ 0, 1 ], [ 1, 1 ], [ 2, 1, 1 ] ]
+gap> MaximalWords([[0], [0, 1], [1], [2, 1, 1], [2, 1, 1], [2]]);
+[ [ 0, 1 ], [ 1 ], [ 2, 1, 1 ] ]
+
 #
 gap> STOP_TEST("aaa package: standard/woperations.tst");

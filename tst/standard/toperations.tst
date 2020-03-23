@@ -45,6 +45,17 @@ gap> ff := TransducerProduct(f, f);
 3 symbols, and 9 states.>
 
 #T# RemoveStatesWithIncompleteResponse
+gap> T := Transducer(2, 2, [[2, 2], [3, 3], [3, 3]], [[[0], [1]], [[0], [1]], [[0], [0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 3 states.>
+gap> M:= RemoveStatesWithIncompleteResponse(T);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 5 states.>
+gap> OutputFunction(M);
+[ [ [ 0 ], [ 1 ] ], [ [ 0 ], [ 1 ] ], [ [  ], [ 1 ] ], [ [ 0 ], [ 0 ] ], 
+  [ [ 0 ], [ 0 ] ] ]
+gap> TransitionFunction(M);
+[ [ 3, 3 ], [ 3, 3 ], [ 5, 4 ], [ 4, 4 ], [ 5, 5 ] ]
 gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 >                           [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
@@ -99,6 +110,9 @@ gap> TransducerFunction(f, [0, 1, 0], 3);
 [ [ 0, 2, 0, 2 ], 1 ]
 gap> TransducerFunction(p, [0, 1, 0], 1);
 [ [ 0, 2, 0, 2 ], 2 ]
+gap> p := CopyTransducerWithInitialState(f, 4);; 
+Error, aaa: ChangeInitialState: usage,
+the second argument is not a state of the first argument,
 
 #T# IsInjectiveTransducer
 gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
@@ -130,6 +144,10 @@ false
 gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
 gap> IsInjectiveTransducer(T);
 false
+gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> IsInjectiveTransducer(T);
+Error, aaa: IsInjectiveTransducer: usage,
+the given transducer must be nondegenerate 
 
 #T# IsSurjectiveTransducer
 gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
@@ -159,6 +177,10 @@ gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
 > [[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;
 gap> IsSurjectiveTransducer(T);
 false
+gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> IsSurjectiveTransducer(T);
+Error, aaa: IsSurjectiveTransducer: usage,
+the given transducer must be nondegenerate 
 
 #T# TransducerImageAutomaton
 gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
@@ -264,6 +286,10 @@ gap> OutputFunction(M);
 [ [ [ 1, 0 ], [ 0, 0 ] ], [ [ 1 ], [  ] ], [ [ 0 ], [ 1 ] ] ]
 gap> TransitionFunction(M);
 [ [ 2, 2 ], [ 3, 1 ], [ 3, 3 ] ]
+gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> MinimalTransducer(T);
+Error, aaa: MinimalTransducer: usage,
+the given transducer must be nondegenerate 
 
 #T# IsomorphicInitialTransducers
 gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
@@ -271,12 +297,18 @@ gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 gap> T2 := CopyTransducerWithInitialState(T, 2);;
 gap> T3 := CopyTransducerWithInitialState(T, 3);;
 gap> T4 := CopyTransducerWithInitialState(T3, 3);;
+gap> T5 := Transducer(2, 2, [[1, 1], [2, 2], [3, 3]], [[[], []], [[], []], [[], []]]);;
+gap> T6 := Transducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]], [[[], [], []], [[], [], []], [[], [], []]]);;
 gap> IsomorphicInitialTransducers(T, T2);
 true
 gap> IsomorphicInitialTransducers(T, T3);
 false
 gap> IsomorphicInitialTransducers(T, T4);
 true
+gap> IsomorphicInitialTransducers(T, T5);
+false
+gap> IsomorphicInitialTransducers(T, T6);
+false
 
 #T# OmegaEquivalentTransduces "="
 gap> T := Transducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
@@ -450,6 +482,11 @@ gap> TransducerOrder(T^-1);
 6
 gap> TransducerOrder(T^-2);
 3
+gap> T := Transducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
+> [[1], [1, 0, 0, 1, 0, 1]], [[1, 1], [0, 1]]]);;
+gap> TransducerOrder(T);
+Error, aaa: TransducerOrder: usage,
+the given transducer must be bijective
 
 #
 gap> STOP_TEST("aaa package: standard/toperations.tst");

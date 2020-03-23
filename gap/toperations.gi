@@ -616,7 +616,7 @@ function(T, word)
 	return Digraph(Out);
 end);
 
-QuotientTransducer := function(T,EqR, wantoutputs)
+QuotientTransducer := function(T,EqR)
   local Classes, class, i, Pi, Lambda, initialclass;
   Classes:=ShallowCopy(EquivalenceRelationPartition(EquivalenceRelationByPairs(Domain(States(T)),EqR)));
 
@@ -644,12 +644,7 @@ QuotientTransducer := function(T,EqR, wantoutputs)
   Pi:= ShallowCopy(Classes);
   Lambda := ShallowCopy(Classes);
   Apply(Pi,x -> TransitionFunction(T)[x[1]]);
-  if wantoutputs then
-    Apply(Lambda, x-> OutputFunction(T)[x[1]]);
-  else
-    Apply(Lambda,
-          x-> ListWithIdenticalEntries(Size(OutputFunction(T)[x[1]]), []));
-  fi;
+  Apply(Lambda, x-> OutputFunction(T)[x[1]]);
   for i in Pi do
         Apply(i,class);
   od;
@@ -679,7 +674,7 @@ function(T)
       od;
     od;
   od;
-  return QuotientTransducer(T,EqRelation, true);
+  return QuotientTransducer(T, EqRelation);
 end);
 
 InstallMethod(MinimalTransducer, "for a transducer",

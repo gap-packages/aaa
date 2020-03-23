@@ -36,8 +36,25 @@ the size of the third and fourth arguments must coincide,
 gap> f := Transducer(2, 2, [], [[[1], [0]], [[1, 1], [1, 0]], [[1], []]]);
 Error, aaa: Transducer: usage,
 the third and fourth arguments must be non-empty,
+gap> f := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]],
+> [[[0], []], [[1], []], [[2], [3]]]);;
+gap> f!.TransducerFunction(1, 1);
+Error, aaa: Transducer: usage,
+the first argument must be a dense list,
+gap> f!.TransducerFunction([1], 0);
+Error, aaa: Transducer: usage,
+the second argument must be a positive integer,
+gap> f!.TransducerFunction([1], 6);
+Error, aaa: Transducer: usage,
+the second argument must not be greater than 3,
+gap> f!.TransducerFunction([2], 3);
+Error, aaa: Transducer: usage,
+the first argument must be a list of integers in [ 0 .. 1 ],
 
 #T# IdentityTransducer
+gap> T := IdentityTransducer(1);
+<transducer with input alphabet on 1 symbol, output alphabet on 1 symbol, and 
+1 state.>
 gap> T := IdentityTransducer(2);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 1 state.>
