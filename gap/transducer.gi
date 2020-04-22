@@ -186,6 +186,7 @@ function(n,m)
   return InverseTransducer(2tok(n)) * 2tok(m);
 end);
 
+#returns a random transducer on a given alphabet size and number of states
 InstallMethod(RandomTransducer,"gives random transducers",
 [IsPosInt,IsPosInt],
 function(AlphSize,NrStates)
