@@ -151,3 +151,146 @@ function(D, Veqiv, Eeqiv)
                               x-> Position(newedges, x^Eeqiv)))];
 
 end);
+
+RemoveBrackets := function(word)
+    local i, newword, lbracket, rbracket, nestcount, index;
+    # pylint: disable = too-many-branches
+    if word = "" then
+        return "";
+    fi;
+    #if the number of left brackets is different from the number of right
+    #brackets they can't possibly pair up
+    if not Size(Filtered(word, x -> x = '(')) =
+           Size(Filtered(word, x -> x = ')')) then
+        ErrorNoReturn("invalid bracket structue");
+    fi;
+    #if the ^ is at the end of the string there is no exponent.
+    #if the ^ is at the start of the string there is no base.
+    if word[1] = '^' or word[Size(word)] = '^' then
+        ErrorNoReturn("invalid power structure");
+    fi;
+    #checks that all ^s have an exponent.
+    for index in [1 .. Size(word)] do
+        if word[index] = '^' then
+            if not word[index + 1] in "0123456789" then
+                ErrorNoReturn("invalid power structure");
+            fi;
+        fi;
+    od;
+    #i acts as a pointer to positions in the string.
+    newword := "";
+    i := 1;
+    while i <= Size(word) do
+        #if there are no brackets the character is left as it is.
+        if not word[i] = '(' then
+            Add(newword, word[i]);
+        else
+            lbracket := i;
+            rbracket := -1;
+            #tracks how 'deep' the position of i is in terms of nested
+            #brackets
+            nestcount := 0;
+            i := i + 1;
+            while i <= Size(word) do
+                if word[i] = '(' then
+                    nestcount := nestcount + 1;
+                elif word[i] = ')' then
+                    if nestcount = 0 then
+                        rbracket := i;
+                        break;
+                    else
+                        nestcount := nestcount - 1;
+                    fi;
+                fi;
+                i := i+1;
+            od;
+            #as i is always positive, if rbracket is -1 that means that
+            #the found left bracket has no corresponding right bracket.
+            #note: if this never occurs then every left bracket has a
+            #corresponding right bracket and as the number of each bracket
+            #is equal every right bracket has a corresponding left bracket
+            #and the bracket structure is valid.
+            if rbracket = -1 then
+                ErrorNoReturn("invalid bracket structure");
+            fi;
+            #if rbracket is not followed by ^ then the value inside the
+            #bracket is appended (recursion is used to remove any brackets
+            #in this value)
+            if rbracket = Size(word) or (not word[rbracket + 1] = '^') then
+                Append(newword,
+                       RemoveBrackets(word{[lbracket + 1 .. rbracket - 1]}));
+            #if rbracket is followed by ^ then the value inside the
+            #bracket is appended the given number of times
+            else
+                i := i + 2;
+                while i <= Size(word) do
+                    if word[i] in "0123456789" then
+                        i := i + 1;
+                    else
+                        break;
+                    fi;
+                od;
+                Append(newword, 
+                       Concatenation(ListWithIdenticalEntries(
+                       Int(word{[rbracket + 2 .. i - 1]}), 
+                       RemoveBrackets(word{[lbracket + 1 .. rbracket - 1]}))));
+                i := i - 1;
+            fi;
+        fi;   
+        i := i + 1;
+    od;
+    return newword;
+
+end;
+
+RemovePowers := function(word)
+    local index, i, newword, base_position;
+    if word = "" then
+        return "";
+    fi;
+    if word[1] = '^' or word[Size(word)] = '^' then
+        ErrorNoReturn("invalid power structure");
+    fi;
+    #checks that all ^s have an exponent.
+    for index in [1 .. Size(word)] do
+        if word[index] = '^' then
+            if not word[index + 1] in "0123456789" then
+                ErrorNoReturn("invalid power structure");
+            fi;
+            if word[index - 1] in "0123456789^" then
+                ErrorNoReturn("invalid power structure");
+            fi;
+
+        fi;
+    od;
+    newword := "";
+    i := 1;
+    while i <= Size(word) do
+        #if last character reached there is no space for exponentiation.
+        if i = Size(word) then
+            Add(newword, word[i]);
+            i := i + 1;
+        #if the character is not being powered then it is left as it is.
+        elif not word[i + 1] = '^' then
+            Add(newword, word[i]);
+            i := i + 1;
+        else
+            base_position := i;
+            i := i + 2;
+            if i <= Size(word) then
+                #extracts the exponent from the string.
+                while word[i] in "0123456789" do
+                    i := i + 1;
+                    if i > Size(word) then
+                        break;
+                    fi;
+                od;
+            fi;
+            Append(newword,
+                   ListWithIdenticalEntries(
+                   Int(word{[base_position + 2 .. i - 1]}),
+                   word[base_position]));
+        fi;
+    od;
+    return newword;
+    end;
