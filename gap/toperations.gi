@@ -532,6 +532,9 @@ function(T)
   local constantstates, constantstateoutputs, currentstate, state,
   automatonhasbeenbuilt, stateisnotconstant, tuple, out1, out2, A, MinA,
   newstatenr, badstates, TMat, path, pos, root, circuit, next, Adata;
+  if IsDegenerateTransducer(T) then
+    return fail;
+  fi;
   constantstates := [];
   constantstateoutputs := [];
   automatonhasbeenbuilt := false;

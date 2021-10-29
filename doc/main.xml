@@ -29,7 +29,7 @@
    Only='Text'><Package>bliss</Package></Alt>">
      <#Include Label="PKGVERSIONDATA">
    ]>
-
+<?LaTeX ExtraPreamble="\usepackage[pdftex]{graphicx}"?>
 <Book Name="aaa">
 <#Include SYSTEM "title.xml">
 
