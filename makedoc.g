@@ -5,7 +5,6 @@
 # To complile the doc for aaa run the command AaaMakeDoc(); in gap.
 
 PACKAGE := "aaa";
-PrintTo("VERSION", PackageInfo(PACKAGE)[1].Version, "\n");
 LoadPackage("GAPDoc");
 
 _DocXMLFiles := ["main.xml",
