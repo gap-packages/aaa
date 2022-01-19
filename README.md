@@ -1,3 +1,7 @@
+[![Build Status](https://github.com/gap-packages/aaa/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/aaa/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/github/gap-packages/aaa/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/aaa)
+
+
 ### aaa package for GAP
 #### Copyright (C) 2017-2018
 #### Collin Bleak, Fernando Flores Brito, Luke Elliott, James D. Mitchell, Feyishayo Olukoya.
