@@ -33,3 +33,6 @@ DeclareOperation("\*", [IsTransducer, IsTransducer]);
 DeclareOperation("\^", [IsTransducer, IsInt]);
 DeclareOperation("\^", [IsTransducer, IsTransducer]);
 DeclareOperation("FixedOutputDigraph", [IsTransducer, IsDenseList]);
+DeclareAttribute("IsSynchronizingTransducer", IsTransducer);
+DeclareAttribute("IsBisynchronizingTransducer", IsTransducer);
+DeclareAttribute("TransducerSynchronizingLength", IsTransducer);

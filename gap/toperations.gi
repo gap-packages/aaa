@@ -619,7 +619,8 @@ function(T, word)
 	return Digraph(Out);
 end);
 
-QuotientTransducer := function(T,EqR)
+
+QuotientTransducer := function(T,EqR, wantoutputs)
   local Classes, class, i, Pi, Lambda, initialclass;
   Classes:=ShallowCopy(EquivalenceRelationPartition(EquivalenceRelationByPairs(Domain(States(T)),EqR)));
 
@@ -630,15 +631,15 @@ QuotientTransducer := function(T,EqR)
                         return j;
                 fi;
         od;
-	return fail;
+        return fail;
   end;
   for i in States(T) do
-	if class(i)=fail then
-		Add(Classes,[i]);
-	fi;
+        if class(i)=fail then
+                Add(Classes,[i]);
+        fi;
   od;
   for i in Classes do
-	if 1 in i then
+        if 1 in i then
           initialclass := i;
         fi;
   od;
@@ -647,7 +648,12 @@ QuotientTransducer := function(T,EqR)
   Pi:= ShallowCopy(Classes);
   Lambda := ShallowCopy(Classes);
   Apply(Pi,x -> TransitionFunction(T)[x[1]]);
-  Apply(Lambda, x-> OutputFunction(T)[x[1]]);
+  if wantoutputs then
+    Apply(Lambda, x-> OutputFunction(T)[x[1]]);
+  else
+    Apply(Lambda,
+          x-> ListWithIdenticalEntries(Size(OutputFunction(T)[x[1]]), []));
+  fi;
   for i in Pi do
         Apply(i,class);
   od;
@@ -677,7 +683,7 @@ function(T)
       od;
     od;
   od;
-  return QuotientTransducer(T, EqRelation);
+  return QuotientTransducer(T, EqRelation, true);
 end);
 
 InstallMethod(MinimalTransducer, "for a transducer",
@@ -810,4 +816,35 @@ function(T)
     p := p + 1;
   od;
   return p;
+end);
+
+
+
+
+InstallMethod(TransducerSynchronizingLength, "for a transducer", [IsTransducer],
+function(T)
+	local count, CopyT, TempT, flag;
+	flag := true;
+        CopyT := CopyTransducerWithInitialState(T,1);
+	count := -1;
+	while flag do
+		count := count + 1;
+		TempT := QuotientTransducer(CopyT,Filtered(Cartesian(States(CopyT), States(CopyT)),x-> TransitionFunction(CopyT)[x[1]]=TransitionFunction(CopyT)[x[2]]), false);
+		flag := (States(CopyT) <> States(TempT));
+		CopyT := TempT;
+	od;
+        if IsTransducer(T) and States(CopyT) = [1] then
+		return count;
+	fi;
+	return infinity;
+end);
+
+
+InstallMethod(IsSynchronizingTransducer, "for a transducer",
+[IsTransducer], T -> TransducerSynchronizingLength(T)<infinity);
+
+InstallMethod(IsBisynchronizingTransducer, "for a transducer",
+[IsTransducer],
+function(T)
+  return IsBijectiveTransducer(T) and IsSynchronizingTransducer(T) and IsSynchronizingTransducer(InverseTransducer(T));
 end);
