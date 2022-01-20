@@ -69,15 +69,11 @@ Our transducer package allows users to write transducers which change alphabet s
 "RemoveStatesWithIncompleteResponse","RemoveInaccessibleStates", <P/>
 "CopyTransducerWithInitialState", <P/>
 "IsInjectiveTransducer", "IsSurjectiveTransducer", "IsBijectiveTransducer", <P/>
-"TransducerImageAutomaton", "TransducerConstantStateOutputs", "IsDegenerateTransducer", <P/>
+ "TransducerConstantStateOutputs", "IsDegenerateTransducer", <P/>
 "IsMinimalTransducer", "CombineEquivalentStates", "MinimalTransducer", <P/>
 "IsSynchronousTransducer", "TransducerOrder", "IsomorphicInitialTransducers", <P/>
 "OmegaEquivalentTransducers", "EqualTransducers", "TransducerImageAutomaton". <P/>
 "PreimageConePrefixes", "ImageConeLongestPrefix".
-
-
-
-~                                                                    
+                                                                    
 </Section>
-  </Chapter>
-~         
+  </Chapter>    

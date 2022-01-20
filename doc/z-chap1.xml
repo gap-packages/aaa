@@ -24,7 +24,9 @@
     <#Include Label = "NrXSymbols">
     <#Include Label = "States">
     <#Include Label = "NrStates">
-
+    <#Include Label = "IdentityTransducer">
+    <#Include Label = "AlphabetChangeTransducer">
+    <#Include Label = "RandomTransducer">
   </Section>
 
   <!--**********************************************************************-->
@@ -39,9 +41,17 @@
     In this section we explain the different transducer attributes that the
     &aaa; package can compute.
 
+    <#Include Label = "IsDegenerateTransducer">
     <#Include Label = "IsInjectiveTransducer">
     <#Include Label = "IsSurjectiveTransducer">
-
+    <#Include Label = "IsBijectiveTransducer">
+    <#Include Label = "IsMinimalTransducer">
+    <#Include Label = "IsSynchronousTransducer">
+    <#Include Label = "IsomorphicInitialTransducers">
+    <#Include Label = "OmegaEquivalentTransducers">
+    <#Include Label = "EqualTransducers">
+    <#Include Label = "TransducerOrder">
+    
   </Section>
 
   <!--**********************************************************************-->

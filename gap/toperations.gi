@@ -792,10 +792,17 @@ InstallMethod(TransducerOrder, "for a transducer",
 [IsTransducer],
 function(T)
   local temp, p;
+
+  if not InputAlphabet(T) = OutputAlphabet(T) then
+    ErrorNoReturn("aaa: TransducerOrder: usage,\n",
+                  "the given transducer must have the same domain and range");
+  fi;
+
   if not IsBijectiveTransducer(T) then
     ErrorNoReturn("aaa: TransducerOrder: usage,\n",
                   "the given transducer must be bijective");
   fi;
+
   temp := CopyTransducerWithInitialState(T, 1);
   p := 1;
   while not temp = T^0 do
