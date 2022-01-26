@@ -4,6 +4,14 @@
 # This file is a script which compiles the package manual.
 # To complile the doc for aaa run the command AaaMakeDoc(); in gap.
 
+if not IsDirectoryPath("gap")
+    or not "transducer.gd" in DirectoryContents("gap") then
+  Print("Error: GAP must be run from the aaa package directory ",
+        "when reading makedoc.g\n");
+  FORCE_QUIT_GAP(1);
+fi;
+pkgdir := DirectoryCurrent();
+
 PACKAGE := "aaa";
 LoadPackage("GAPDoc");
 
@@ -22,11 +30,10 @@ _DocXMLFiles := ["main.xml",
                  "z-aaabib.xml",
                  "../PackageInfo.g"];
 
-MakeGAPDocDoc(Concatenation(PackageInfo("aaa")[1]!.
-                            InstallationPath, "/doc"),
-              "main.xml", _DocXMLFiles, "aaa", "MathJax",
-              "../../..");
-CopyHTMLStyleFiles("doc");
-GAPDocManualLab(PACKAGE);
+
+MakeGAPDocDoc(Filename(pkgdir, "doc"),
+              "main.xml", _DocXMLFiles, PACKAGE, "MathJax", "../../..");
+CopyHTMLStyleFiles(Filename(pkgdir, "doc"));
+GAPDocManualLabFromSixFile(PACKAGE, Filename(pkgdir, "doc/manual.six"));
 
 QUIT;
