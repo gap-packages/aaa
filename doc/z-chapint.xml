@@ -59,21 +59,10 @@ In this document we will show how to check that the transducer represents a bije
   </Heading>
   
 
-Our transducer package allows users to write transducers which change alphabet sizes, and do generic transducer-type transformations to finite strings. Given a base initial transducer T with identital input and output alphabets, the package can verify that T represents an invertible homeomorphism h of Cantor space. If h is invertible the package supports inversion (by producing a transducer S representing the inverse of h). It also supports taking products and supports the minimisation and checking for incomplete response procedures as described in the GNS paper. More detailed technical processes are also supported as one can see by reading further into this manual. Here is a list of the functions for transducers present in the package:<P/>
-
-"Transducer", "TransducerFunction","OutputFunction", <P/>
-"TransitionFunction", "InputAlphabet", "OutputAlphabet", <P/>
-"States", "NrStates", "NrOutputSymbols", <P/>
-"NrInputSymbols", "IdentityTransducer", "AlphabetChangeTransducer", <P/>
-"RandomTransducer", "InverseTransducer", "TransducerProduct", <P/>
-"RemoveStatesWithIncompleteResponse","RemoveInaccessibleStates", <P/>
-"CopyTransducerWithInitialState", <P/>
-"IsInjectiveTransducer", "IsSurjectiveTransducer", "IsBijectiveTransducer", <P/>
- "TransducerConstantStateOutputs", "IsDegenerateTransducer", <P/>
-"IsMinimalTransducer", "CombineEquivalentStates", "MinimalTransducer", <P/>
-"IsSynchronousTransducer", "TransducerOrder", "IsomorphicInitialTransducers", <P/>
-"OmegaEquivalentTransducers", "EqualTransducers", "TransducerImageAutomaton". <P/>
-"PreimageConePrefixes", "ImageConeLongestPrefix".
-                                                                    
+  Our transducer package allows users to write transducers which change alphabet sizes, and do generic transducer-type transformations to finite strings.
+  Given a base initial transducer T with identital input and output alphabets, the package can verify that T represents an invertible homeomorphism h of Cantor space.
+  If h is invertible the package supports inversion (by producing a transducer S representing the inverse of h).
+  It also supports taking products and supports the minimisation and checking for incomplete response procedures as described in the GNS paper.
+  More detailed technical processes are also supported as one can see by reading further into this manual.<P/>
 </Section>
   </Chapter>    
