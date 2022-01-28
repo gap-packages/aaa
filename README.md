@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/gap-packages/aaa/workflows/CI/badge.svg?branch=master)](https://github.com/gap-packages/aaa/actions?query=workflow%3ACI+branch%3Amaster)
+[![Build Status](https://github.com/gap-packages/aaa/workflows/CI/badge.svg?branch=main)](https://github.com/gap-packages/aaa/actions?query=workflow%3ACI+branch%3Amain)
 [![Code Coverage](https://codecov.io/github/gap-packages/aaa/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/aaa)
 
 
