@@ -308,7 +308,7 @@ false
     it always outputs a finite word of the same length.
 
     For a transducer <A>T</A>, the attribute <C>IsSynchronousTransducer(<A>T</A>)</C>
-    returns <C>true</C> if <A>T</A> is a bijective transducer, and <C>false</C> otherwise.
+    returns <C>true</C> if <A>T</A> is a synchronous transducer, and <C>false</C> otherwise.
 
 <Example><![CDATA[
 gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
@@ -337,28 +337,29 @@ false
   <Attr Name="IsMinimalTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
-    A non-degenerate transducer <A>T</A> is called "minimal" it satisfies the following
-    three properties:
+    A non-degenerate transducer <A>T</A> is called "minimal" if it satisfies the following
+    three properties:</P>
     
-    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>.
+    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>.</P>
    
-    2. If w is a word in the domain alphabet of <A>T</A> and s is a state of <A>T</A>, then
-    the word written when w is read from state s is equal to the longest common prefix of the infinite 
-    words which can be wriiten (from the state s) by reading an infinite word with prefix w.
+    2. If w is a word in the input alphabet of <A>T</A> and s is a state of <A>T</A>, then
+    the word written when w is read from state s is equal to the longest common prefix of the infinite
+    words which can be wriiten (from the state s) by reading an infinite word with prefix w.</P>
    
-    3. All the states of <A>T</A> define different maps from the space of infinite words in the domain alphabet
-    of <A>T</A> to the space of infinite words in the image alphabet of <A>T</A>
+    3. All the states of <A>T</A> define different maps from the space of infinite words in the input alphabet
+    of <A>T</A> to the space of infinite words in the output alphabet of <A>T</A>.</P>
    
     For a transducer <A>T</A>, the attribute <C>IsMinimalTransducer(<A>T</A>)</C>
     returns <C>true</C> if <A>T</A> is a minimal transducer, and <C>false</C> otherwise (with the following caveat).
 
-    Caveat: Using standard definitions it is possible to have a minimal transducer which can write an infinite but 
-    eventually periodic word by reading a finite word. As the tranducers in this package don't allow this, we accomodate
+    Caveat: Using the standard definitions outside this package, it is possible to have a minimal transducer which can write an infinite but 
+    eventually periodic word by reading a finite word. 
+    As the tranducers in this package don't allow this, we accomodate
     for these cases (breaking the second condition above) by having the transducer write the non-periodic part of the 
     infinite words and then transitioning to a state which always transitions to itself and writes the periodic part
-    of the infinite word when any letter is read.
+    of the infinite word when any letter is read.</P>
 
-    Each non-degenerate transducer has a unique minimal omega-equivalent form which can be computed with the 
+    Each non-degenerate transducer has a unique minimal omega-equivalent form (modulo the above caveat) which can be computed with the 
     operation "MinimalTransducer".
 
 <Example><![CDATA[
@@ -513,8 +514,8 @@ false
 	  and output alphabets, the operation 
 	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
 	  if and only if <A>T1</A> and <A>T2</A> induce the the same continuous maps
-	  from the infinite words in their domain alphabets to the infinte words in
-	  their image alphabets.
+	  from the infinite words in their input alphabets to the infinite words in
+	  their output alphabets.
 
 	  Alternatively one can write <A>T1</A>=<A>T2</A> instead of 
 	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C>.
@@ -581,7 +582,7 @@ false
   <Returns> A positive integer.</Returns>
   <Description>
 	  The input must be a transducer <A>T</A> with the same input and 
-	  output alphabet, which induces a homomorphism on the set of infinite
+	  output alphabet, which induces a homeomorphism on the set of infinite
 	  words over its alphabet.
 	  
 	  If this homeomorphism has finite order, then its order is returned.  

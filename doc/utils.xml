@@ -33,7 +33,7 @@ gap> AaaMakeDoc();
       monitor.<P/>
 
       The string <A>str</A> must correspond to a valid <C>dot</C> text file and
-      you must have have <C>GraphViz</C> and <C>pdflatex</C> installed on your
+      you must have <C>GraphViz</C> and <C>pdflatex</C> installed on your
       computer.  For details about these file formats, see
       <URL>http://www.latex-project.org</URL> and
       <URL>http://www.graphviz.org</URL>.<P/>
@@ -58,7 +58,7 @@ gap> Splash(DotTransducer(T));
     <Description>
       For a transducer <A>T</A>, this operation produces a graphical
       representation of the transducer as an automaton. The output is in
-      <C>dot</C> format (also known as <C>GraphViz</C>) format. For details
+      <C>dot</C> format (also known as <C>GraphViz</C> format). For details
       about this file format, and information about how to display or edit this
       format see <URL>http://www.graphviz.org</URL>.<P/>
 <Example><![CDATA[
