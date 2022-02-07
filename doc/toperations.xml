@@ -1,7 +1,7 @@
 #############################################################################
 ##
 #W  toperations.xml
-#Y  Copyright (C) 2017                                Fernando Flores Brito
+#Y  Copyright (C) 2017                     Fernando Flores Brito, Luke Elliott
 ##
 ##  Licensing information can be found in the README file of this package.
 ##
@@ -14,10 +14,10 @@
   <Returns>A transducer.</Returns>
   <Description>
     For an invertible transducer <A>T</A> whose first state is a homeomorphism
-    state, the operation <C>InverseTransducer(<A>T</A>)</C> returns the inverse
-    of <A>T</A>. Please note that it is the user's responsibility to ensure that
-    the transducer <A>T</A> is both invertible and that its first state is a
-    homeomorphism state.
+    state, the operation <C>InverseTransducer(<A>T</A>)</C> returns the minimal
+    transducer whose initial state (state 1) defines the inverse of this 
+    homeomorphism. Please note that it is the user's responsibility to ensure that
+    the first state is a homeomorphism state.
     <Example><![CDATA[
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
@@ -28,6 +28,12 @@ gap> TransducerFunction(g, w, 1)[1];
 [ 0, 1 ]
 ]]></Example>
   </Description>
+  Below one can see images of the transducers <C>f<C> and <C>g<C> respectively from the above example. These images can be generated with the commands <C>Splash(DotTransducer(f))<C> and <C>Splash(DotTransducer(g))<C> respectively.
+   <Alt Only="LaTeX">
+	   \centerline{\includegraphics{inversetransducerpreinverse.pdf}}
+	   \centerline{\includegraphics{inversetransducerpostinverse.pdf}}
+ </Alt>
+
 </ManSection>
 <#/GAPDoc>
 
@@ -43,8 +49,8 @@ gap> TransducerFunction(g, w, 1)[1];
 
     Moreover, if n is an integer, then the <A>T</A>^n returns the product of
     <A>T</A> with itself <A>n</A> times (n may only be negative if <A>T</A> is
-    invertible). If <A>T</A> is invertible, then the product T^-1*P*T can be
-    input as P^T.
+    invertible). If <A>T</A> is invertible, then the product 
+    <A>T</A>^-1*<A>P</A>*<A>T</A> can be input as <A>P</A>^<A>T</A>.
     <Example><![CDATA[
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
@@ -55,16 +61,27 @@ gap> ff := TransducerProduct(f, f);
   and 9 states.>
 ]]></Example>
   </Description>
+  Below one can see images of the transducers <C>f<C> and <C>ff<C> 
+  respectively from the above example. 
+  These images can be generated with the commands 
+  <C>Splash(DotTransducer(f))<C> and <C>Splash(DotTransducer(g))<C>
+   respectively.
+
+   <Alt Only="LaTeX">
+           \centerline{\includegraphics{inversetransducerpreinverse.pdf}}
+           \centerline{\includegraphics{producttransducerexample.pdf}}
+ </Alt>
+
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="RemoveStatesWithIncompleteResponse">
+<#GAPDoc Label="RemoveIncompleteResponseFromStates">
 <ManSection>
-  <Oper Name = "RemoveStatesWithIncompleteResponse" Arg = "T"/>
+  <Oper Name = "RemoveIncompleteResponseFromStates" Arg = "T"/>
   <Returns>A transducer.</Returns>
   <Description>
     For a transducer <A>T</A> that has states with incomplete response, the
-    operation <C>RemoveStatesWithIncompleteResponse(<A>T</A>)</C> returns a
+    operation <C>RemoveIncompleteResponseFromStates(<A>T</A>)</C> returns a
     transducer <C>P</C> that has one more state than <A>T</A>(acting as the 
     new initial state) and which has no states with incomplete response. 
     State <C>s</C> of the transducer <A>T</A> is state
@@ -74,7 +91,7 @@ gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 >                           [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 3 states.>
-gap> p := RemoveStatesWithIncompleteResponse(t);
+gap> p := RemoveIncompleteResponseFromStates(t);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 4 states.>
 gap> TransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];
@@ -84,6 +101,18 @@ gap> TransducerFunction(p, [2], 2)[1];
 [ 1 ]
 ]]></Example>
   </Description>
+    Below one can see images of the transducers <C>t<C> and <C>p<C>
+  respectively from the above example.
+  These images can be generated with the commands
+  <C>Splash(DotTransducer(t))<C> and <C>Splash(DotTransducer(p))<C>
+   respectively.
+
+   <Alt Only="LaTeX">
+           \centerline{\includegraphics{incompleteresponceexamplepre.pdf}}
+           \centerline{\includegraphics{incompleteresponceexamplepost.pdf}}
+ </Alt>
+
+
 </ManSection>
 <#/GAPDoc>
 
@@ -169,6 +198,8 @@ gap> TransitionFunction(M);
     <C>CopyTransducerWithInitialState(<A>T, m</A>)</C> returns the transducer
     that is obtained by relabeling the states of <A>T</A> such that state
     <A>m</A> becomes state 1, but is otherwise equivalent to <A>T</A>.
+    More specifically, the states 1, 2, ..., m are permuteded cyclically (so
+    the the order of the states other than m is preserved).
     <Example><![CDATA[
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
@@ -187,9 +218,10 @@ gap> TransducerFunction(p, [0, 1, 0], 1);
   <Attr Name="IsInjectiveTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
-    For a transducer <A>T</A>, with initial state 1, the attribute
-    <C>IsInjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if <A>T</A> is
-    an injective transducer, and <C>false</C> otherwise.
+    For a transducer <A>T</A>, the attribute
+    <C>IsInjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if the map 
+    <A>T</A> defined by its initial state (the state labelled 1) is 
+    injective, and <C>false</C> otherwise.
 
 <Example><![CDATA[
 gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4],
@@ -215,7 +247,7 @@ true
     If the transducer <A>T</A> is degenerate, then this operation returns fail.
 
     A state of a trasducer is called constant if it induces a constant map 
-    from the space of infinite words in its input alphabet the the space of
+    from the space of infinite words in its input alphabet to the space of
     infinite words in its output alphabet.
 
     For a non-degenerate transducer <A>T</A>, the operation 
@@ -252,10 +284,10 @@ gap> TransducerConstantStateOutputs(T);
   <Attr Name="IsSurjectiveTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
-    For a transducer <A>T</A>, with initial state 1, the attribute
-    <C>IsSurjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if <A>T</A> is
-    a surjective transducer, and <C>false</C> otherwise.
-
+    For a transducer <A>T</A>, the attribute
+    <C>IsSurjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if the map
+    <A>T</A> defined by its initial state (the state labelled 1) is
+    surjective, and <C>false</C> otherwise.
 <Example><![CDATA[
 gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],
 >      [0], [1]], [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
@@ -340,7 +372,7 @@ false
     A non-degenerate transducer <A>T</A> is called "minimal" if it satisfies the following
     three properties:</P>
     
-    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>.</P>
+    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>(that is from state 1).</P>
    
     2. If w is a word in the input alphabet of <A>T</A> and s is a state of <A>T</A>, then
     the word written when w is read from state s is equal to the longest common prefix of the infinite
@@ -423,9 +455,11 @@ false
   <Oper Name = "TransducerImageAutomaton" Arg = "T"/>
   <Returns>An Automaton.</Returns>
   <Description>
-	  For a transducer <A>T</A>, the operation <C>TransducerImageAutomaton(<A>T</A>)</C>
-	  returns an automaton object (https://www.gap-system.org/Manuals/pkg/automata/doc/chap2.html#X821C3B3687B1F2FF)
-	  which accepts the language of finite words which are prefixes of the words which can be written from the initial state of <A>T</A>.
+	  For a transducer <A>T</A>, the operation 
+	  <C>TransducerImageAutomaton(<A>T</A>)</C> returns an automaton object
+	  (https://www.gap-system.org/Manuals/pkg/automata/doc/chap2.html#X821C3B3687B1F2FF)
+	  which accepts the language of finite words which are prefixes of the
+	  words which can be written from the initial state 1 of <A>T</A>.
     <Example><![CDATA[
 gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
 > [[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;
@@ -478,7 +512,7 @@ The following images correspond to the first of the transducers in the above exa
 	  alphabets, the operation <C>IsomorphicInitialTransducers(<A>T1</A>, <A>T2</A>)</C>
 	  returns <C>true</C> if and only if there is a bijection from the states of
 	  <A>T1</A> to the states of <A>T2</A> which preserves transitions, outputs and the
-	  initial state.
+	  initial state 1.
 <Example><![CDATA[
 gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
@@ -513,9 +547,10 @@ false
 	  For non-degenerate transducers <A>T1</A> and <A>T2</A>, with the same input
 	  and output alphabets, the operation 
 	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
-	  if and only if <A>T1</A> and <A>T2</A> induce the the same continuous maps
+	  if and only if <A>T1</A> and <A>T2</A> induce the same continuous maps
 	  from the infinite words in their input alphabets to the infinite words in
-	  their output alphabets.
+	  their output alphabets (recall that the states we use to define these maps
+	  are the states labelled 1).
 
 	  Alternatively one can write <A>T1</A>=<A>T2</A> instead of 
 	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C>.
@@ -583,9 +618,11 @@ false
   <Description>
 	  The input must be a transducer <A>T</A> with the same input and 
 	  output alphabet, which induces a homeomorphism on the set of infinite
-	  words over its alphabet.
+	  words over its alphabet (using 1 as the initial state).
 	  
-	  If this homeomorphism has finite order, then its order is returned.  
+	  If this homeomorphism has finite order, then its order is returned. 
+	  If this homeomorphism has infinite order, the operation will
+	  not terminate.
 <Example><![CDATA[
 gap> T := IdentityTransducer(5);;
 gap> TransducerOrder(T);

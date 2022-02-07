@@ -19,7 +19,7 @@
 
   We will use the word "automaton" to represent a directed edge labelled graph where the edge labels come from a finite alphabet.
   We will use the word "transducer" to represent a machine which reads infinite strings according to the transitions of an automaton, but when transitioning over an edge the machine will write a finite word (possibly empty) which depends on the current state and input letter.
-  A transducer will represent a group element in R if when reading from the initial state it induces a bijection on Cantor space.<P/>
+  A transducer will represent a group element in R if when reading from the initial state it induces a bijection on Cantor space (in our package the initial state is the state labelled ``1").<P/>
 
   This package is built over the framework provided by the automata package in GAP (https://www.gap-system.org/Packages/automata.html).<P/>
  </Section>
@@ -65,7 +65,7 @@ In this document we will show how to check that the transducer represents a bije
   
 
   Our transducer package allows users to write transducers which change alphabet sizes, and do generic transducer-type transformations to finite strings.
-  Given a base initial transducer T with identital input and output alphabets, the package can verify that T represents an invertible homeomorphism h of Cantor space.
+  Given a base initial transducer T with identical input and output alphabets, the package can verify that T represents an invertible homeomorphism h of Cantor space.
   If h is invertible the package supports inversion (by producing a transducer S representing the inverse of h).
   It also supports taking products and supports the minimisation and checking for incomplete response procedures as described in the GNS paper.
   More detailed technical processes are also supported as one can see by reading further into this manual.<P/>

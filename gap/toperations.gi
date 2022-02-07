@@ -135,14 +135,14 @@ function(T1,T2)
   return T2^-1 * T1 * T2;
 end);
 
-InstallMethod(RemoveStatesWithIncompleteResponse, "for a transducer",
+InstallMethod(RemoveIncompleteResponseFromStates, "for a transducer",
 [IsTransducer],
 function(T)
   local ntfunc, nofunc, n, x, const, target, pos, badpref, neededcopies,
         i, stufftowrite, out, edgestopushfrom, edge, pushstring;
 
   if IsDegenerateTransducer(T) then
-    ErrorNoReturn("aaa: RemoveStatesWithIncompleteResponce: usage,\n",
+    ErrorNoReturn("aaa: RemoveIncompleteResponseFromStates: usage,\n",
                   "the given transducer must be nondegenerate ");
   fi;
 
@@ -696,7 +696,7 @@ function(T)
   fi;
   output := T;
   output := RemoveInaccessibleStates(output);
-  output := RemoveStatesWithIncompleteResponse(output);
+  output := RemoveIncompleteResponseFromStates(output);
   output := RemoveInaccessibleStates(output);
   output := CombineEquivalentStates(output);
   SetIsMinimalTransducer(output, true);
@@ -818,9 +818,6 @@ function(T)
   return p;
 end);
 
-
-
-
 InstallMethod(TransducerSynchronizingLength, "for a transducer", [IsTransducer],
 function(T)
 	local count, CopyT, TempT, flag;
@@ -838,7 +835,6 @@ function(T)
 	fi;
 	return infinity;
 end);
-
 
 InstallMethod(IsSynchronizingTransducer, "for a transducer",
 [IsTransducer], T -> TransducerSynchronizingLength(T)<infinity);
