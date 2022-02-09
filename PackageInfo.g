@@ -7,17 +7,17 @@
 # PackageInfo.g file.
 #
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "0.0.0">
+##  <!ENTITY VERSION "0.1.0">
 ##  <!ENTITY GAPVERS "4.8.0">
-##  <!ENTITY ARCHIVENAME "aaa-0.0.0">
-##  <!ENTITY COPYRIGHTYEARS "2017-2018">
+##  <!ENTITY ARCHIVENAME "aaa-0.1.0">
+##  <!ENTITY COPYRIGHTYEARS "2017-2022">
 ##  <#/GAPDoc>
 SetPackageInfo( rec(
 
 PackageName := "aaa",
-Subtitle := "implements algorithms for asynchronous transducers",
-Version := "0.0.0",
-Date := "09/10/2019", # dd/mm/yyyy format
+Subtitle := "Algorithms for Asynchronous Transducers",
+Version := "0.1.0",
+Date := "09/02/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -69,12 +69,12 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := "https://github.com/le27/aaa",
+    URL := Concatenation( "https://github.com/gap-packages/", ~.PackageName ),
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://le27.github.io/aaa/",
-PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageWWWHome  := Concatenation( "https://gap-packages.github.io/", ~.PackageName ),
+README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                  "/releases/download/v", ~.Version,
                                  "/", ~.PackageName, "-", ~.Version ),

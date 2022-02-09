@@ -1,9 +1,9 @@
 name: aaa
-version: "0.0.0"
+version: "0.1.0"
 license: "GPL-2.0-or-later"
-date: 2019-10-09
+date: 2022-02-09
 description: |
-    implements algorithms for asynchronous transducers
+    Algorithms for Asynchronous Transducers
 
 authors:
     - name: Collin Bleak
@@ -31,13 +31,13 @@ needed-pkgs:
       version: ">=0.15.0"
       url: "https://digraphs.github.io/Digraphs"
 
-www: https://le27.github.io/aaa/
+www: https://gap-packages.github.io/aaa
 readme: README.md
-packageinfo: https://le27.github.io/aaa/PackageInfo.g
+packageinfo: https://gap-packages.github.io/aaa/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/le27/aaa/releases/download/v0.0.0/aaa-0.0.0.tar.gz
+      url: https://github.com/gap-packages/aaa/releases/download/v0.1.0/aaa-0.1.0.tar.gz
 
 abstract: |
 
@@ -46,26 +46,27 @@ doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>BEBO19</span>]   <b class='BibAuthor'>Bleak, C., Elliott, L., Flores Brito, F. and Olukoya, F.</b>,
-     <i class='BibTitle'>aaa, implements algorithms for asynchronous transducers,
-             Version 0.0.0</i>
-     (<span class='BibYear'>2019</span>)<br />
+    [<span class='BibKey'>BEBO22</span>]   <b class='BibAuthor'>Bleak, C., Elliott, L., Flores Brito, F. and Olukoya, F.</b>,
+     <i class='BibTitle'>aaa, Algorithms for Asynchronous Transducers,
+             Version 0.1.0</i>
+     (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://le27.github.io/aaa/">https://le27.github.io/aaa/</a></span>.
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/aaa">https://gap-packages.github.io/aaa</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ aaa0.0.0,
-      author =           {Bleak, C. and Elliott, L. and Flores Brito, F. and Olukoya, F.},
-      title =            {{aaa},   implements   algorithms  for  asynchronous  transducers,
-                          {V}ersion 0.0.0},
-      month =            {Oct},
-      year =             {2019},
+    @misc{ aaa0.1.0,
+      author =           {Bleak,  C.  and  Elliott,  L. and Flores Brito, F. and
+                          Olukoya, F.},
+      title =            {{aaa},   Algorithms   for   Asynchronous  Transducers,
+                          {V}ersion 0.1.0},
+      month =            {Feb},
+      year =             {2022},
       note =             {GAP package},
-      howpublished =     {\href                               {https://le27.github.io/aaa/}
-                          {\texttt{https://le27.github.io/}\discretionary
-                          {}{}{}\texttt{aaa/}}},
-      printedkey =       {BEBO19}
+      howpublished =     {\href             {https://gap-packages.github.io/aaa}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{aaa}}},
+      printedkey =       {BEBO22}
     }
 

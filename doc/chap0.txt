@@ -3,7 +3,7 @@
                                       [1X[5Xaaa[105X[101X
   
   
-                                 Version 0.0.0
+                                 Version 0.1.0
   
   
                                   Collin Bleak
@@ -30,7 +30,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y©  2017-2018  by  Collin  Bleak,  Fernando  Flores  Brito, Luke Elliott, and
+  [33X[0;0Y©  2017-2022  by  Collin  Bleak,  Fernando  Flores  Brito, Luke Elliott, and
   Feyishayo Olukoya.[133X
   
   [33X[0;0Y[5Xaaa[105X  is  free  software;  you can redistribute it and/or modify it under the
