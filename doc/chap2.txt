@@ -1,0 +1,28 @@
+  
+  [1X2 [33X[0;0YInstalling aaa[133X[101X
+  
+  
+  [1X2.1 [33X[0;0YInstallation[133X[101X
+  
+  [33X[0;0YAll you need to do is place the [5Xaaa[105X package in the [10Xpkg[110X directory of your [5XGAP[105X
+  installation  and  load the package by typing [10XLoadPackage("aaa")[110X in your [5XGAP[105X
+  session.[133X
+  
+  
+  [1X2.2 [33X[0;0YRebuilding the documentation[133X[101X
+  
+  [33X[0;0YShould  you  need  to  rebuild the documentation, use the [2XAaaMakeDoc[102X ([14X2.2-1[114X)
+  function.[133X
+  
+  [1X2.2-1 AaaMakeDoc[101X
+  
+  [33X[1;0Y[29X[2XAaaMakeDoc[102X(  ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YNothing.[133X
+  
+  [33X[0;0YThis  function  should  be  called  with  no  argument  to  compile  the [5Xaaa[105X
+  documentation.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAaaMakeDoc();[127X[104X
+  [4X[32X[104X
+  

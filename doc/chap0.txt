@@ -1,1 +1,123 @@
-Placeholder
+  
+  
+                                      [1X[5Xaaa[105X[101X
+  
+  
+                                 Version 0.0.0
+  
+  
+                                  Collin Bleak
+  
+                             Fernando Flores Brito
+  
+                                  Luke Elliott
+  
+                                Feyisayo Olukoya
+  
+  
+  
+  Collin Bleak
+      Email:    [7Xmailto:cb211@st-andrews.ac.uk[107X
+      Homepage: [7Xwww-groups.mcs.st-and.ac.uk/~collin/[107X
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YThe [5Xaaa[105X package is a [5XGAP[105X package containing methods for transducers that can
+  be  represented  as  asynchronous  automata.  It  implements  the  processes
+  described in the paper by Grigorchuk, Nekrashevich, and Sushchanskii [GNS00]
+  for working with finite transducers and the rational group R.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y©  2017-2018  by  Collin  Bleak,  Fernando  Flores  Brito, Luke Elliott, and
+  Feyishayo Olukoya.[133X
+  
+  [33X[0;0Y[5Xaaa[105X  is  free  software;  you can redistribute it and/or modify it under the
+  terms        of       the       GNU       General       Public       License
+  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  Foundation;  either  version 3 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YThe  current  package is a complete rewrite of the original AAA package that
+  was developed by Plamena Mineva-Sholz, Angela Richardson, and Ieva Vasiljeva
+  under  the  supervision  of  Collin  Bleak. This version has been structured
+  following  the [5XSemigroups[105X [M+18] package, a very useful recommendation of J.
+  D. Mitchell, and contains all the functionality of the previous version, and
+  more.[133X
+  
+  [33X[0;0YSpecial  thanks  to  Michael  Torpey  and  Wilf  Wilson for their continuous
+  support.  Their  ample  knowledge  about  [5XGAP[105X  and  programming has made the
+  development of this package run smoothly.[133X
+  
+  [33X[0;0YManuel  Delgado  and  Attila  Egri-Nagy  contributed  to the function [2XSplash[102X
+  ([14X6.1-1[114X).  The  function [2XDotTransducer[102X ([14X6.2-1[114X), written by Michael Torpey, is
+  based   on  the  [5XDigraphs[105X  [DBJM+18]  package  function  they  wrote  called
+  DotString.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (aaa)[101X
+  
+  1 [33X[0;0Yaaa package[133X
+    1.1 [33X[0;0YThe aaa package and the rational group[133X
+    1.2 [33X[0;0YExamples[133X
+    1.3 [33X[0;0YMain Functionality[133X
+  2 [33X[0;0YInstalling aaa[133X
+    2.1 [33X[0;0YInstallation[133X
+    2.2 [33X[0;0YRebuilding the documentation[133X
+      2.2-1 AaaMakeDoc
+  3 [33X[0;0YTransducers[133X
+    3.1 [33X[0;0YCreating a transducer[133X
+      3.1-1 Transducer
+      3.1-2 TransducerFunction
+      3.1-3 [33X[0;0YXFunction[133X
+      3.1-4 [33X[0;0YXAlphabet[133X
+      3.1-5 [33X[0;0YNrXSymbols[133X
+      3.1-6 States
+      3.1-7 NrStates
+      3.1-8 IdentityTransducer
+      3.1-9 AlphabetChangeTransducer
+      3.1-10 RandomTransducer
+    3.2 [33X[0;0YAttributes of Transducers[133X
+      3.2-1 IsDegenerateTransducer
+      3.2-2 IsInjectiveTransducer
+      3.2-3 IsSurjectiveTransducer
+      3.2-4 IsBijectiveTransducer
+      3.2-5 IsMinimalTransducer
+      3.2-6 IsSynchronousTransducer
+      3.2-7 IsomorphicInitialTransducers
+      3.2-8 OmegaEquivalentTransducers
+      3.2-9 EqualTransducers
+      3.2-10 TransducerOrder
+  4 [33X[0;0YWords accepted by transducers and word operations[133X
+    4.1 [33X[0;0YWords and operations[133X
+      4.1-1 IsPrefix
+      4.1-2 Minus
+      4.1-3 GreatestCommonPrefix
+      4.1-4 PreimageConePrefixes
+      4.1-5 ImageConeLongestPrefix
+      4.1-6 TransducerImageAutomaton
+  5 [33X[0;0YTransducer operations[133X
+    5.1 [33X[0;0YTransducer operations[133X
+      5.1-1 InverseTransducer
+      5.1-2 TransducerProduct
+      5.1-3 RemoveStatesWithIncompleteResponse
+      5.1-4 RemoveInaccessibleStates
+      5.1-5 CombineEquivalentStates
+      5.1-6 MinimalTransducer
+      5.1-7 CopyTransducerWithInitialState
+      5.1-8 TransducerConstantStateOutputs
+  6 [33X[0;0YVisualising Transducers[133X
+    6.1 [33X[0;0YAutomatic viewing[133X
+      6.1-1 Splash
+    6.2 [33X[0;0Y[10Xdot[110X pictures[133X
+      6.2-1 DotTransducer
+  
+  
+  [32X

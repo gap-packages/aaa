@@ -1,0 +1,16 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XDBJM+18[120X]  [16XDe  Beule,  J.,  Jonusas,  J.,  Mitchell,  J. D., Torpey, M. and Wilson, W.[116X,
+  [17XDigraphs - GAP package, Version 0.12.1[117X (2018).
+  
+  [[20XGNS00[120X]  [16XGrigorchuk,  R.  I.,  Nekrashevich,  V.  V. and Sushchanskii, V. I.[116X, [17XAutomata,
+  Dynamical Systems, and Groups[117X, [18XProceedings of the Steklov Institute of Mathematics[118X, [19X231[119X
+  (2000), 128–203.
+  
+  [[20XM+18[120X] [16XMitchell, J. D. and others, [116X, [17XSemigroups - GAP package, Version 3.0.15[117X (2018).
+  
+  
+  
+  [32X

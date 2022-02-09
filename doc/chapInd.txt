@@ -1,0 +1,47 @@
+  
+  
+  [1XIndex[101X
+  
+  [2XAaaMakeDoc[102X 2.2-1 
+  [2XAlphabetChangeTransducer[102X 3.1-9 
+  [2XCombineEquivalentStates[102X 5.1-5 
+  [2XCopyTransducerWithInitialState[102X 5.1-7 
+  [2XDotTransducer[102X 6.2-1 
+  [2XEqualTransducers[102X 3.2-9 
+  [2XGreatestCommonPrefix[102X 4.1-3 
+  [2XIdentityTransducer[102X 3.1-8 
+  [2XImageConeLongestPrefix[102X 4.1-5 
+  [2XInputAlphabet[102X 3.1-4 
+  [2XInverseTransducer[102X 5.1-1 
+  [2XIsBijectiveTransducer[102X 3.2-4 
+  [2XIsDegenerateTransducer[102X 3.2-1 
+  [2XIsInjectiveTransducer[102X 3.2-2 
+  [2XIsMinimalTransducer[102X 3.2-5 
+  [2XIsomorphicInitialTransducers[102X 3.2-7 
+  [2XIsPrefix[102X 4.1-1 
+  [2XIsSurjectiveTransducer[102X 3.2-3 
+  [2XIsSynchronousTransducer[102X 3.2-6 
+  [2XMinimalTransducer[102X 5.1-6 
+  [2XMinus[102X 4.1-2 
+  [2XNrInputSymbols[102X 3.1-5 
+  [2XNrOutputSymbols[102X 3.1-5 
+  [2XNrStates[102X 3.1-7 
+  [2XOmegaEquivalentTransducers[102X 3.2-8 
+  [2XOutputAlphabet[102X 3.1-4 
+  [2XOutputFunction[102X 3.1-3 
+  [2XPreimageConePrefixes[102X 4.1-4 
+  [2XRandomTransducer[102X 3.1-10 
+  [2XRemoveInaccessibleStates[102X 5.1-4 
+  [2XRemoveStatesWithIncompleteResponse[102X 5.1-3 
+  [2XSplash[102X 6.1-1 
+  [2XStates[102X 3.1-6 
+  [2XTransducer[102X 3.1-1 
+  [2XTransducerConstantStateOutputs[102X 5.1-8 
+  [2XTransducerFunction[102X 3.1-2 
+  [2XTransducerImageAutomaton[102X 4.1-6 
+  [2XTransducerOrder[102X 3.2-10 
+  [2XTransducerProduct[102X 5.1-2 
+  [2XTransitionFunction[102X 3.1-3 
+  
+  
+  -------------------------------------------------------

@@ -1,101 +1,137 @@
-#############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
-##
-
+#
+# aaa: implements algorithms for asynchronous transducers
+#
+# This file contains package meta data. For additional information on
+# the meaning and correct usage of these fields, please consult the
+# manual of the "Example" package as well as the comments in its
+# PackageInfo.g file.
+#
+##  <#GAPDoc Label="PKGVERSIONDATA">
+##  <!ENTITY VERSION "0.0.0">
+##  <!ENTITY GAPVERS "4.8.0">
+##  <!ENTITY ARCHIVENAME "aaa-0.0.0">
+##  <!ENTITY COPYRIGHTYEARS "2017-2018">
+##  <#/GAPDoc>
 SetPackageInfo( rec(
 
-PackageName := "GitHubPagesForGAP",
-
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.3",
-Date := "10/11/2019", # dd/mm/yyyy format
-License := "0BSD",
+PackageName := "aaa",
+Subtitle := "implements algorithms for asynchronous transducers",
+Version := "0.0.0",
+Date := "09/10/2019", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
-    IsAuthor      := true,
-    IsMaintainer  := true,
-    Email         := "max.horn@uni-siegen.de",
-    WWWHome       := "https://www.quendi.de/math",
-    PostalAddress := Concatenation(
-                       "Department Mathematik\n",
-                       "Universität Siegen\n",
-                       "Walter-Flex-Straße 3\n",
-                       "57072 Siegen\n",
-                       "Germany" ),
-    Place         := "Siegen",
-    Institution   := "Universität Siegen"
+    IsAuthor := true,
+    IsMaintainer := false,
+    FirstNames := "Collin",
+    LastName := "Bleak",
+    WWWHome := "http://www-groups.mcs.st-andrews.ac.uk/~collin/",
+    Email := "[cb211@st-andrews.ac.uk]",
+    PostalAddress := "[Mathematical Institute, North Haugh, St Andrews, Fife, KY16 9SS, Scotland]",
+    Place := "[St Andrews]",
+    Institution := "[University of St Andrews]",
   ),
-
   rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
-    IsAuthor      := true,
-    IsMaintainer  := false,
-    #Email         := "author@example.com",
+    IsAuthor := true,
+    IsMaintainer := true,
+    FirstNames := "Luke",
+    LastName := "Elliott",
+    WWWHome := "https://le27.github.io/Luke-Elliott/",
+    Email := "Y",
+    PostalAddress := "Mathematical Institute, North Haugh, St Andrews, Fife, KY16 9SS, Scotland",
+    Place := "St Andrews",
+    Institution := "University of St Andrews",
   ),
-
   rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
-    IsMaintainer  := true,
-    #Email         := "janitor@example.com",
+    IsAuthor := true,
+    IsMaintainer := true,
+    FirstNames := "Fernando",
+    LastName := "Flores Brito",
+    #WWWHome := TODO,
+    Email := "[ffb3@st-andrews.ac.uk]",
+    PostalAddress := "[Mathematical Institute, North Haugh, St Andrews, Fife, KY16 9SS, Scotland]",
+    Place := "[St Andrews]",
+    Institution := "[University of St Andrews]",
+  ),
+  rec(
+    IsAuthor := true,
+    IsMaintainer := false,
+    FirstNames := "Feyisayo",
+    LastName := "Olukoya",
+    WWWHome := "https://www.abdn.ac.uk/ncs/departments/mathematics/profiles/feyisayo.olukoya/",
+    Email := "[feyisayo.olukoya@abdn.ac.uk]",
+    PostalAddress := "[Institute of Mathematics, Aberdeen, AB24 3UE, UK]",
+    Place := "[Aberdeen]",
+    Institution := "[University of Aberdeen]",
   ),
 ],
 
-Status := "other",
+SourceRepository := rec(
+    Type := "git",
+    URL := "https://github.com/le27/aaa",
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+PackageWWWHome  := "https://le27.github.io/aaa/",
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                 "/releases/download/v", ~.Version,
+                                 "/", ~.PackageName, "-", ~.Version ),
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+ArchiveFormats := ".tar.gz",
 
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
+##  Status information. Currently the following cases are recognized:
+##    "accepted"      for successfully refereed packages
+##    "submitted"     for packages submitted for the refereeing
+##    "deposited"     for packages for which the GAP developers agreed
+##                    to distribute them with the core GAP system
+##    "dev"           for development versions of packages
+##    "other"         for all other packages
+##
+Status := "dev",
 
-ArchiveFormats := ".tar.gz .tar.bz2",
-
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
+AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "aaa",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "implements algorithms for asynchronous transducers",
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
-),
+  GAP := ">=4.8.0",
+  NeededOtherPackages := [["automata", ">=0.0.0"],
+                          ["digraphs", ">=0.15.0"]],
+  SuggestedOtherPackages := [],
+  ExternalConditions := []),
+
+##BannerString := Concatenation(
+##  "----------------------------------------------------------------------",
+##  "-------\n",
+##  "Loading  aaa ", ~.Version, "\n",
+##  "by ", ~.Persons[1].FirstNames, " ", ~.Persons[1].LastName,
+##        " (", ~.Persons[1].WWWHome, ")\n",
+##  "with contributions by:\n",
+##  Concatenation(Concatenation(List(~.Persons{[2 .. Length(~.Persons) - 1]},
+##       p -> ["     ", p.FirstNames, " ", p.LastName,
+##       _RecogsFunnyNameFormatterFunction(
+##         _RecogsFunnyWWWURLFunction(p)), ",\n"]))),
+##  " and ", ~.Persons[Length(~.Persons)].FirstNames, " ",
+##  ~.Persons[Length(~.Persons)].LastName,
+##  _RecogsFunnyNameFormatterFunction(
+##    _RecogsFunnyWWWURLFunction(~.Persons[Length(~.Persons)])), ".\n",
+##  "-----------------------------------------------------------------------",
+##  "------\n"),
 
 AvailabilityTest := ReturnTrue,
 
-Keywords := ["GitHub Pages", "GAP"]
+TestFile := "tst/testall.g",
+
+#Keywords := [ "TODO" ],
 
 ));
 

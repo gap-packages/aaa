@@ -1,0 +1,204 @@
+  
+  [1X5 [33X[0;0YTransducer operations[133X[101X
+  
+  [33X[0;0YIn this chapter we decribe the methods that are available in the [5Xaaa[105X package
+  to  perform operations on [5Xaaa[105X transducers. These methods are implementations
+  of the algorithms introduced in [GNS00].[133X
+  
+  
+  [1X5.1 [33X[0;0YTransducer operations[133X[101X
+  
+  [33X[0;0YThe following are the methods that can be used to analyze [5Xaaa[105X transducers.[133X
+  
+  [1X5.1-1 InverseTransducer[101X
+  
+  [33X[1;0Y[29X[2XInverseTransducer[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor  an  invertible transducer [3XT[103X whose first state is a homeomorphism state,
+  the  operation  [10XInverseTransducer([3XT[103X[10X)[110X  returns  the inverse of [3XT[103X. Please note
+  that it is the user's responsibility to ensure that the transducer [3XT[103X is both
+  invertible and that its first state is a homeomorphism state.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],[127X[104X
+    [4X[25X>[125X [27X                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27Xg := InverseTransducer(f);;[127X[104X
+    [4X[25Xgap>[125X [27Xw := TransducerFunction(f, [0, 1], 1)[1];[127X[104X
+    [4X[28X[ 2, 0 ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(g, w, 1)[1];[127X[104X
+    [4X[28X[ 0, 1 ][128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-2 TransducerProduct[101X
+  
+  [33X[1;0Y[29X[2XTransducerProduct[102X( [3XT[103X, [3XP[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor  two  transducers [3XT[103X and [3XP[103X, the operation [10XTransducerProduct([3XT, P[103X[10X)[110X returns
+  the  product of the transducers [3XT[103X and [3XP[103X. The product command can also be run
+  with  *. Moreover, if n is an integer, then the [3XT[103X^n returns the product of [3XT[103X
+  with  itself  [3Xn[103X  times  (n may only be negative if [3XT[103X is invertible). If [3XT[103X is
+  invertible, then the product T^-1*P*T can be input as P^T.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],[127X[104X
+    [4X[25X>[125X [27X                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 3 states.>[128X[104X
+    [4X[25Xgap>[125X [27Xff := TransducerProduct(f, f);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 9 states.>[128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-3 RemoveStatesWithIncompleteResponse[101X
+  
+  [33X[1;0Y[29X[2XRemoveStatesWithIncompleteResponse[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor  a  transducer [3XT[103X that has states with incomplete response, the operation
+  [10XRemoveStatesWithIncompleteResponse([3XT[103X[10X)[110X  returns  a  transducer [10XP[110X that has one
+  more  state  than [3XT[103X(acting as the new initial state) and which has no states
+  with  incomplete response. State [10Xs[110X of the transducer [3XT[103X is state [10Xs + 1[110X of the
+  transducer [10XP[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],[127X[104X
+    [4X[25X>[125X [27X                          [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 3 states.>[128X[104X
+    [4X[25Xgap>[125X [27Xp := RemoveStatesWithIncompleteResponse(t);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 4 states.>[128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[28X[ 1 ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(p, [2], 2)[1];[127X[104X
+    [4X[28X[ 1 ][128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-4 RemoveInaccessibleStates[101X
+  
+  [33X[1;0Y[29X[2XRemoveInaccessibleStates[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor  a  transducer  [3XT[103X, the operation [10XRemoveInaccessibleStates([3XT[103X[10X)[110X returns the
+  transducer  that is obtained by removing the states that are not accesssible
+  from state 1.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],[127X[104X
+    [4X[25X>[125X [27X                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 3 states.>[128X[104X
+    [4X[25Xgap>[125X [27Xff := TransducerProduct(f, f);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 9 states.>[128X[104X
+    [4X[25Xgap>[125X [27Xm := RemoveInaccessibleStates(ff);[127X[104X
+    [4X[28X<transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,[128X[104X
+    [4X[28X  and 6 states.>[128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-5 CombineEquivalentStates[101X
+  
+  [33X[1;0Y[29X[2XCombineEquivalentStates[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor  a  transducer  [3XT[103X,  the operation [10XCombineEquivalentStates([3XT[103X[10X)[110X returns the
+  transducer  that  is  obtained  by  identifying states from which all finite
+  words write the same word.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],[127X[104X
+    [4X[25X>[125X [27X			   [[1, 1], [0]], [[0], [0, 1]], [[0], [0]]]);[127X[104X
+    [4X[28X<transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,[128X[104X
+    [4X[28Xand 4 states.>[128X[104X
+    [4X[25Xgap>[125X [27XT2 := CombineEquivalentStates(T);[127X[104X
+    [4X[28X<transducer with input alphabet on 2 symbols, output alphabet on 2 symbols, [128X[104X
+    [4X[28Xand 3 states.>[128X[104X
+    [4X[25Xgap>[125X [27XOutputFunction(T);[127X[104X
+    [4X[28X[ [ [ 0 ], [ 0 ] ], [ [ 1, 1 ], [ 0 ] ], [ [ 0 ], [ 0, 1 ] ], [ [ 0 ], [ 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XTransitionFunction(T);[127X[104X
+    [4X[28X[ [ 1, 3 ], [ 2, 1 ], [ 1, 1 ], [ 1, 3 ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-6 MinimalTransducer[101X
+  
+  [33X[1;0Y[29X[2XMinimalTransducer[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YEvery  transducer  has  a  minimal  omega-equivalent  form  (this transducer
+  produces  the  same  outputs on all infinite length inputs as the original).
+  One  arrives  at  this  form  by  first  removing  inaccessible states, then
+  removing   incomplete  response  from  all  states,  and  finally  combining
+  equivalent  states.  Those  three  operations  are  described  above.  For a
+  transducer  [3XT[103X,  the  operation [10XMinimalTransducer([3XT[103X[10X)[110X returns the transducer's
+  minimal omega-equivalent form.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],[127X[104X
+    [4X[25X>[125X [27X                         [[1, 1], [0]], [[0], [0, 1]], [[0], [0]]]);[127X[104X
+    [4X[28X<transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,[128X[104X
+    [4X[28Xand 4 states.>[128X[104X
+    [4X[25Xgap>[125X [27XM := MinimalTransducer(T);[127X[104X
+    [4X[28X<transducer with input alphabet on 2 symbols, output alphabet on 2 symbols, [128X[104X
+    [4X[28Xand 3 states.>[128X[104X
+    [4X[25Xgap>[125X [27XOutputFunction(M);[127X[104X
+    [4X[28X[ [ [ 0, 0, 0 ], [ 0, 0 ] ], [ [ 0 ], [  ] ], [ [ 0, 0 ], [ 1, 0, 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XTransitionFunction(M);[127X[104X
+    [4X[28X[ [ 2, 3 ], [ 2, 3 ], [ 2, 2 ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-7 CopyTransducerWithInitialState[101X
+  
+  [33X[1;0Y[29X[2XCopyTransducerWithInitialState[102X( [3XT[103X, [3Xm[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA transducer.[133X
+  
+  [33X[0;0YFor   a   transducer   [3XT[103X   and   a   positive   integer   [3Xm[103X,  the  operation
+  [10XCopyTransducerWithInitialState([3XT, m[103X[10X)[110X returns the transducer that is obtained
+  by  relabeling  the  states  of  [3XT[103X such that state [3Xm[103X becomes state 1, but is
+  otherwise equivalent to [3XT[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],[127X[104X
+    [4X[25X>[125X [27X                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27Xp := CopyTransducerWithInitialState(f, 3);;[127X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(f, [0, 1, 0], 3);[127X[104X
+    [4X[28X[ [ 0, 2, 0, 2 ], 1 ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(p, [0, 1, 0], 1);[127X[104X
+    [4X[28X[ [ 0, 2, 0, 2 ], 2 ][128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-8 TransducerConstantStateOutputs[101X
+  
+  [33X[1;0Y[29X[2XTransducerConstantStateOutputs[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA list.[133X
+  
+  [33X[0;0YIf the transducer [3XT[103X is degenerate, then this operation returns fail. A state
+  of  a  trasducer  is  called  constant if it induces a constant map from the
+  space  of  infinite  words  in  its input alphabet the the space of infinite
+  words  in  its  output  alphabet.  For  a  non-degenerate  transducer [3XT[103X, the
+  operation  [10XTransducerConstantStateOutputs([3XT[103X[10X)[110X  returns  a list containing two
+  lists. The first is a list of the constant states of [3XT[103X. The second is a list
+  of the values taken by those states. Such a value is represented as a string
+  "v(w)*"  where  v  and w are finite strings in the output alphabet of [3XT[103X. The
+  string  "v(w)*"  represents the infinite word vwwwwww... (v and w are always
+  chosen to be as short as possible).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XTransducerConstantStateOutputs(T);[127X[104X
+    [4X[28X[ [ 1, 2 ], [ "(1)*", "(1)*" ] ][128X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],[127X[104X
+    [4X[25X>[125X [27X[[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 2], [2, 2]], [[[0], [1, 1]], [[1], [1, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XTransducerConstantStateOutputs(T);                                       [127X[104X
+    [4X[28X[ [ 2 ], [ "(1)*" ] ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerConstantStateOutputs(T);[127X[104X
+    [4X[28X[ [ 1, 2, 3 ], [ "2(011)*", "(110)*", "(011)*" ] ][128X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],[127X[104X
+    [4X[25X>[125X [27X[[0, 1, 1, 1], [0]], [[0], [1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XTransducerConstantStateOutputs(T);[127X[104X
+    [4X[28X[ [  ], [  ] ][128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,69 @@
+  
+  [1X6 [33X[0;0YVisualising Transducers[133X[101X
+  
+  [33X[0;0YWe provide the [2XSplash[102X ([14X6.1-1[114X) function written by A. Egry-Nay.[133X
+  
+  
+  [1X6.1 [33X[0;0YAutomatic viewing[133X[101X
+  
+  [33X[0;0YThe following are the methods that can be used to display [5Xaaa[105X transducers.[133X
+  
+  [1X6.1-1 Splash[101X
+  
+  [33X[1;0Y[29X[2XSplash[102X( [3Xstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YNothing.[133X
+  
+  [33X[0;0YThis  function  attempts  to  convert the string [3Xstr[103X into a pdf document and
+  open this document, i.e. to splash it all over your monitor.[133X
+  
+  [33X[0;0YThe  string  [3Xstr[103X  must correspond to a valid [10Xdot[110X text file and you must have
+  have  [10XGraphViz[110X  and  [10Xpdflatex[110X  installed on your computer. For details about
+  these     file     formats,     see     [7Xhttp://www.latex-project.org[107X     and
+  [7Xhttp://www.graphviz.org[107X.[133X
+  
+  [33X[0;0YThis  function  is  provided  to  allow convenient, immediate viewing of the
+  pictures produced by [2XDotTransducer[102X ([14X6.2-1[114X).[133X
+  
+  [33X[0;0YThis  function  was written by Attila Egri-Nagy and Manuel Delgado with some
+  minor changes by J. D. Mitchell.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XSplash(DotTransducer(T));[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0Y[10Xdot[110X[101X[1X pictures[133X[101X
+  
+  [33X[0;0YIn  this section, we describe the operations in [5Xaaa[105X for creating pictures in
+  [10Xdot[110X format.[133X
+  
+  [33X[0;0YThe operations described in this section return strings, which can be viewed
+  using [2XSplash[102X ([14X6.1-1[114X).[133X
+  
+  [1X6.2-1 DotTransducer[101X
+  
+  [33X[1;0Y[29X[2XDotTransducer[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA string.[133X
+  
+  [33X[0;0YFor  a  transducer  [3XT[103X, this operation produces a graphical representation of
+  the  transducer  as an automaton. The output is in [10Xdot[110X format (also known as
+  [10XGraphViz[110X)  format. For details about this file format, and information about
+  how to display or edit this format see [7Xhttp://www.graphviz.org[107X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XDotTransducer(T);[127X[104X
+    [4X[28X"//dot\n[128X[104X
+    [4X[28Xdigraph finite_state_machine{\n[128X[104X
+    [4X[28Xrankdir=LR;\n[128X[104X
+    [4X[28Xnode [shape=circle]\n[128X[104X
+    [4X[28X1\n[128X[104X
+    [4X[28X2\n[128X[104X
+    [4X[28X1 -> 1 [label=\"0|0\"]\n[128X[104X
+    [4X[28X1 -> 2 [label=\"1|\"]\n[128X[104X
+    [4X[28X2 -> 2 [label=\"0|1\"]\n[128X[104X
+    [4X[28X2 -> 1 [label=\"1|01\"]\n[128X[104X
+    [4X[28X}\n"[128X[104X
+  [4X[32X[104X
+  

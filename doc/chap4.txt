@@ -1,0 +1,144 @@
+  
+  [1X4 [33X[0;0YWords accepted by transducers and word operations[133X[101X
+  
+  [33X[0;0YIn this chapter we decribe the words that are accepted by an [5Xaaa[105X transducer,
+  as well as operations that can be performed to them.[133X
+  
+  
+  [1X4.1 [33X[0;0YWords and operations[133X[101X
+  
+  [33X[0;0YAn [5Xaaa[105X word is a dense list of integers.[133X
+  
+  [1X4.1-1 IsPrefix[101X
+  
+  [33X[1;0Y[29X[2XIsPrefix[102X( [3Xu[103X, [3Xv[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X.[133X
+  
+  [33X[0;0YA  word [10Xp[110X is a prefix of the word [10Xw[110X if [10Xw = pq[110X for some word [10Xq[110X. The operation
+  [10XIsPrefix([3Xu,  v[103X[10X)[110X  returns  [10Xtrue[110X  if the word [3Xv[103X is a prefix of the word [3Xu[103X, and
+  [10Xfalse[110X otherwise.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu := [0, 1];; v := [0, 1, 0];; empty := [];;[127X[104X
+    [4X[25Xgap>[125X [27XIsPrefix(u, v); IsPrefix(v, u); IsPrefix(u, empty);[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-2 Minus[101X
+  
+  [33X[1;0Y[29X[2XMinus[102X( [3Xu[103X, [3Xv[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA dense list or [10Xfail[110X.[133X
+  
+  [33X[0;0YIf  [3Xv[103X  is  a  prefix  of  [3Xu[103X,  then [10X[3Xu[103X[10X = [3Xv[103X[10Xm[110X for some word [10Xm[110X, and the operation
+  [10XMinus([3Xu, v[103X[10X)[110X returns [10Xm[110X. Otherwise, it returns [10Xfail[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu := [0, 1];; v := [0, 1, 1];;[127X[104X
+    [4X[25Xgap>[125X [27XMinus(v, u);[127X[104X
+    [4X[28X[ 1 ][128X[104X
+    [4X[25Xgap>[125X [27XMinus(u, v);[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-3 GreatestCommonPrefix[101X
+  
+  [33X[1;0Y[29X[2XGreatestCommonPrefix[102X( [3Xlist[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA dense list.[133X
+  
+  [33X[0;0YIf [3Xlist[103X is a list of words, the operation [10XGreatestCommonPrefix([3Xlist[103X[10X)[110X returns
+  the greatest common prefix of all the words in [3Xlist[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu := [0, 0];; v := [0, 0, 1, 2];; w := [0, 1, 2];;[127X[104X
+    [4X[25Xgap>[125X [27XGreatestCommonPrefix([u, v, w]);[127X[104X
+    [4X[28X[ 0 ][128X[104X
+    [4X[25Xgap>[125X [27Xempty := [];; z := [1];;[127X[104X
+    [4X[25Xgap>[125X [27XGreatestCommonPrefix([u, v, w, empty]);[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[25Xgap>[125X [27XGreatestCommonPrefix([u, v, w, z]);[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-4 PreimageConePrefixes[101X
+  
+  [33X[1;0Y[29X[2XPreimageConePrefixes[102X( [3Xu[103X, [3Xs[103X, [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA list.[133X
+  
+  [33X[0;0YIf  [3Xu[103X  is  a word with letters from the output alphabet of the transducer [3XT[103X,
+  and  [3Xs[103X  is  a  positive integer, the operation [10XPreimageConePrefixes([3Xu, s, T[103X[10X)[110X
+  returns the list [10XP[110X of prefixes such that if [10Xw = pq[110X for some [10Xp[110X in [10XP[110X, and some
+  other word [10Xq[110X, then the image of [10Xw[110X when read by [3XT[103X from state [3Xs[103X is [10X[3Xu[103X[10Xv[110X for some
+  word [10Xv[110X. This operation is meant to emulate the inverses of the functions [10Xf_q[110X
+  discussed in the last two paragraphs of p.142 in [GNS00].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],[127X[104X
+    [4X[25X>[125X [27X                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XPreimageConePrefixes([0], 2, f);[127X[104X
+    [4X[28X[ [ 0 ], [ 1, 0 ], [ 1, 2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(f, [0], 2); TransducerFunction(f, [1, 0], 2);[127X[104X
+    [4X[28X[ [ 0, 0 ], 1 ][128X[104X
+    [4X[28X[ [ 0, 2 ], 1 ][128X[104X
+    [4X[25Xgap>[125X [27XTransducerFunction(f, [1, 2], 2);[127X[104X
+    [4X[28X[ [ 0, 1 ], 2 ][128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-5 ImageConeLongestPrefix[101X
+  
+  [33X[1;0Y[29X[2XImageConeLongestPrefix[102X( [3Xu[103X, [3Xs[103X, [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA list.[133X
+  
+  [33X[0;0YIf [3Xu[103X is a word with letters from the input alphabet of the transducer [3XT[103X, and
+  [3Xs[103X  is  a  positive  integer,  the  operation [10XImageConeLongestPrefix([3Xu, s, T[103X[10X)[110X
+  returns  the  greatest  common prefix of the set [10X{ L([3Xu[103X[10Xv, [3Xs[103X[10X) | v is word with
+  letters  in  I}[110X  where  [10XL[110X and [10XI[110X abstractly represent the output function and
+  input alphabet of [3XT[103X, respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],[127X[104X
+    [4X[25X>[125X [27X                          [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XImageConeLongestPrefix([], 2, t);[127X[104X
+    [4X[28X[ 1 ][128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-6 TransducerImageAutomaton[101X
+  
+  [33X[1;0Y[29X[2XTransducerImageAutomaton[102X( [3XT[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YAn Automaton.[133X
+  
+  [33X[0;0YFor  a  transducer  [3XT[103X,  the operation [10XTransducerImageAutomaton([3XT[103X[10X)[110X returns an
+  automaton                                                             object
+  (https://www.gap-system.org/Manuals/pkg/automata/doc/chap2.html#X821C3B3687B1F2FF)
+  which  accepts  the language of finite words which are prefixes of the words
+  which can be written from the initial state of [3XT[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],[127X[104X
+    [4X[25X>[125X [27X[[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;[127X[104X
+    [4X[25Xgap>[125X [27XString(TransducerImageAutomaton(T));[127X[104X
+    [4X[28X"Automaton(\"epsilon\",7,\"012@\",[ [ [ 2 ], [ ], [ 6 ], [ ], [ 1 ], [ ], [ 3 \[128X[104X
+    [4X[28X] ], [ [ 4 ], [ 1, 3 ], [ ], [ 3 ], [ ], [ 7 ], [ ] ], [ [ 3 ], [ ], [ 5 ], [ \[128X[104X
+    [4X[28X], [ ], [ ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 7\[128X[104X
+    [4X[28X ]);;"[128X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],[127X[104X
+    [4X[25X>[125X [27X[[[0], [0]], [[0, 1, 0, 0, 0, 1], [0, 0, 0]], [[], [0]],[127X[104X
+    [4X[25X>[125X [27X[[], []], [[0], [0]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XString(TransducerImageAutomaton(T));[127X[104X
+    [4X[28X"Automaton(\"epsilon\",12,\"01@\",[ [ [ 2, 3 ], [ 6, 11 ], [ 5 ], [ ], [ 3 ], \[128X[104X
+    [4X[28X[ ], [ 8 ], [ 9 ], [ 10 ], [ ], [ 12 ], [ 1 ] ], [ [ ], [ ], [ ], [ ], [ ], [ \[128X[104X
+    [4X[28X7 ], [ ], [ ], [ ], [ 5 ], [ ], [ ] ], [ [ ], [ ], [ 4 ], [ 2, 5 ], [ ], [ ], \[128X[104X
+    [4X[28X[ ], [ ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 12 ]);;"[128X[104X
+    [4X[25Xgap>[125X [27XT := Transducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],[127X[104X
+    [4X[25X>[125X [27X[[[0], [1], []], [[2], [3,0], [3]], [[1], [2], [3]]]);;[127X[104X
+    [4X[25Xgap>[125X [27XString(TransducerImageAutomaton(T));[127X[104X
+    [4X[28X"Automaton(\"epsilon\",4,\"0123@\",[ [ [ 1 ], [ ], [ ], [ 1 ] ], [ [ 1 ], [ ],\[128X[104X
+    [4X[28X [ 1 ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ] ], [ [ ], [ 3, 4 ], [ 1 ], [ ] ], [ [ \[128X[104X
+    [4X[28X2 ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 4 ]);;"[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe following images correspond to the first of the transducers in the above
+  example  and  can  be generated with the commands "Splash(DotTransducer(T))"
+  and "DrawAutomaton(TransducerImageAutomaton(T))" respectively.[133X
+  

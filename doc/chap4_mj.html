@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (aaa) - Chapter 4: 
+    Words accepted by transducers and word operations
+  </title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap4"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
+<p><a id="X7F1379FE84E527EB" name="X7F1379FE84E527EB"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X7F1379FE84E527EB">4 <span class="Heading">
+    Words accepted by transducers and word operations
+  </span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X81D917728696224B">4.1 <span class="Heading">
+      Words and operations
+    </span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X78A2C81F7F124B31">4.1-1 IsPrefix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X782D386885BB4277">4.1-2 Minus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X86CAEBC5859CD185">4.1-3 GreatestCommonPrefix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D8EBAE77BF4BBBA">4.1-4 PreimageConePrefixes</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8465025B7C12DF86">4.1-5 ImageConeLongestPrefix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7ADE498279D6DDBF">4.1-6 TransducerImageAutomaton</a></span>
+</div></div>
+</div>
+
+<h3>4 <span class="Heading">
+    Words accepted by transducers and word operations
+  </span></h3>
+
+<p>In this chapter we decribe the words that are accepted by an <strong class="pkg">aaa</strong> transducer, as well as operations that can be performed to them.</p>
+
+<p><a id="X81D917728696224B" name="X81D917728696224B"></a></p>
+
+<h4>4.1 <span class="Heading">
+      Words and operations
+    </span></h4>
+
+<p>An <strong class="pkg">aaa</strong> word is a dense list of integers.</p>
+
+<p><a id="X78A2C81F7F124B31" name="X78A2C81F7F124B31"></a></p>
+
+<h5>4.1-1 IsPrefix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrefix</code>( <var class="Arg">u</var>, <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>A word <code class="code">p</code> is a prefix of the word <code class="code">w</code> if <code class="code">w = pq</code> for some word <code class="code">q</code>. The operation <code class="code">IsPrefix(<var class="Arg">u, v</var>)</code> returns <code class="code">true</code> if the word <var class="Arg">v</var> is a prefix of the word <var class="Arg">u</var>, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := [0, 1];; v := [0, 1, 0];; empty := [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPrefix(u, v); IsPrefix(v, u); IsPrefix(u, empty);</span>
+false
+true
+true
+</pre></div>
+
+<p><a id="X782D386885BB4277" name="X782D386885BB4277"></a></p>
+
+<h5>4.1-2 Minus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Minus</code>( <var class="Arg">u</var>, <var class="Arg">v</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A dense list or <code class="code">fail</code>.</p>
+
+<p>If <var class="Arg">v</var> is a prefix of <var class="Arg">u</var>, then <code class="code"><var class="Arg">u</var> = <var class="Arg">v</var>m</code> for some word <code class="code">m</code>, and the operation <code class="code">Minus(<var class="Arg">u, v</var>)</code> returns <code class="code">m</code>. Otherwise, it returns <code class="code">fail</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := [0, 1];; v := [0, 1, 1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Minus(v, u);</span>
+[ 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Minus(u, v);</span>
+fail
+</pre></div>
+
+<p><a id="X86CAEBC5859CD185" name="X86CAEBC5859CD185"></a></p>
+
+<h5>4.1-3 GreatestCommonPrefix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GreatestCommonPrefix</code>( <var class="Arg">list</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A dense list.</p>
+
+<p>If <var class="Arg">list</var> is a list of words, the operation <code class="code">GreatestCommonPrefix(<var class="Arg">list</var>)</code> returns the greatest common prefix of all the words in <var class="Arg">list</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := [0, 0];; v := [0, 0, 1, 2];; w := [0, 1, 2];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GreatestCommonPrefix([u, v, w]);</span>
+[ 0 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">empty := [];; z := [1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GreatestCommonPrefix([u, v, w, empty]);</span>
+[  ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GreatestCommonPrefix([u, v, w, z]);</span>
+[  ]
+</pre></div>
+
+<p><a id="X7D8EBAE77BF4BBBA" name="X7D8EBAE77BF4BBBA"></a></p>
+
+<h5>4.1-4 PreimageConePrefixes</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreimageConePrefixes</code>( <var class="Arg">u</var>, <var class="Arg">s</var>, <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list.</p>
+
+<p>If <var class="Arg">u</var> is a word with letters from the output alphabet of the transducer <var class="Arg">T</var>, and <var class="Arg">s</var> is a positive integer, the operation <code class="code">PreimageConePrefixes(<var class="Arg">u, s, T</var>)</code> returns the list <code class="code">P</code> of prefixes such that if <code class="code">w = pq</code> for some <code class="code">p</code> in <code class="code">P</code>, and some other word <code class="code">q</code>, then the image of <code class="code">w</code> when read by <var class="Arg">T</var> from state <var class="Arg">s</var> is <code class="code"><var class="Arg">u</var>v</code> for some word <code class="code">v</code>. This operation is meant to emulate the inverses of the functions <code class="code">f_q</code> discussed in the last two paragraphs of p.142 in <a href="chapBib_mj.html#biBGNS">[GNS00]</a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                     [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreimageConePrefixes([0], 2, f);</span>
+[ [ 0 ], [ 1, 0 ], [ 1, 2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerFunction(f, [0], 2); TransducerFunction(f, [1, 0], 2);</span>
+[ [ 0, 0 ], 1 ]
+[ [ 0, 2 ], 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerFunction(f, [1, 2], 2);</span>
+[ [ 0, 1 ], 2 ]
+</pre></div>
+
+<p><a id="X8465025B7C12DF86" name="X8465025B7C12DF86"></a></p>
+
+<h5>4.1-5 ImageConeLongestPrefix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ImageConeLongestPrefix</code>( <var class="Arg">u</var>, <var class="Arg">s</var>, <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list.</p>
+
+<p>If <var class="Arg">u</var> is a word with letters from the input alphabet of the transducer <var class="Arg">T</var>, and <var class="Arg">s</var> is a positive integer, the operation <code class="code">ImageConeLongestPrefix(<var class="Arg">u, s, T</var>)</code> returns the greatest common prefix of the set <code class="code">{ L(<var class="Arg">u</var>v, <var class="Arg">s</var>) | v is word with letters in I}</code> where <code class="code">L</code> and <code class="code">I</code> abstractly represent the output function and input alphabet of <var class="Arg">T</var>, respectively.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                          [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImageConeLongestPrefix([], 2, t);</span>
+[ 1 ]
+</pre></div>
+
+<p><a id="X7ADE498279D6DDBF" name="X7ADE498279D6DDBF"></a></p>
+
+<h5>4.1-6 TransducerImageAutomaton</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransducerImageAutomaton</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: An Automaton.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">TransducerImageAutomaton(<var class="Arg">T</var>)</code> returns an automaton object (https://www.gap-system.org/Manuals/pkg/automata/doc/chap2.html#X821C3B3687B1F2FF) which accepts the language of finite words which are prefixes of the words which can be written from the initial state of <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">String(TransducerImageAutomaton(T));</span>
+"Automaton(\"epsilon\",7,\"012@\",[ [ [ 2 ], [ ], [ 6 ], [ ], [ 1 ], [ ], [ 3 \
+] ], [ [ 4 ], [ 1, 3 ], [ ], [ 3 ], [ ], [ 7 ], [ ] ], [ [ 3 ], [ ], [ 5 ], [ \
+], [ ], [ ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 7\
+ ]);;"
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0], [0]], [[0, 1, 0, 0, 0, 1], [0, 0, 0]], [[], [0]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[], []], [[0], [0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">String(TransducerImageAutomaton(T));</span>
+"Automaton(\"epsilon\",12,\"01@\",[ [ [ 2, 3 ], [ 6, 11 ], [ 5 ], [ ], [ 3 ], \
+[ ], [ 8 ], [ 9 ], [ 10 ], [ ], [ 12 ], [ 1 ] ], [ [ ], [ ], [ ], [ ], [ ], [ \
+7 ], [ ], [ ], [ ], [ 5 ], [ ], [ ] ], [ [ ], [ ], [ 4 ], [ 2, 5 ], [ ], [ ], \
+[ ], [ ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 12 ]);;"
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0], [1], []], [[2], [3,0], [3]], [[1], [2], [3]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">String(TransducerImageAutomaton(T));</span>
+"Automaton(\"epsilon\",4,\"0123@\",[ [ [ 1 ], [ ], [ ], [ 1 ] ], [ [ 1 ], [ ],\
+ [ 1 ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ] ], [ [ ], [ 3, 4 ], [ 1 ], [ ] ], [ [ \
+2 ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 4 ]);;"
+</pre></div>
+
+<p>The following images correspond to the first of the transducers in the above example and can be generated with the commands "Splash(DotTransducer(T))" and "DrawAutomaton(TransducerImageAutomaton(T))" respectively.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

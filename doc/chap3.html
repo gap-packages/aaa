@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (aaa) - Chapter 3: 
+    Transducers
+  </title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3_mj.html">[MathJax on]</a></p>
+<p><a id="X843CB33182B8E477" name="X843CB33182B8E477"></a></p>
+<div class="ChapSects"><a href="chap3.html#X843CB33182B8E477">3 <span class="Heading">
+    Transducers
+  </span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X86F5B97482F7E419">3.1 <span class="Heading">
+      Creating a transducer
+    </span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A2DA7017E4F6BC4">3.1-1 Transducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7DB77C7B8288B93D">3.1-2 TransducerFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82EF711C7E3DF05A">3.1-3 <span class="Heading">XFunction</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F467CA87814D09D">3.1-4 <span class="Heading">XAlphabet</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83931EAB87318718">3.1-5 <span class="Heading">NrXSymbols</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B0C97BC7C3BA20D">3.1-6 States</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X784ED72987022850">3.1-7 NrStates</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X866EB9CF8217CF63">3.1-8 IdentityTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E430397D3A5550">3.1-9 AlphabetChangeTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83A74D317BD375C3">3.1-10 RandomTransducer</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X8620303783CF1645">3.2 <span class="Heading">
+      Attributes of Transducers
+    </span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C34FFDE830676D5">3.2-1 IsDegenerateTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82FB1E307AC64540">3.2-2 IsInjectiveTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7EB8F3C77DC88F8D">3.2-3 IsSurjectiveTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8646872483DE6835">3.2-4 IsBijectiveTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X849EA6CD879DA227">3.2-5 IsMinimalTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F27872680EDB445">3.2-6 IsSynchronousTransducer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D4FA7FE81401762">3.2-7 IsomorphicInitialTransducers</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F85227E78CAAF57">3.2-8 OmegaEquivalentTransducers</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F41ABB2821A4DB5">3.2-9 EqualTransducers</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8532B0C07A3AAB44">3.2-10 TransducerOrder</a></span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">
+    Transducers
+  </span></h3>
+
+<p>In this chapter we decribe how to create an <strong class="pkg">aaa</strong> transducer.</p>
+
+<p><a id="X86F5B97482F7E419" name="X86F5B97482F7E419"></a></p>
+
+<h4>3.1 <span class="Heading">
+      Creating a transducer
+    </span></h4>
+
+<p>The <strong class="pkg">aaa</strong> package provides a method to represent transducers in <strong class="pkg">GAP</strong>.</p>
+
+<p><a id="X7A2DA7017E4F6BC4" name="X7A2DA7017E4F6BC4"></a></p>
+
+<h5>3.1-1 Transducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Transducer</code>( <var class="Arg">m</var>, <var class="Arg">n</var>, <var class="Arg">P</var>, <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A transducer.</p>
+
+<p>For two positive integers <var class="Arg">m</var>, and <var class="Arg">n</var>, a dense list of dense lists of integers <var class="Arg">P</var>, and a dense list of dense lists of dense lists of integers <var class="Arg">L</var>, such that <var class="Arg">P</var> and <var class="Arg">L</var> have the same size, and each of their elements have size equal to <var class="Arg">m</var>, the operation <code class="code">Transducer(<var class="Arg">m, n, P, L</var>)</code> returns a transducer with input alphabet <code class="code">[0 .. m - 1]</code>, output alphabet <code class="code">[0 .. n - 1]</code>, transition function <var class="Arg">P</var>, and output function <var class="Arg">L</var>. If <code class="code">p</code> abstractly represents the transition function of the transducer, then <var class="Arg">P</var> has the property that <code class="code">p(currentstate, inputletter - 1) = <var class="Arg">P</var>[currentstate][inputletter]</code>, where <code class="code">currentstate</code> is an integer from <code class="code">[1 .. Size(<var class="Arg">P</var>)]</code>, and <code class="code">inputletter</code> is a positive integer representing the word <code class="code">[inputletter - 1]</code>. Similarly, if <code class="code">l</code> abstractly represents the output function of the transducer, then <var class="Arg">L</var> has the property that <code class="code">l(currentstate, inputletter - 1) = <var class="Arg">L</var>[currentstate][inputletter]</code>, where <code class="code">currentstate</code>, and <code class="code">inputletter</code> are as before.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 3], [2, 3], [2, 3]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">			   [[[], []], [[0], [0]], [[1], [1]]]);</span>
+&lt;transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
+  and 3 states.&gt;
+  </pre></div>
+
+<p><a id="X7DB77C7B8288B93D" name="X7DB77C7B8288B93D"></a></p>
+
+<h5>3.1-2 TransducerFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransducerFunction</code>( <var class="Arg">T</var>, <var class="Arg">word</var>, <var class="Arg">m</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list.</p>
+
+<p>For a transducer <var class="Arg">T</var>, a dense list <var class="Arg">word</var>, and a positive integer <var class="Arg">m</var> such that it is a state of the transducer, the operation <code class="code">TransducerFunction(<var class="Arg">T, word, m</var>)</code> returns a list containing the word obtained when <var class="Arg">word</var> is read by <var class="Arg">T</var> from state <var class="Arg">m</var>, and the state that is reached after reading <var class="Arg">word</var> from state <var class="Arg">m</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerFunction(T, [0, 1, 0], 1);</span>
+[ [ 0, 1 ], 2 ]
+</pre></div>
+
+<p><a id="X82EF711C7E3DF05A" name="X82EF711C7E3DF05A"></a></p>
+
+<h5>3.1-3 <span class="Heading">XFunction</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransitionFunction</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutputFunction</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">TransitionFunction(<var class="Arg">T</var>)</code> displays the list representing the transition function of <var class="Arg">T</var>, and the operation <code class="code">OutputFunction(<var class="Arg">T</var>)</code> displays the list representing the output function of <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransitionFunction(T);</span>
+[ [ 1, 2 ], [ 2, 1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OutputFunction(T);</span>
+[ [ [ 0 ], [  ] ], [ [ 1 ], [ 0, 1 ] ] ]
+</pre></div>
+
+<p><a id="X7F467CA87814D09D" name="X7F467CA87814D09D"></a></p>
+
+<h5>3.1-4 <span class="Heading">XAlphabet</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InputAlphabet</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutputAlphabet</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">InputAlphabet(<var class="Arg">T</var>)</code> returns the list representing the input alphabet of <var class="Arg">T</var>, and the operation <code class="code">OutputAlphabet(<var class="Arg">T</var>)</code> returns the list representing the output alphabet of <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P := Transducer(2, 3, [[1, 2], [2, 1]], [[[0], [2]], [[1], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InputAlphabet(P);</span>
+[ 0, 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OutputAlphabet(P);</span>
+[ 0 .. 2 ]
+</pre></div>
+
+<p><a id="X83931EAB87318718" name="X83931EAB87318718"></a></p>
+
+<h5>3.1-5 <span class="Heading">NrXSymbols</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NrInputSymbols</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NrOutputSymbols</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A positive integer.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">NrInputSymbols(<var class="Arg">T</var>)</code> returns the number of symbols of the input alphabet of <var class="Arg">T</var>, and the operation <code class="code">NrOutputSymbols(<var class="Arg">T</var>)</code> returns the number of symbols of the output alphabet of <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 3, [[1, 2], [2, 1]], [[[0], []], [[1], [2, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NrInputSymbols(T); NrOutputSymbols(T);</span>
+2
+3
+</pre></div>
+
+<p><a id="X7B0C97BC7C3BA20D" name="X7B0C97BC7C3BA20D"></a></p>
+
+<h5>3.1-6 States</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; States</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A list of integers.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">States(<var class="Arg">T</var>)</code> returns a list representing the set of states of the transducer <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">States(T);</span>
+[ 1, 2 ]
+</pre></div>
+
+<p><a id="X784ED72987022850" name="X784ED72987022850"></a></p>
+
+<h5>3.1-7 NrStates</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NrStates</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A positive integer.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the operation <code class="code">NrStates(<var class="Arg">T</var>)</code> returns the number of states of the transducer <var class="Arg">T</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NrStates(T);</span>
+2
+</pre></div>
+
+<p><a id="X866EB9CF8217CF63" name="X866EB9CF8217CF63"></a></p>
+
+<h5>3.1-8 IdentityTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityTransducer</code>( <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A transducer</p>
+
+<p>For a positive integer <var class="Arg">n</var>, the operation <code class="code">IdentityTransducer(<var class="Arg">n</var>)</code> returns a transducer with input and output alphabet size <var class="Arg">n</var>. The transducer has 1 state and when a word is read from this state, the same word is output.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := IdentityTransducer(3);</span>
+&lt;transducer with input alphabet on 3 symbols, output alphabet on
+3 symbols, and 1 state.&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">EqualTransducers(T, Transducer(3, 3, [[1, 1, 1]], [[[0], [1], [2]]]));</span>
+true
+</pre></div>
+
+<p><a id="X84E430397D3A5550" name="X84E430397D3A5550"></a></p>
+
+<h5>3.1-9 AlphabetChangeTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlphabetChangeTransducer</code>( <var class="Arg">m</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A transducer</p>
+
+<p>For two positive integers <var class="Arg">m, n</var>, the operation <code class="code">AlphabetChangeTransducer(<var class="Arg">m, n</var>)</code> returns a transducer with input alphabet size <var class="Arg">m</var> and output alphabet size <var class="Arg">n</var>. This transducer is never degenerate and always induces a homeomorphism h_{m, n} from the cantor space of infinite words over the alphabet of size <var class="Arg">m</var>to the cantor space of infinite words over the alphabet of size <var class="Arg">n</var>. These homeomorphisms have the property that the composit of h_{a, b} with h_{b, c} is equal to h_{a, c} for all a, b, and c.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0], []], [[1], []], [[2], [3]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">EqualTransducers(T, AlphabetChangeTransducer(2, 4));</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T:= Transducer(2, 2, [ [ 3, 1 ], [ 2, 3 ], [ 1, 1 ] ],    </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[ [ [ 1 ], [ 0 ] ], [ [ 1 ], [ 1 ] ], [ [ 0 ], [ 1 ] ] ]);</span>
+&lt;transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
+ and 3 states.&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TConjugate := T^AlphabetChangeTransducer(2, 3);</span>
+&lt;transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
+ and 6 states.&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TConjugate2 := TConjugate^AlphabetChangeTransducer(3, 2);</span>
+&lt;transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
+ and 12 states.&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TConjugate2 = T;</span>
+true
+</pre></div>
+
+<p><a id="X83A74D317BD375C3" name="X83A74D317BD375C3"></a></p>
+
+<h5>3.1-10 RandomTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RandomTransducer</code>( <var class="Arg">m</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A transducer</p>
+
+<p>For positive integers <var class="Arg">m, n</var>, the operation <code class="code">RandomTransducer(<var class="Arg">m, n</var>)</code> returns a random transducer with input and output alphabet of size <var class="Arg">m</var> and <var class="Arg">n</var> states. All transition functions are equally likely. For each state and letter pair (q, l), the chances that the word written when l is read from state q has length 0, 1, 2, 3, ... are 1/4, 3/8, 3/16, 3/32 ... respectively. Each word of a fixed length has the same chance of being written.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RandomTransducer(3, 5);</span>
+&lt;transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
+ and 5 states.&gt;
+</pre></div>
+
+<p><a id="X8620303783CF1645" name="X8620303783CF1645"></a></p>
+
+<h4>3.2 <span class="Heading">
+      Attributes of Transducers
+    </span></h4>
+
+<p>In this section we explain the different transducer attributes that the <strong class="pkg">aaa</strong> package can compute.</p>
+
+<p><a id="X7C34FFDE830676D5" name="X7C34FFDE830676D5"></a></p>
+
+<h5>3.2-1 IsDegenerateTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsDegenerateTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the attribute <code class="code">IsDegenerateTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is a degenerate transducer, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 2], [1, 3], [2, 1]], [[[0], [0]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 1, 0, 0, 0, 1], []], [[0, 0, 0], [0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDegenerateTransducer(T);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDegenerateTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[1, 1, 3], [3, 1, 1], [2, 3, 2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0, 2, 2], [0], [2, 2]], [[], [0], [0]], [[2], [1, 2], []]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDegenerateTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0], [1], [2, 0], [2, 1], [2, 2]], [[1], [2, 0], [2, 1],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[2, 2, 0], [2, 2]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDegenerateTransducer(T);</span>
+false
+</pre></div>
+
+<p><a id="X82FB1E307AC64540" name="X82FB1E307AC64540"></a></p>
+
+<h5>3.2-2 IsInjectiveTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInjectiveTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For a transducer <var class="Arg">T</var>, with initial state 1, the attribute <code class="code">IsInjectiveTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is an injective transducer, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [6, 6], [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [1, 0]], [[0, 0], [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [[0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsInjectiveTransducer(T);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [0], [1]], [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsInjectiveTransducer(f);</span>
+true
+</pre></div>
+
+<p><a id="X7EB8F3C77DC88F8D" name="X7EB8F3C77DC88F8D"></a></p>
+
+<h5>3.2-3 IsSurjectiveTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSurjectiveTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For a transducer <var class="Arg">T</var>, with initial state 1, the attribute <code class="code">IsSurjectiveTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is a surjective transducer, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [0], [1]], [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSurjectiveTransducer(f);</span>
+true
+</pre></div>
+
+<p><a id="X8646872483DE6835" name="X8646872483DE6835"></a></p>
+
+<h5>3.2-4 IsBijectiveTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBijectiveTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For a transducer <var class="Arg">T</var>, the attribute <code class="code">IsBijectiveTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is a bijective transducer, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsBijectiveTransducer(T);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsBijectiveTransducer(f);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 1], [1, 1]], [[0, 0], [1, 0]], [[0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsBijectiveTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[0, 1, 0], []], [[1, 1], [0]], [[0, 1, 0], []], [[], [1, 0, 1, 0]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[1], [0]], [[], [1, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsBijectiveTransducer(T);</span>
+false
+</pre></div>
+
+<p><a id="X849EA6CD879DA227" name="X849EA6CD879DA227"></a></p>
+
+<h5>3.2-5 IsMinimalTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsMinimalTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>A non-degenerate transducer <var class="Arg">T</var> is called "minimal" it satisfies the following three properties: 1. Every state of <var class="Arg">T</var> can be reached from the inital state of <var class="Arg">T</var>. 2. If w is a word in the domain alphabet of <var class="Arg">T</var> and s is a state of <var class="Arg">T</var>, then the word written when w is read from state s is equal to the longest common prefix of the infinite words which can be wriiten (from the state s) by reading an infinite word with prefix w. 3. All the states of <var class="Arg">T</var> define different maps from the space of infinite words in the domain alphabet of <var class="Arg">T</var> to the space of infinite words in the image alphabet of <var class="Arg">T</var> For a transducer <var class="Arg">T</var>, the attribute <code class="code">IsMinimalTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is a minimal transducer, and <code class="code">false</code> otherwise (with the following caveat). Caveat: Using standard definitions it is possible to have a minimal transducer which can write an infinite but eventually periodic word by reading a finite word. As the tranducers in this package don't allow this, we accomodate for these cases (breaking the second condition above) by having the transducer write the non-periodic part of the infinite words and then transitioning to a state which always transitions to itself and writes the periodic part of the infinite word when any letter is read. Each non-degenerate transducer has a unique minimal omega-equivalent form which can be computed with the operation "MinimalTransducer".</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[3, 4, 3], [1, 3, 1], [1, 3, 3], [2, 2, 3]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[2], [2], [0]], [[2, 0, 2, 1], [0, 0], []], [[], [2, 0], [1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[], [2], [1, 1, 0, 1, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsMinimalTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := MinimalTransducer(T);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsMinimalTransducer(M);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsMinimalTransducer(CopyTransducerWithInitialState(M, 2));</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[3, 2, 1], [3, 3, 1], [2, 2, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1, 0], [], [0]], [[], [], [0]], [[2], [2, 2, 1], [2, 2]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsMinimalTransducer(T);</span>
+false
+</pre></div>
+
+<p><a id="X7F27872680EDB445" name="X7F27872680EDB445"></a></p>
+
+<h5>3.2-6 IsSynchronousTransducer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSynchronousTransducer</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>A transducer is called "Synchronous" if when it reads a finite word from any state, it always outputs a finite word of the same length. For a transducer <var class="Arg">T</var>, the attribute <code class="code">IsSynchronousTransducer(<var class="Arg">T</var>)</code> returns <code class="code">true</code> if <var class="Arg">T</var> is a bijective transducer, and <code class="code">false</code> otherwise.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1], [2], [1]], [[0], [1], [2]], [[0], [0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSynchronousTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSynchronousTransducer(T);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1], [1]], [[1], [0]], [[0], [0]], [[1], [0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSynchronousTransducer(T);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[], [1]], [[1], [0]], [[0], [1]], [[0], [0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSynchronousTransducer(T);</span>
+false
+</pre></div>
+
+<p><a id="X7D4FA7FE81401762" name="X7D4FA7FE81401762"></a></p>
+
+<h5>3.2-7 IsomorphicInitialTransducers</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphicInitialTransducers</code>( <var class="Arg">T1</var>, <var class="Arg">T2</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For transducers <var class="Arg">T1</var> and <var class="Arg">T2</var>, with the same input and output alphabets, the operation <code class="code">IsomorphicInitialTransducers(<var class="Arg">T1</var>, <var class="Arg">T2</var>)</code> returns <code class="code">true</code> if and only if there is a bijection from the states of <var class="Arg">T1</var> to the states of <var class="Arg">T2</var> which preserves transitions, outputs and the initial state.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 0], [1, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T2 := CopyTransducerWithInitialState(T, 2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T3 := CopyTransducerWithInitialState(T, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T4 := CopyTransducerWithInitialState(T3, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T5 := Transducer(2, 2, [[1, 1], [2, 2], [3, 3]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[], []], [[], []],[[], []]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T6 := Transducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[], [], []], [[], [], []], [[], [], []]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicInitialTransducers(T, T2);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicInitialTransducers(T, T3);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicInitialTransducers(T, T4);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicInitialTransducers(T, T5);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsomorphicInitialTransducers(T, T6);</span>
+false
+</pre></div>
+
+<p><a id="X7F85227E78CAAF57" name="X7F85227E78CAAF57"></a></p>
+
+<h5>3.2-8 OmegaEquivalentTransducers</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OmegaEquivalentTransducers</code>( <var class="Arg">T1</var>, <var class="Arg">T2</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For non-degenerate transducers <var class="Arg">T1</var> and <var class="Arg">T2</var>, with the same input and output alphabets, the operation <code class="code">OmegaEquivalentTransducers(<var class="Arg">T1</var>, <var class="Arg">T2</var>)</code> returns <code class="code">true</code> if and only if <var class="Arg">T1</var> and <var class="Arg">T2</var> induce the the same continuous maps from the infinite words in their domain alphabets to the infinte words in their image alphabets. Alternatively one can write <var class="Arg">T1</var>=<var class="Arg">T2</var> instead of <code class="code">OmegaEquivalentTransducers(<var class="Arg">T1</var>, <var class="Arg">T2</var>)</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[[1, 0], [0, 0]], [[1], []], [[0], [1]], [[1], [1]], [[], [0, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M := MinimalTransducer(T);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OmegaEquivalentTransducers(T, M);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T = M;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 0], [1, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T2 := CopyTransducerWithInitialState(T, 2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T3 := CopyTransducerWithInitialState(T, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T4 := CopyTransducerWithInitialState(T3, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OmegaEquivalentTransducers(T, T2);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OmegaEquivalentTransducers(T, T3);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T = T4;</span>
+true
+</pre></div>
+
+<p><a id="X7F41ABB2821A4DB5" name="X7F41ABB2821A4DB5"></a></p>
+
+<h5>3.2-9 EqualTransducers</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EqualTransducers</code>( <var class="Arg">T1</var>, <var class="Arg">T2</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="code">true</code> or <code class="code">false</code>.</p>
+
+<p>For transducers <var class="Arg">T1</var> and <var class="Arg">T2</var>, the operation <code class="code">EqualTransducers(<var class="Arg">T1</var>, <var class="Arg">T2</var>)</code> returns <code class="code">true</code> if and only if <var class="Arg">T1</var> and <var class="Arg">T2</var> have the same input alphabets, output alphabets, states, transition function and write function. Note that the operation "=" checks omega equivalence as opposed to running this operation.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[[0, 0], [1, 0]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T2 := CopyTransducerWithInitialState(T, 2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T3 := CopyTransducerWithInitialState(T, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T4 := CopyTransducerWithInitialState(T3, 3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">EqualTransducers(T, T2);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">EqualTransducers(T, T3);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">EqualTransducers(T, T4);</span>
+false
+</pre></div>
+
+<p><a id="X8532B0C07A3AAB44" name="X8532B0C07A3AAB44"></a></p>
+
+<h5>3.2-10 TransducerOrder</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TransducerOrder</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: A positive integer.</p>
+
+<p>The input must be a transducer <var class="Arg">T</var> with the same input and output alphabet, which induces a homomorphism on the set of infinite words over its alphabet. If this homeomorphism has finite order, then its order is returned.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := IdentityTransducer(5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerOrder(T);</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[1, 1]], [[0], [1]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerOrder(T);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := Transducer(5, 5, [[1, 1, 1, 1, 1]], [[[1], [0], [3], [4], [2]]]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TransducerOrder(T);</span>
+6
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
