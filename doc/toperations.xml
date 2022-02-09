@@ -27,13 +27,23 @@ gap> w := TransducerFunction(f, [0, 1], 1)[1];
 gap> TransducerFunction(g, w, 1)[1];
 [ 0, 1 ]
 ]]></Example>
-  </Description>
-  Below one can see images of the transducers <C>f<C> and <C>g<C> respectively from the above example. These images can be generated with the commands <C>Splash(DotTransducer(f))<C> and <C>Splash(DotTransducer(g))<C> respectively.
-   <Alt Only="LaTeX">
-	   \centerline{\includegraphics{inversetransducerpreinverse.pdf}}
-	   \centerline{\includegraphics{inversetransducerpostinverse.pdf}}
+   In the figure one can see images of the transducers <C>f</C> and <C>g</C> respectively from the above example. 
+  These images can be generated with the commands <C>Splash(DotTransducer(f))</C> and <C>Splash(DotTransducer(g))</C> respectively.
+ <Alt Only="LaTeX">
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=7cm]{inversetransducerexamplepreinverse.pdf}
+    \caption{Transducer f.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+  \includegraphics[width=7cm]{inversetransducerexamplepostinverse.pdf}
+    \caption{Transducer g.}
+  \end{minipage}
+\end{figure}
  </Alt>
-
+ </Description>
 </ManSection>
 <#/GAPDoc>
 
@@ -60,18 +70,26 @@ gap> ff := TransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 9 states.>
 ]]></Example>
-  </Description>
-  Below one can see images of the transducers <C>f<C> and <C>ff<C> 
+   In the figure one can see images of the transducers <C>f</C> and <C>ff</C> 
   respectively from the above example. 
   These images can be generated with the commands 
-  <C>Splash(DotTransducer(f))<C> and <C>Splash(DotTransducer(g))<C>
-   respectively.
-
-   <Alt Only="LaTeX">
-           \centerline{\includegraphics{inversetransducerpreinverse.pdf}}
-           \centerline{\includegraphics{producttransducerexample.pdf}}
+  <C>Splash(DotTransducer(f))</C> and <C>Splash(DotTransducer(ff))</C>
+  respectively.
+ <Alt Only="LaTeX">
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=7cm]{inversetransducerexamplepreinverse.pdf}
+    \caption{Transducer f.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+  \includegraphics[width=7cm]{transducerproductexample.pdf}
+    \caption{Transducer ff.}
+  \end{minipage}
+\end{figure}
  </Alt>
-
+ </Description>
 </ManSection>
 <#/GAPDoc>
 
@@ -100,19 +118,26 @@ gap> TransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];
 gap> TransducerFunction(p, [2], 2)[1];
 [ 1 ]
 ]]></Example>
-  </Description>
-    Below one can see images of the transducers <C>t<C> and <C>p<C>
+   In the figure one can see images of the transducers <C>t</C> and <C>p</C>
   respectively from the above example.
   These images can be generated with the commands
-  <C>Splash(DotTransducer(t))<C> and <C>Splash(DotTransducer(p))<C>
-   respectively.
-
-   <Alt Only="LaTeX">
-           \centerline{\includegraphics{incompleteresponceexamplepre.pdf}}
-           \centerline{\includegraphics{incompleteresponceexamplepost.pdf}}
+  <C>Splash(DotTransducer(t))</C> and <C>Splash(DotTransducer(p))</C>
+  respectively.
+<Alt Only="LaTeX">
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=7cm]{incompleteresponceexamplepre.pdf}
+    \caption{Transducer t.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+  \includegraphics[width=7cm]{incompleteresponceexamplepost.pdf}
+    \caption{Transducer p.}
+  \end{minipage}
+\end{figure}
  </Alt>
-
-
+ </Description>
 </ManSection>
 <#/GAPDoc>
 
@@ -370,27 +395,28 @@ false
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     A non-degenerate transducer <A>T</A> is called "minimal" if it satisfies the following
-    three properties:</P>
-    
-    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>(that is from state 1).</P>
-   
+    three properties:
+     <Alt Only="LaTeX">\\  </Alt>
+    1. Every state of <A>T</A> can be reached from the inital state of <A>T</A>(that is from state 1). 
+     <Alt Only="LaTeX">\\  </Alt>
     2. If w is a word in the input alphabet of <A>T</A> and s is a state of <A>T</A>, then
     the word written when w is read from state s is equal to the longest common prefix of the infinite
-    words which can be wriiten (from the state s) by reading an infinite word with prefix w.</P>
-   
+    words which can be wriiten (from the state s) by reading an infinite word with prefix w.
+     <Alt Only="LaTeX">\\  </Alt> 
     3. All the states of <A>T</A> define different maps from the space of infinite words in the input alphabet
-    of <A>T</A> to the space of infinite words in the output alphabet of <A>T</A>.</P>
-   
+    of <A>T</A> to the space of infinite words in the output alphabet of <A>T</A>.
+     <Alt Only="LaTeX">\\  </Alt>
     For a transducer <A>T</A>, the attribute <C>IsMinimalTransducer(<A>T</A>)</C>
     returns <C>true</C> if <A>T</A> is a minimal transducer, and <C>false</C> otherwise (with the following caveat).
 
+     <Alt Only="LaTeX">\\  </Alt>
     Caveat: Using the standard definitions outside this package, it is possible to have a minimal transducer which can write an infinite but 
     eventually periodic word by reading a finite word. 
     As the tranducers in this package don't allow this, we accomodate
     for these cases (breaking the second condition above) by having the transducer write the non-periodic part of the 
     infinite words and then transitioning to a state which always transitions to itself and writes the periodic part
-    of the infinite word when any letter is read.</P>
-
+    of the infinite word when any letter is read.
+     <Alt Only="LaTeX">\\  </Alt>
     Each non-degenerate transducer has a unique minimal omega-equivalent form (modulo the above caveat) which can be computed with the 
     operation "MinimalTransducer".
 
@@ -485,16 +511,15 @@ gap> String(TransducerImageAutomaton(T));
 ]]></Example>
 The following images correspond to the first of the transducers in the above example and can be generated with the commands "Splash(DotTransducer(T))" and "DrawAutomaton(TransducerImageAutomaton(T))" respectively.
 <Alt Only="LaTeX">
-
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{imageautomatontransducer.pdf}
+    \includegraphics[width=7cm]{imageautomatontransducer.pdf}
     \caption{Transducer.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
-  \includegraphics[width=\textwidth]{imageautomatonautomaton.pdf}
+  \includegraphics[width=7cm]{imageautomatonautomaton.pdf}
     \caption{Corresponding Automaton.}
   \end{minipage}
 \end{figure}

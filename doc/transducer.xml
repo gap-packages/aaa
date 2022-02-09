@@ -186,14 +186,16 @@ true
     <Description>
       For two positive integers <A>m, n</A>, the operation 
       <C>AlphabetChangeTransducer(<A>m, n</A>)</C> returns a transducer with
-      input alphabet size <A>m</A> and output alphabet size <A>n</A>.</P>
+      input alphabet size <A>m</A> and output alphabet size <A>n</A>.
+     <Alt Only="LaTeX">\\  </Alt>
 
       This transducer is never degenerate and always induces a homeomorphism
       h_{m, n} from the Cantor space of infinite words over the alphabet of
       size <A>m</A> to the Cantor space of infinite words over the alphabet
       of size <A>n</A>.
       These homeomorphisms have the property that the composit of h_{a, b}
-      with h_{b, c} is equal to h_{a, c} for all a, b, and c.</P>
+      with h_{b, c} is equal to h_{a, c} for all a, b, and c.
+     <Alt Only="LaTeX">\\  </Alt>
 
       More specifically, the homeomorphism h_{2, n} is the one obtained by
       viewing infinite words over the alphabet <C>0, 1</C> as infinite words
