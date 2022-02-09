@@ -3,7 +3,7 @@
 
 
 ### aaa package for GAP
-#### Copyright (C) 2017-2018
+#### Copyright (C) 2017-2022
 #### Collin Bleak, Fernando Flores Brito, Luke Elliott, James D. Mitchell, Feyishayo Olukoya.
 #### Licencing information is available in the LICENSE file.
 
@@ -12,4 +12,5 @@ You can download GAP from https://www.gap-system.org/
 and place this package in the pkg directory.
 
 To check coverage run:
-scripts/code-coverage-test-gap.py tst/standard/toperations.tst tst/standard/woperations.tst tst/standard/transducer.tst
+
+    scripts/code-coverage-test-gap.py tst/standard/toperations.tst tst/standard/woperations.tst tst/standard/transducer.tst
