@@ -146,13 +146,7 @@ function(T)
                   "the given transducer must be nondegenerate ");
   fi;
 
-  const := List(TransducerConstantStateOutputs(T),x-> List(x,y->y));
-  for i in [1 .. Size(const[2])] do
-    const[2][i]:= const[2][i]{[1 .. Size(const[2][i])-2]};
-    const[2][i]:= SplitString(const[2][i],"(");
-    const[2][i][1]:= List([1 .. Size(const[2][i][1])], x -> Int(const[2][i][1]{[x]}));
-    const[2][i][2]:= List([1 .. Size(const[2][i][2])], x -> Int(const[2][i][2]{[x]}));
-  od;
+  const := TransducerConstantStateOutputs(T);
   edgestopushfrom := [];
   ntfunc := [];
   nofunc := [];
@@ -168,9 +162,9 @@ function(T)
       nofunc[1][x + 1] := ImageConeLongestPrefix([x], 1, T);
     else
       out := TransducerFunction(T,[x],1)[1];
-      nofunc[1][x + 1] := Concatenation(out, const[2][pos][1]);
-      if out <> [] and const[2][pos][1] = [] and out[Size(out)] = const[2][pos][2][Size(const[2][pos][2])] then
-        Add(edgestopushfrom, [1,x+1]);
+      nofunc[1][x + 1] := Concatenation(out, PrePeriod(const[2][pos]));
+      if out <> [] and PrePeriod(const[2][pos]) = [] and out[Size(out)] = Period(const[2][pos])[Size(Period(const[2][pos]))] then
+        Add(edgestopushfrom, [1, x + 1]);
       fi;
     fi;
   od;
@@ -186,11 +180,11 @@ function(T)
         else
           badpref := ImageConeLongestPrefix([], n - 1, T);
           out := TransducerFunction(T, [x], n - 1)[1];
-          neededcopies := Int(Ceil(Float(((Size(badpref) - Size(const[2][pos][1]))/Size(const[2][pos][2])))));
+          neededcopies := Int(Ceil(Float(((Size(badpref) - Size(PrePeriod(const[2][pos])))/Size(Period(const[2][pos]))))));
           neededcopies := Maximum(neededcopies, 0);
-          stufftowrite := Concatenation(out, const[2][pos][1], Concatenation(ListWithIdenticalEntries(neededcopies, const[2][pos][2])));
+          stufftowrite := Concatenation(out, PrePeriod(const[2][pos]), Concatenation(ListWithIdenticalEntries(neededcopies, Period(const[2][pos]))));
           nofunc[n][x + 1] := Minus(stufftowrite, badpref);
-          if nofunc[n][x + 1] <> [] and nofunc[n][x + 1][Size(nofunc[n][x + 1])]=const[2][pos][2][1] then
+          if nofunc[n][x + 1] <> [] and nofunc[n][x + 1][Size(nofunc[n][x + 1])] = Period(const[2][pos])[1] then
             Add(edgestopushfrom, [n, x + 1]);
           fi;
         fi;
@@ -198,12 +192,12 @@ function(T)
     else
       for x in InputAlphabet(T) do;
         ntfunc[n][x + 1] := n;
-        nofunc[n][x + 1] := const[2][Position(const[1],n - 1)][2];
+        nofunc[n][x + 1] := Period(const[2][Position(const[1],n - 1)]);
       od;
     fi;
   od;
   for edge in edgestopushfrom do
-    Add(ntfunc,ListWithIdenticalEntries(Size(InputAlphabet(T)),Size(ntfunc) + 1));
+    Add(ntfunc, ListWithIdenticalEntries(Size(InputAlphabet(T)),Size(ntfunc) + 1));
     pushstring := ShallowCopy(nofunc[ntfunc[edge[1]][edge[2]]][1]);
     out := nofunc[edge[1]][edge[2]];
     while out <> [] and out[Size(out)] = pushstring[Size(pushstring)] do
@@ -585,11 +579,12 @@ function(T)
       continue;
     fi;
     Add(constantstates,state);
-    root := Concatenation(List(path{[1 .. pos-1]}, x->String(x[2]-1)));
-    circuit := Concatenation(List(path{[pos .. Size(path)]}, x-> String(x[2]-1)));
-    Add(constantstateoutputs, Concatenation(root,"(",circuit,")*"));
+    
+    root := List(path{[1 .. pos-1]}, x -> x[2] - 1);
+    circuit := List(path{[pos .. Size(path)]}, x-> x[2]-1);
+    Add(constantstateoutputs, PeriodicList(root, circuit));
   od;
-  return [constantstates,constantstateoutputs];
+  return [constantstates, constantstateoutputs];
 end);
 
 InstallMethod(IsDegenerateTransducer, "for a transducer",

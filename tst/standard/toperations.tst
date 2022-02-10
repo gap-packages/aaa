@@ -87,7 +87,7 @@ gap> TransitionFunction(R);
 gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
 > [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
 gap> RemoveIncompleteResponseFromStates(T);
-Error, aaa: RemoveStatesWithIncompleteResponse: usage,
+Error, aaa: RemoveIncompleteResponseFromStates: usage,
 the given transducer must be nondegenerate 
 
 #T# RemoveInaccessibleStates
@@ -208,11 +208,11 @@ gap> String(TransducerImageAutomaton(T));
 #T# TransducerConstantStateOutputs
 gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
 gap> TransducerConstantStateOutputs(T);
-[ [ 1, 2 ], [ "(1)*", "(1)*" ] ]
+[ [ 1, 2 ], [ [/ 1 ], [/ 1 ] ] ]
 gap> T := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
 > [[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;
 gap> TransducerConstantStateOutputs(T);
-[ [ 1, 2, 3 ], [ "2(011)*", "(110)*", "(011)*" ] ]
+[ [ 1, 2, 3 ], [ [ 2, / 0, 1, 1 ], [/ 1, 1, 0 ], [/ 0, 1, 1 ] ] ]
 gap> T := Transducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],
 > [[0, 1, 1, 1], [0]], [[0], [1]]]);;
 gap> TransducerConstantStateOutputs(T);
