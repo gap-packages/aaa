@@ -12,10 +12,9 @@
 # accepted by transducers.
 
 InstallMethod(IsPrefix, "for two dense lists",
-[IsDenseList, IsDenseList],
+[IsList, IsList],
 function(word1, word2)
   local i;
-
   if IsEmpty(word2) then
     return true;
   elif IsEmpty(word1) then
@@ -31,15 +30,21 @@ function(word1, word2)
       return false;
     fi;
   od;
-
   return true;
 end);
 
 InstallMethod(Minus, "for two dense lists",
-[IsDenseList, IsDenseList],
+[IsList, IsList],
 function(word1, word2)
   local word3, i;
   word3 := ShallowCopy(word1);
+
+  if word1 = word2 then
+    if IsPeriodicList(word2) then
+      return PeriodicList([]);
+    fi;
+    return [];
+  fi;
 
   if not IsPrefix(word1, word2) then
     return fail;
@@ -53,6 +58,7 @@ function(word1, word2)
 
   return word3;
 end);
+
 
 InstallMethod(PreimageConePrefixes, "for a den. list a pos. int. and a transd.",
 [IsDenseList, IsPosInt, IsTransducer],
@@ -147,11 +153,11 @@ end);
 InstallMethod(GreatestCommonPrefix, "for a dense list",
 [IsDenseList],
 function(L)
-  local minword, sizeword, n, x, notomit;
+  local sizeword, n, x, noreps;
 
   if IsEmpty(L) then
     return [];
-  elif ForAny(L, x -> not IsDenseList(x)) then
+  elif ForAny(L, x -> not (IsDenseList(x) or IsPeriodicList(x))) then
     ErrorNoReturn("aaa: GreatestCommonPrefix: usage,\n",
                   "the elements of the argument must be dense lists,");
   fi;
@@ -160,28 +166,29 @@ function(L)
     return [];
   fi;
 
+  noreps := List(Set(L));
+  if Size(noreps) = 1 then
+    return noreps[1];
+  fi;
+
   Sort(L, function(x, y)
             return Size(x) < Size(y);
           end);
-  minword := ShallowCopy(L[1]);
-  sizeword := Size(minword);
-  n := 0;
-  for x in [1 .. Size(minword)] do
-    notomit := sizeword - n;
-    if ForAll(L, x -> IsPrefix(x, minword{[1 .. notomit]})) then
-      return minword{[1 .. notomit]};
-    fi;
-    n := n + 1;
+
+  n := 1;
+  while n <= Size(noreps[1]) and 
+        ForAll(noreps, x -> x[n] = noreps[1][n]) do
+     n := n + 1;
   od;
 
-  return [];
+  return PeriodicList(noreps[1]{[1 .. n - 1]});
 end);
 
 InstallMethod(ImageConeLongestPrefix, "for a dens. list a pos. int and a tdcr.",
 [IsDenseList, IsPosInt, IsTransducer],
 function(w, q, T)
   local tducerf, flag, active, tactive, outputs, retired, v, b, k, y, x, word,
-        common, common1;
+        common, common1, const, pos;
 
   if ForAny(w, x -> not x in InputAlphabet(T)) then
     ErrorNoReturn("aaa: ImageConeLongestPrefix: usage,\n",
@@ -192,12 +199,21 @@ function(w, q, T)
                   "the second argument is not a state of the third argument,");
   fi;
 
+
+  const := TransducerConstantStateOutputs(T);
   tducerf := TransducerFunction(T, w, q);
   v := tducerf[1];
   b := tducerf[2];
   flag := false;
   retired := [];
   k := 0;
+
+  pos := Position(const[1], b);
+  if not pos = fail then
+    outputs := Concatenation(PeriodicList(v), const[2][pos]);
+    CompressPeriodicList(outputs);
+    return outputs;
+  fi;
 
   while not flag do
     k := k + 1;

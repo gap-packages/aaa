@@ -25,7 +25,7 @@ end);
 ################################################################################
 
 InstallMethod(DotTransducer, "for a transducer",
-[IsTransducer],   #This function was written by Michael Torpey
+[IsTransducer],   #The first version of this function was written by Michael Torpey
 function(transducer)
   local i, j, label, m, n, out, st, str, verts;
 
@@ -48,7 +48,13 @@ function(transducer)
     n := 0;
     for j in out[i] do
       n := n + 1;
-      st := String(OutputFunction(transducer)[i][n]);
+      st := "";
+      Append(st,String(PrePeriod(OutputFunction(transducer)[i][n])));
+      if not Period(OutputFunction(transducer)[i][n]) = [] then
+        Append(st, "(");
+        Append(st, String(Period(OutputFunction(transducer)[i][n])));
+        Append(st, ")ᐜ");
+      fi;
       RemoveCharacters(st, " [,]");
       Append(str, Concatenation(label[i], " -> ", label[j]));
       Append(str, Concatenation(" [label=\"", String(n - 1), "|", st, "\"]"));

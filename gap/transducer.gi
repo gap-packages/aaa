@@ -39,7 +39,7 @@ end);
 InstallMethod(Transducer, "for two positive integers and two dense lists",
 [IsPosInt, IsPosInt, IsDenseList, IsDenseList],
 function(inalph, outalph, tranfunc, outfunc)
-  local transducer, T;
+  local transducer, T, outputfinstates, i, j, state;
 
   if IsEmpty(tranfunc) or IsEmpty(outfunc) then
     ErrorNoReturn("aaa: Transducer: usage,\n",
@@ -52,7 +52,7 @@ function(inalph, outalph, tranfunc, outfunc)
     ErrorNoReturn("aaa: Transducer: usage,\n",
                   "the third argument contains invalid states,");
   elif ForAny(outfunc, x -> not IsDenseList(x) or
-              ForAny(x, y -> not IsDenseList(y) or
+              ForAny(x, y -> not (IsDenseList(y) or IsPeriodicList(y)) or
                      ForAny(y, z -> not z in [0 .. outalph - 1]))) then
     ErrorNoReturn("aaa: Transducer: usage,\n",
                   "the fourth argument contains invalid output,");
@@ -63,17 +63,43 @@ function(inalph, outalph, tranfunc, outfunc)
                   "does not coincide\nwith the first argument,");
   fi;
 
+  outputfinstates := Set([]);
+  for i in [1 .. Size(outfunc)] do
+    for j in [1 .. Size(outfunc[i])] do
+      if IsPeriodicList(outfunc[i][j]) and not Period(outfunc[i][j]) = [] then
+        CompressPeriodicList(outfunc[i][j]);
+	AddSet(outputfinstates, tranfunc[i][j]);
+      fi;
+      outfunc[i][j] := PeriodicList(outfunc[i][j]);
+    od;
+  od;
+
+  for state in outputfinstates do
+    if ForAny(outfunc[state], x -> not x = []) then
+       ErrorNoReturn("aaa: Transducer: usage,\n",
+                "the given object has output after an infinite ",
+                "periodic output,");
+    fi;
+    for i in tranfunc[state] do
+      if not i in outputfinstates then
+        Add(outputfinstates, i);
+      fi;
+    od;
+  od;
+
   transducer := function(input, state)
-                  local ialph, oalph, tfunc, ofunc, output, n;
+                  local ialph, oalph, tfunc, ofunc, output, n, statesvisited,
+                        loopstart, loopend, newstate, reachlooppart, looppart;
                   ialph := [0 .. inalph - 1];
                   oalph := [0 .. outalph - 1];
                   tfunc := tranfunc;
                   ofunc := outfunc;
-                  output := [];
+                  output := PeriodicList([]);
 
-                  if not IsDenseList(input) then
+                  if not (IsDenseList(input) or IsPeriodicList(input)) then
                     ErrorNoReturn("aaa: Transducer: usage,\n",
-                                  "the first argument must be a dense list,");
+                                  "the first argument must be a dense list\n",
+				  "or a periodic list");
                   elif not IsPosInt(state) then
                     ErrorNoReturn("aaa: Transducer: usage,\n",
                                   "the second argument must be a positive ",
@@ -88,6 +114,26 @@ function(inalph, outalph, tranfunc, outfunc)
                                   "integers in ", ialph, ",");
                   fi;
 
+		  if IsPeriodicList(input) and not Period(input) = [] then
+                      statesvisited := [];
+		      newstate := transducer(PrePeriod(input), state)[2];
+                      loopstart := Position(statesvisited, newstate);
+                      while loopstart = fail do
+			Add(statesvisited, newstate);
+			newstate := transducer(Period(input), newstate)[2];
+                        loopstart := Position(statesvisited, newstate);
+		      od;
+		      loopend := Length(statesvisited);
+                      reachlooppart := Concatenation(PrePeriod(input), 
+                                                     Concatenation(List([1 .. loopstart], 
+                                                                         x -> Period(input))));
+                      looppart := Concatenation(List([loopstart .. loopend], x -> Period(input)));
+                      output := PeriodicList(transducer(reachlooppart, state)[1], 
+                                              transducer(looppart, newstate)[1]);
+		      CompressPeriodicList(output);
+                      return [output, 0];
+                  fi;
+		  
                   for n in input do
                     Append(output, ofunc[state][n + 1]);
                     state := tfunc[state][n + 1];
@@ -101,6 +147,7 @@ function(inalph, outalph, tranfunc, outfunc)
                                              OutputAlphabet := outalph,
                                              States := Size(tranfunc),
                                              TransitionFunction := tranfunc,
+					     ReachableWithInfiniteOutput := outputfinstates,
                                              OutputFunction := outfunc,
                                              TransducerFunction := transducer));
 
@@ -108,7 +155,7 @@ function(inalph, outalph, tranfunc, outfunc)
 end);
 
 InstallMethod(TransducerFunction, "for a transducer, a dense list and a posint",
-[IsTransducer, IsDenseList, IsPosInt],
+[IsTransducer, IsList, IsPosInt],
 function(T, input, state)
   return T!.TransducerFunction(input, state);
 end);

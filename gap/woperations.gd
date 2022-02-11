@@ -11,8 +11,8 @@
 # This file contains the declaration of operations that relate to words accepted
 # by transducers.
 
-DeclareOperation("IsPrefix", [IsDenseList, IsDenseList]);
-DeclareOperation("Minus", [IsDenseList, IsDenseList]);
+DeclareOperation("IsPrefix", [IsList, IsList]);
+DeclareOperation("Minus", [IsList, IsList]);
 DeclareOperation("PreimageConePrefixes", [IsDenseList, IsPosInt,
                                           IsTransducer]);
 DeclareOperation("GreatestCommonPrefix", [IsDenseList]);

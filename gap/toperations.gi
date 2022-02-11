@@ -146,7 +146,6 @@ function(T)
                   "the given transducer must be nondegenerate ");
   fi;
 
-  const := TransducerConstantStateOutputs(T);
   edgestopushfrom := [];
   ntfunc := [];
   nofunc := [];
@@ -157,55 +156,15 @@ function(T)
   for x in [0 .. Size(OutputFunction(T)[1]) - 1] do
     target := TransducerFunction(T, [x], 1)[2];
     ntfunc[1][x + 1] := target + 1;
-    pos := Position(const[1], target);
-    if pos = fail then
-      nofunc[1][x + 1] := ImageConeLongestPrefix([x], 1, T);
-    else
-      out := TransducerFunction(T,[x],1)[1];
-      nofunc[1][x + 1] := Concatenation(out, PrePeriod(const[2][pos]));
-      if out <> [] and PrePeriod(const[2][pos]) = [] and out[Size(out)] = Period(const[2][pos])[Size(Period(const[2][pos]))] then
-        Add(edgestopushfrom, [1, x + 1]);
-      fi;
-    fi;
+    nofunc[1][x + 1] := ImageConeLongestPrefix([x], 1, T);
   od;
   for n in [2 .. NrStates(T) + 1] do
-    if not n - 1 in const[1] then
-      for x in [0 .. Size(OutputFunction(T)[n - 1]) - 1] do
-        target := TransducerFunction(T, [x], n - 1)[2];
-        ntfunc[n][x + 1] := target + 1;
-        pos := Position(const[1], target);
-        if pos = fail then
-          nofunc[n][x + 1] := Minus(ImageConeLongestPrefix([x], n - 1, T),
+    for x in [0 .. Size(OutputFunction(T)[n - 1]) - 1] do
+      target := TransducerFunction(T, [x], n - 1)[2];
+      ntfunc[n][x + 1] := target + 1;
+      nofunc[n][x + 1] := Minus(ImageConeLongestPrefix([x], n - 1, T),
                                     ImageConeLongestPrefix([], n - 1, T));
-        else
-          badpref := ImageConeLongestPrefix([], n - 1, T);
-          out := TransducerFunction(T, [x], n - 1)[1];
-          neededcopies := Int(Ceil(Float(((Size(badpref) - Size(PrePeriod(const[2][pos])))/Size(Period(const[2][pos]))))));
-          neededcopies := Maximum(neededcopies, 0);
-          stufftowrite := Concatenation(out, PrePeriod(const[2][pos]), Concatenation(ListWithIdenticalEntries(neededcopies, Period(const[2][pos]))));
-          nofunc[n][x + 1] := Minus(stufftowrite, badpref);
-          if nofunc[n][x + 1] <> [] and nofunc[n][x + 1][Size(nofunc[n][x + 1])] = Period(const[2][pos])[1] then
-            Add(edgestopushfrom, [n, x + 1]);
-          fi;
-        fi;
-      od;
-    else
-      for x in InputAlphabet(T) do;
-        ntfunc[n][x + 1] := n;
-        nofunc[n][x + 1] := Period(const[2][Position(const[1],n - 1)]);
-      od;
-    fi;
-  od;
-  for edge in edgestopushfrom do
-    Add(ntfunc, ListWithIdenticalEntries(Size(InputAlphabet(T)),Size(ntfunc) + 1));
-    pushstring := ShallowCopy(nofunc[ntfunc[edge[1]][edge[2]]][1]);
-    out := nofunc[edge[1]][edge[2]];
-    while out <> [] and out[Size(out)] = pushstring[Size(pushstring)] do
-      Remove(out);
-      pushstring := Concatenation([pushstring[Size(pushstring)]],pushstring{[1 .. Size(pushstring)-1]});
     od;
-    Add(nofunc, ListWithIdenticalEntries(Size(InputAlphabet(T)), pushstring));
-    ntfunc[edge[1]][edge[2]]:= Size(ntfunc);
   od;
 
   return Transducer(NrInputSymbols(T), NrOutputSymbols(T), ntfunc, nofunc);
@@ -365,7 +324,7 @@ function(T)
   prefixcodes := [];
 
   containsantichain := function(list, n, r)
-    return IsCompleteAntichain(MinimalWords(list), n, r);
+    return IsCompleteAntichain(MinimalWords(List(list, x -> PrePeriod(PeriodicList(x)))), n, r);
   end;
 
   for x in usefulstates do
@@ -423,14 +382,14 @@ function(T)
       imagekeys := StructuralCopy(List(imagetrees[state], x -> x[1]));
       for prefix in imagekeys do
         keys := List(finalimagetree, x -> x[1]);
-        pos := Position(keys, Concatenation(block[1], prefix));
+        pos := Position(keys, Concatenation(PeriodicList(block[1]), prefix));
         if not pos = fail then
           pos2 := Position(imagekeys, prefix);
           Append(finalimagetree[pos][2], imagetrees[state][pos2][2]);
           finalimagetree[pos][2] := Set(finalimagetree[pos][2]);
         else
           pos2 := Position(imagekeys, prefix);
-          Add(finalimagetree, [StructuralCopy(Concatenation(block[1], prefix)),
+          Add(finalimagetree, [StructuralCopy(Concatenation(PeriodicList(block[1]), prefix)),
               StructuralCopy(imagetrees[state][pos2][2])]);
         fi;
       od;
@@ -482,11 +441,15 @@ end);
 InstallMethod(TransducerImageAutomaton, "for a transducer", 
 [IsTransducer],
 function(T)
-  local numberofstates, i, transitiontable, currentnewstate, j, k, autalph;
+  local numberofstates, i, transitiontable, currentnewstate, j, k, autalph, 
+        writtenword, cyclestart;
   numberofstates := Size(States(T));
   for i in Concatenation(OutputFunction(T)) do
-    if not Size(i)=0 then
-      numberofstates := numberofstates + Size(i) - 1;
+    if not Size(i) = 0 then
+      numberofstates := numberofstates + Size(PrePeriod(i)) - 1;
+      if Size(i) = infinity then
+        numberofstates := numberofstates + 1 + Size(Period(i));
+      fi;
     fi;
   od;
 
@@ -498,19 +461,37 @@ function(T)
   currentnewstate := Size(States(T)) + 1;
   for i in States(T) do
     for j in [0 .. Size(OutputFunction(T)[i]) - 1] do
-      if Size(OutputFunction(T)[i][j+1]) > 1 then
-         Add(transitiontable[OutputFunction(T)[i][j+1][1]+1][i],currentnewstate);
-         for k in [2 .. Size(OutputFunction(T)[i][j+1])-1] do
-           AddSet(transitiontable[OutputFunction(T)[i][j+1][k]+1][currentnewstate],currentnewstate + 1);
+      writtenword := OutputFunction(T)[i][j + 1];
+      if Size(writtenword) > 1 then
+         if Size(PrePeriod(writtenword)) = 0 then
+           writtenword := PeriodicList([writtenword[1]], 
+                           Concatenation(Period(writtenword){[2 .. Size(Period(writtenword))]}, 
+                                         [writtenword[1]]));
+         fi;
+         Add(transitiontable[writtenword[1] + 1][i], currentnewstate);
+         for k in [2 .. Size(PrePeriod(writtenword)) - 1] do
+           AddSet(transitiontable[writtenword[k] + 1][currentnewstate], currentnewstate + 1);
            currentnewstate := currentnewstate + 1;
          od;
-           AddSet(transitiontable[OutputFunction(T)[i][j+1][Size(OutputFunction(T)[i][j+1])]+1][currentnewstate],TransducerFunction(T,[j],i)[2]);
-           currentnewstate := currentnewstate + 1;
+         if Size(Period(writtenword)) = 0 then
+           AddSet(transitiontable[writtenword[Size(writtenword)] + 1][currentnewstate],
+                  TransducerFunction(T, [j], i)[2]);
+         else
+           cyclestart := currentnewstate;
+           for k in [1 .. Size(Period(writtenword)) - 1] do
+             AddSet(transitiontable[Period(writtenword)[k] + 1][currentnewstate], 
+                                                               currentnewstate + 1);
+             currentnewstate := currentnewstate + 1;
+           od;
+            AddSet(transitiontable[Period(writtenword)[Size(Period(writtenword))] + 1][currentnewstate], 
+                                                               cyclestart);
+         fi;
+         currentnewstate := currentnewstate + 1;
       fi;
-      if Size(OutputFunction(T)[i][j+1]) = 1 then 
-          AddSet(transitiontable[OutputFunction(T)[i][j+1][1]+1][i],TransducerFunction(T,[j],i)[2]);
+      if Size(writtenword) = 1 then 
+          AddSet(transitiontable[writtenword[1]+1][i],TransducerFunction(T,[j],i)[2]);
       fi;
-      if Size(OutputFunction(T)[i][j+1]) < 1 then 
+      if Size(writtenword) < 1 then 
           AddSet(transitiontable[autalph + 1][i],TransducerFunction(T,[j],i)[2]);
       fi;
     od;
@@ -526,9 +507,7 @@ function(T)
   local constantstates, constantstateoutputs, currentstate, state,
   automatonhasbeenbuilt, stateisnotconstant, tuple, out1, out2, A, MinA,
   newstatenr, badstates, TMat, path, pos, root, circuit, next, Adata;
-  if IsDegenerateTransducer(T) then
-    return fail;
-  fi;
+
   constantstates := [];
   constantstateoutputs := [];
   automatonhasbeenbuilt := false;
@@ -538,7 +517,7 @@ function(T)
        if not tuple[1] = tuple[2] then
          out1 := TransducerFunction(T,[tuple[1]],state);
          out2 := TransducerFunction(T,[tuple[2]],state);
-         if not (IsPrefix(out1[1],out2[1]) or IsPrefix(out2[1],out1[1])) then
+         if not (IsPrefix(out1[1], out2[1]) or IsPrefix(out2[1], out1[1])) then
            stateisnotconstant:= true;
            break;
          fi;
@@ -590,10 +569,33 @@ end);
 InstallMethod(IsDegenerateTransducer, "for a transducer",
 [IsTransducer],
 function(T)
-  local D;
-  D := FixedOutputDigraph(T, []);
+  local D, state, i, reachablewithfiniteoutput, newstate;
+  if not T!.ReachableWithInfiniteOutput = [] then
+    reachablewithfiniteoutput := [1];
+    if 1 in T!.ReachableWithInfiniteOutput then
+      return true;
+    fi;
+    for state in reachablewithfiniteoutput do
+      for i in InputAlphabet(T) do
+        newstate := TransitionFunction(T)[state][i + 1];
+        if Size(OutputFunction(T)[state][i + 1]) < infinity and 
+           not newstate in reachablewithfiniteoutput then
+	   Add(reachablewithfiniteoutput, newstate);
+           if newstate in T!.ReachableWithInfiniteOutput then
+             return true;
+           fi;
+        fi;
+      od;
+    od;
+    D := InducedSubdigraph(FixedOutputDigraph(T, []), 
+                           reachablewithfiniteoutput);
+    return DigraphHasLoops(D) or DigraphGirth(D) < infinity;
+  fi;
+
+  D := FixedOutputDigraph(RemoveInaccessibleStates(T), []);
   return DigraphHasLoops(D) or DigraphGirth(D) < infinity;
 end);
+
 
 InstallMethod(FixedOutputDigraph, "for a transducer",
 [IsTransducer, IsDenseList],
@@ -615,9 +617,9 @@ function(T, word)
 end);
 
 
-QuotientTransducer := function(T,EqR, wantoutputs)
+QuotientTransducer := function(T, EqR, wantoutputs)
   local Classes, class, i, Pi, Lambda, initialclass;
-  Classes:=ShallowCopy(EquivalenceRelationPartition(EquivalenceRelationByPairs(Domain(States(T)),EqR)));
+  Classes := ShallowCopy(EquivalenceRelationPartition(EquivalenceRelationByPairs(Domain(States(T)), EqR)));
 
   class := function(q)
         local j;
@@ -642,15 +644,15 @@ QuotientTransducer := function(T,EqR, wantoutputs)
   Classes := Concatenation([initialclass],Classes);
   Pi:= ShallowCopy(Classes);
   Lambda := ShallowCopy(Classes);
-  Apply(Pi,x -> TransitionFunction(T)[x[1]]);
+  Apply(Pi, x -> TransitionFunction(T)[x[1]]);
   if wantoutputs then
-    Apply(Lambda, x-> OutputFunction(T)[x[1]]);
+    Apply(Lambda, x -> OutputFunction(T)[x[1]]);
   else
     Apply(Lambda,
-          x-> ListWithIdenticalEntries(Size(OutputFunction(T)[x[1]]), []));
+          x -> ListWithIdenticalEntries(Size(OutputFunction(T)[x[1]]), []));
   fi;
   for i in Pi do
-        Apply(i,class);
+        Apply(i, class);
   od;
 
   return Transducer(NrInputSymbols(T), NrOutputSymbols(T), Pi, Lambda);
@@ -671,7 +673,7 @@ function(T)
                      TransducerFunction(T, [i], tuple[2])[2]];
         Sort(NewTuple);
         if not NewTuple in EqRelation then
-          Remove(EqRelation,Position(EqRelation,tuple));
+          Remove(EqRelation, Position(EqRelation,tuple));
           flag := true;
           break;
         fi;

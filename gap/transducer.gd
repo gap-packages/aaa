@@ -22,7 +22,7 @@ DeclareRepresentation("IsTransducer", IsComponentObjectRep and
                                               "TransducerFunction"]);
 DeclareOperation("Transducer", [IsPosInt, IsPosInt, IsDenseList, IsDenseList]);
 DeclareOperation("TransducerFunction",
-                 [IsTransducer, IsDenseList, IsPosInt]);
+                 [IsTransducer, IsList, IsPosInt]);
 DeclareOperation("OutputFunction", [IsTransducer]);
 DeclareOperation("TransitionFunction", [IsTransducer]);
 DeclareOperation("InputAlphabet", [IsTransducer]);

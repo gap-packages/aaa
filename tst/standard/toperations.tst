@@ -50,12 +50,11 @@ gap> T := Transducer(2, 2, [[2, 2], [3, 3], [3, 3]], [[[0], [1]], [[0], [1]], [[
 2 symbols, and 3 states.>
 gap> M:= RemoveIncompleteResponseFromStates(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 
-2 symbols, and 5 states.>
+2 symbols, and 4 states.>
 gap> OutputFunction(M);
-[ [ [ 0 ], [ 1 ] ], [ [ 0 ], [ 1 ] ], [ [  ], [ 1 ] ], [ [ 0 ], [ 0 ] ], 
-  [ [ 0 ], [ 0 ] ] ]
+[ [ [ 0 ], [ 1 ] ], [ [ 0 ], [ 1 ] ], [ [/ 0 ], [ 1, / 0 ] ], [ [  ], [  ] ] ]
 gap> TransitionFunction(M);
-[ [ 3, 3 ], [ 3, 3 ], [ 5, 4 ], [ 4, 4 ], [ 5, 5 ] ]
+[ [ 3, 3 ], [ 3, 3 ], [ 4, 4 ], [ 4, 4 ] ]
 gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 >                           [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
@@ -71,19 +70,17 @@ gap> TransducerFunction(p, [2], 2)[1];
 gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
 gap> R := RemoveIncompleteResponseFromStates(T);;
 gap> OutputFunction(R);
-[ [ [  ], [  ] ], [ [ 1 ], [ 1 ] ], [ [ 1 ], [ 1 ] ], [ [ 1 ], [ 1 ] ], 
-  [ [ 1 ], [ 1 ] ] ]
+[ [ [/ 1 ], [/ 1 ] ], [ [  ], [  ] ], [ [  ], [  ] ] ]
 gap> TransitionFunction(R);
-[ [ 4, 5 ], [ 2, 2 ], [ 3, 3 ], [ 4, 4 ], [ 5, 5 ] ]
+[ [ 2, 3 ], [ 2, 3 ], [ 3, 3 ] ]
 gap> T := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
 > [[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;
 gap> R := RemoveIncompleteResponseFromStates(T);;
 gap> OutputFunction(R);
-[ [ [ 2 ], [ 2 ] ], [ [ 0, 1, 1 ], [ 0, 1, 1 ] ], 
-  [ [ 1, 1, 0 ], [ 1, 1, 0 ] ], [ [ 0, 1, 1 ], [ 0, 1, 1 ] ], 
-  [ [ 0, 1, 1 ], [ 0, 1, 1 ] ] ]
+[ [ [ 2, / 0, 1, 1 ], [ 2, / 0, 1, 1 ] ], [ [  ], [  ] ], [ [  ], [  ] ], 
+  [ [  ], [  ] ] ]
 gap> TransitionFunction(R);
-[ [ 5, 4 ], [ 2, 2 ], [ 3, 3 ], [ 4, 4 ], [ 5, 5 ] ]
+[ [ 3, 4 ], [ 3, 4 ], [ 3, 4 ], [ 3, 4 ] ]
 gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
 > [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
 gap> RemoveIncompleteResponseFromStates(T);
