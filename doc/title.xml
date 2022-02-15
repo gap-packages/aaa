@@ -44,6 +44,9 @@
     <Ref Func = "Splash"/>. The function <Ref Oper="DotTransducer"/>, written by
     Michael Torpey, is based on the &Digraphs; <Cite Key="DGPHS"/> package
     function they wrote called DotString.<P/>
+
+    Dmytro Savchuk gave a lot of helpful feedback on this manual which, amoung 
+    other things led to the package adding support for periodic lists.
   </Acknowledgements>
 
 </TitlePage>
