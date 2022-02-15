@@ -40,7 +40,8 @@ gap> f := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]],
 > [[[0], []], [[1], []], [[2], [3]]]);;
 gap> f!.TransducerFunction(1, 1);
 Error, aaa: Transducer: usage,
-the first argument must be a dense list,
+the first argument must be a dense list
+or a periodic list
 gap> f!.TransducerFunction([1], 0);
 Error, aaa: Transducer: usage,
 the second argument must be a positive integer,
