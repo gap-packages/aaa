@@ -287,6 +287,12 @@ gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
 gap> MinimalTransducer(T);
 Error, aaa: MinimalTransducer: usage,
 the given transducer must be nondegenerate 
+gap> T := Transducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
+gap> M := MinimalTransducer(T);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
 
 #T# IsomorphicInitialTransducers
 gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],

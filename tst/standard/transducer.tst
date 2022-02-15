@@ -51,6 +51,12 @@ the second argument must not be greater than 3,
 gap> f!.TransducerFunction([2], 3);
 Error, aaa: Transducer: usage,
 the first argument must be a list of integers in [ 0 .. 1 ],
+gap> T := Transducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
+gap> M := Transducer(2, 2, [[2, 2], [2, 2]], [[PeriodicList([], [0]), PeriodicList([], [0])], [[], []]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
 
 #T# IdentityTransducer
 gap> T := IdentityTransducer(1);
