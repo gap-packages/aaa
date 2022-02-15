@@ -38,6 +38,8 @@ Error, aaa: Transducer: usage,
 the third and fourth arguments must be non-empty,
 gap> f := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]],
 > [[[0], []], [[1], []], [[2], [3]]]);;
+gap> TransducerFunction(f, PeriodicList([1, 0], [0, 1]), 1);          
+[ [ 1, 0, / 1 ], 0 ]
 gap> f!.TransducerFunction(1, 1);
 Error, aaa: Transducer: usage,
 the first argument must be a dense list
