@@ -61,4 +61,24 @@
   <url>https://gap-packages.github.io/Digraphs</url>
 </manual></entry>
 
+<entry id="AUTOMGRP"><manual>
+  <author>
+    <name><first>Y.</first><last>Muntyan</last></name>
+    <name><first>D.</first><last>Savchuk</last></name>
+  </author>
+  <title>AutomGrp, Automata groups, <C>V</C>ersion 1.3.2</title>
+  <year>2019</year>
+  <url>https://gap-packages.github.io/automgrp</url>
+</manual></entry>
+
+<entry id="FR"><manual>
+  <author>
+    <name><first>Laurent</first><last>Bartholdi</last></name>
+  </author>
+  <title>Fr, Functionally recursive groups, <C>V</C>ersion 2.4.7</title>
+  <year>2021</year>
+  <url>https://gap-packages.github.io/fr</url>
+</manual></entry>
+
+
 </file>
