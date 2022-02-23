@@ -13,12 +13,75 @@
 
   <Section>
 
+	  <Heading>ShortCommands</Heading>
+        
+          Purely for the purposes of reduced typing, the symbols <C>*</C> and
+          <C>^</C> can be used following ways:
+           <Alt Only="LaTeX">\\  </Alt>
+           For transducers <A>A</A> and <A>B</A>, where the output alphabet of
+           <A>A</A> agrees with the input alphabet of <A>B</A>, the command
+           <C>A*B</C> gives the product of the transducers <A>A</A> and
+           <A>B</A> (the output is the same as
+           <C>TransducerProduct(<A>A, B</A>)</C>).
+
+           <Alt Only="LaTeX">\\  </Alt>
+           For a transducer <A>A</A> with the same input and output alphabet
+           and a non-negative integer <A>n</A>, the command <A>A^n</A> gives
+           the product of <A>A</A> with itself <A>n</A> times. When <A>n</A>
+           is <A>0</A>, this is the same as the command
+           <C>IdentityTransducer(NrInputSymbols(A))</C>. Otherwise this is the
+           same as <C>A^(n-1) * A</C>;
+
+           <Alt Only="LaTeX">\\  </Alt>
+           For a transducer <A>A</A> whose initial state 1 induces a bijection
+           between the infinite words of its input alphabet and the infinite
+           words of its input alphabet, the command <C>A^-1</C> returns the
+           inverse of the transducer <A>A</A>. This is the same as the command
+           <C>InverseTransducer(A)</C>. Moreover, for any positive integer
+           <A>n</A>, the command <C>A^-n</C> is the same as the command
+           <C>(A^-1)^n</C>.
+
+           <Alt Only="LaTeX">\\  </Alt>
+           For a transducer <A>A</A> whose initial state 1 induces a bijection
+           between the infinite words of its input alphabet and the infinite
+           words of its input alphabet, and a transducer <A>B</A> whose input
+           and output alphabet agree with the input alphabet of <A>A</A>, the
+           command <C>B^A</C> returns the conjugate of <A>B</A> by <A>A</A>.
+           This is the same as the command <C>(A^-1)*B*A</C>.
+
+<Example><![CDATA[
+gap> T := Transducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
+gap> EqualTransducers(T^3, T*T*T);
+true
+gap> B := Transducer(2, 2, [[1, 1]], [[[1], [0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 1 state.>
+gap> T := Transducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+2 symbols, and 2 states.>
+gap> EqualTransducers(T*B, TransducerProduct(T, B));
+true
+gap> EqualTransducers(T^3, T*T*T);                  
+true
+gap> A := AlphabetChangeTransducer(2, 3);
+<transducer with input alphabet on 2 symbols, output alphabet on 
+3 symbols, and 2 states.>
+gap> EqualTransducers(A^-1*T*A, T^A);    
+true
+gap> EqualTransducers(B^-4, (B^-1)^4);
+true
+]]></Example>
+</Section> 
+
+<Section>
+
     <Heading>
-      Transducer operations
+      Operations
     </Heading>
 
     The following are the methods that can be used to analyze &aaa; transducers.
-
     <#Include Label = "InverseTransducer">
     <#Include Label = "TransducerProduct">
     <#Include Label = "RemoveIncompleteResponseFromStates">
