@@ -35,6 +35,9 @@
     following the &Semigroups; <Cite Key="SEMIGPS"/> package, a very useful
     recommendation of J. D. Mitchell, and contains all the functionality of the
     previous version, and more.<P/>
+    
+    Parts of the package were developed by Collin Bleak and Luke Elliott
+    whilst partially supported by EPSRC grant EP/R032866/1.
 
     Special thanks to Michael Torpey and Wilf Wilson for their continuous
     support. Their ample knowledge about &GAP; and programming has made the
