@@ -489,7 +489,7 @@ false
   <Description>
 	  For a transducer <A>T</A>, the operation 
 	  <C>TransducerImageAutomaton(<A>T</A>)</C> returns an automaton object
-	  (https://www.gap-system.org/Manuals/pkg/automata/doc/chap2.html#X821C3B3687B1F2FF)
+	  (https://docs.gap-system.org/pkg/automata/doc/chap2_mj.html#X821C3B3687B1F2FF)
 	  which accepts the language of finite words which are prefixes of the
 	  words which can be written from the initial state 1 of <A>T</A>.
     <Example><![CDATA[
