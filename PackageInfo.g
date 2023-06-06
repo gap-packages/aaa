@@ -18,7 +18,7 @@ PackageName := "aaa",
 Subtitle := "Algorithms for Asynchronous Transducers",
 Version := "0.1.0",
 Date := "09/02/2022", # dd/mm/yyyy format
-License := "GPL-2.0-or-later",
+License := "GPL-3.0-or-later",
 
 Persons := [
   rec(
