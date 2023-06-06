@@ -111,10 +111,10 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.8.0",
+  GAP := ">=4.10",
   NeededOtherPackages := [["automata", ">=0.0.0"],
                           ["digraphs", ">=0.15.0"],
-			  ["fr", ">=2.4.6"]],
+                          ["fr", ">=2.4.6"]],
   SuggestedOtherPackages := [],
   ExternalConditions := []),
 
