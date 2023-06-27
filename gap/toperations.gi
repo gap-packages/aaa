@@ -10,8 +10,8 @@
 
 # This file contains methods for operations that relate to transducers.
 
-InstallMethod(InverseTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(InverseGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local newstates, ntfunc, nofunc, n, x, q, word, preimage, newstate, tdcrf,
         readletters;
@@ -28,7 +28,7 @@ function(T)
       Append(word, q[1]);
       Append(word, [x]);
       preimage := GreatestCommonPrefix(PreimageConePrefixes(word, q[2], T));
-      tdcrf := TransducerFunction(T, preimage, q[2]);
+      tdcrf := GNSTransducerFunction(T, preimage, q[2]);
 
       newstate := [Minus(word, tdcrf[1]), tdcrf[2]];
 
@@ -43,11 +43,11 @@ function(T)
     od;
   od;
 
-  return Transducer(NrOutputSymbols(T), NrInputSymbols(T), ntfunc, nofunc);
+  return GNSTransducer(NrOutputSymbols(T), NrInputSymbols(T), ntfunc, nofunc);
 end);
 
-InstallMethod(TransducerProduct, "for two transducers",
-[IsTransducer, IsTransducer],
+InstallMethod(GNSTransducerProduct, "for two transducers",
+[IsGNSTransducer, IsGNSTransducer],
 function(tdcr1, tdcr2)
   local newstates, newstate, ntfun, nofun, tducerf, word, x, y, q, n;
   newstates := [];
@@ -55,7 +55,7 @@ function(tdcr1, tdcr2)
   nofun := [];
 
   if NrOutputSymbols(tdcr1) <> NrInputSymbols(tdcr2) then
-    ErrorNoReturn("aaa: TransducerProduct: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducerProduct: usage,\n",
                   "the output alphabet of the first argument must be the ",
                   "input alphabet\nof the second argument,");
   fi;
@@ -73,44 +73,44 @@ function(tdcr1, tdcr2)
     n := n + 1;
     for x in [0 .. Size(OutputFunction(tdcr1)[q[1]]) - 1] do
       word := OutputFunction(tdcr1)[q[1]][x + 1];
-      tducerf := TransducerFunction(tdcr2, word, q[2]);
+      tducerf := GNSTransducerFunction(tdcr2, word, q[2]);
       newstate := [TransitionFunction(tdcr1)[q[1]][x + 1], tducerf[2]];
       ntfun[n][x + 1] := Position(newstates, newstate);
       nofun[n][x + 1] := tducerf[1];
     od;
   od;
 
-  return Transducer(NrInputSymbols(tdcr1), NrOutputSymbols(tdcr2), ntfun,
+  return GNSTransducer(NrInputSymbols(tdcr1), NrOutputSymbols(tdcr2), ntfun,
                     nofun);
 end);
 
 InstallMethod(\*, "for two transducers",
-[IsTransducer, IsTransducer],
-TransducerProduct);
+[IsGNSTransducer, IsGNSTransducer],
+GNSTransducerProduct);
 
 InstallMethod(\^, "for a transducer and a positive integer",
-[IsTransducer, IsInt],
+[IsGNSTransducer, IsInt],
 function(T, n)
   local flag, tducer, x;
   if n = 1 then
-    return CopyTransducerWithInitialState(T, 1);
+    return CopyGNSTransducerWithInitialState(T, 1);
   fi;
   if n < 0 then
-    if not IsBijectiveTransducer(T) then
+    if not IsBijectiveGNSTransducer(T) then
       ErrorNoReturn("aaa: ^: usage,\n",
                   "the given transducer must be bijective");
     fi;
-    return InverseTransducer(T)^-n;
+    return InverseGNSTransducer(T)^-n;
   fi;
   if not InputAlphabet(T) = OutputAlphabet(T) then
     ErrorNoReturn("aaa: ^: usage,\n",
                   "the given transducer must have the same domain and range");
   fi;
   if n = 0 then
-    return IdentityTransducer(Size(InputAlphabet(T)));
+    return IdentityGNSTransducer(Size(InputAlphabet(T)));
   fi;
 
-  tducer := CopyTransducerWithInitialState(T, 1);
+  tducer := CopyGNSTransducerWithInitialState(T, 1);
 
   for x in [1 .. n - 1] do
     tducer := tducer * T;
@@ -119,29 +119,29 @@ function(T, n)
   return tducer;
 end);
 
-InstallMethod(EqualTransducers, "for a pair of transducers",
-[IsTransducer, IsTransducer],
+InstallMethod(EqualGNSTransducers, "for a pair of transducers",
+[IsGNSTransducer, IsGNSTransducer],
 function(T1,T2)
   return OutputFunction(T1) = OutputFunction(T2) and
          TransitionFunction(T1) = TransitionFunction(T2);
 end);
 
 InstallMethod(\^, "for a transducer and a bijective transducer",
-[IsTransducer, IsTransducer],
+[IsGNSTransducer, IsGNSTransducer],
 function(T1,T2)
-  if not IsBijectiveTransducer(T2) then
+  if not IsBijectiveGNSTransducer(T2) then
     return fail;
   fi;
   return T2^-1 * T1 * T2;
 end);
 
 InstallMethod(RemoveIncompleteResponseFromStates, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   local ntfunc, nofunc, n, x, const, target, pos, badpref, neededcopies,
         i, stufftowrite, out, edgestopushfrom, edge, pushstring;
 
-  if IsDegenerateTransducer(T) then
+  if IsDegenerateGNSTransducer(T) then
     ErrorNoReturn("aaa: RemoveIncompleteResponseFromStates: usage,\n",
                   "the given transducer must be nondegenerate ");
   fi;
@@ -154,24 +154,24 @@ function(T)
     Add(nofunc, []);
   od;
   for x in [0 .. Size(OutputFunction(T)[1]) - 1] do
-    target := TransducerFunction(T, [x], 1)[2];
+    target := GNSTransducerFunction(T, [x], 1)[2];
     ntfunc[1][x + 1] := target + 1;
     nofunc[1][x + 1] := ImageConeLongestPrefix([x], 1, T);
   od;
   for n in [2 .. NrStates(T) + 1] do
     for x in [0 .. Size(OutputFunction(T)[n - 1]) - 1] do
-      target := TransducerFunction(T, [x], n - 1)[2];
+      target := GNSTransducerFunction(T, [x], n - 1)[2];
       ntfunc[n][x + 1] := target + 1;
       nofunc[n][x + 1] := Minus(ImageConeLongestPrefix([x], n - 1, T),
                                     ImageConeLongestPrefix([], n - 1, T));
     od;
   od;
 
-  return Transducer(NrInputSymbols(T), NrOutputSymbols(T), ntfunc, nofunc);
+  return GNSTransducer(NrInputSymbols(T), NrOutputSymbols(T), ntfunc, nofunc);
 end);
 
 InstallMethod(RemoveInaccessibleStates, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   local states, newq, newl, new, q, n, x;
 
@@ -183,7 +183,7 @@ function(T)
   for q in states do
     n := n + 1;
     for x in InputAlphabet(T) do
-      new := TransducerFunction(T, [x], q);
+      new := GNSTransducerFunction(T, [x], q);
 
       if not new[2] in states then
         Add(states, new[2]);
@@ -196,12 +196,12 @@ function(T)
     od;
   od;
 
-  return Transducer(NrInputSymbols(T), NrOutputSymbols(T), newq, newl);
+  return GNSTransducer(NrInputSymbols(T), NrOutputSymbols(T), newq, newl);
 end);
 
-InstallMethod(CopyTransducerWithInitialState,
+InstallMethod(CopyGNSTransducerWithInitialState,
 "for a transducer and a positive integer",
-[IsTransducer, IsPosInt],
+[IsGNSTransducer, IsPosInt],
 function(T, i)
   local new, newq, newl, q, states, x, n, accessiblestates, newq2;
   states := ShallowCopy(States(T));
@@ -227,23 +227,23 @@ function(T, i)
   for q in states do
     n := n + 1;
     for x in [0 .. Size(OutputFunction(T)[q]) - 1] do
-      new := TransducerFunction(T, [x], q);
+      new := GNSTransducerFunction(T, [x], q);
       newq[n][x + 1] := Position(states, new[2]);
       newl[n][x + 1] := new[1];
     od;
   od;
 
-  return Transducer(NrInputSymbols(T), NrOutputSymbols(T), newq, newl);
+  return GNSTransducer(NrInputSymbols(T), NrOutputSymbols(T), newq, newl);
 end);
 
-InstallMethod(IsInjectiveTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(IsInjectiveGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(t)
  local T, state, CurrentDigraph, D, tuple, out1, out2, out, newvertex, vertex,
        letter;
 
- if IsDegenerateTransducer(t) then
-   ErrorNoReturn("aaa: IsInjectiveTransducer: usage,\n",
+ if IsDegenerateGNSTransducer(t) then
+   ErrorNoReturn("aaa: IsInjectiveGNSTransducer: usage,\n",
                   "the given transducer must be nondegenerate ");
  fi;
 
@@ -253,8 +253,8 @@ function(t)
    CurrentDigraph := [[],[]];
    for tuple in UnorderedTuples([0 .. Size(OutputFunction(T)[state]) - 1], 2) do
      if not tuple[1] = tuple[2] then
-        out1 := TransducerFunction(T,[tuple[1]],state);
-        out2 := TransducerFunction(T,[tuple[2]],state);
+        out1 := GNSTransducerFunction(T,[tuple[1]],state);
+        out2 := GNSTransducerFunction(T,[tuple[2]],state);
         if IsPrefix(out1[1],out2[1]) then
           newvertex := [[out1[2],[]],[out2[2],Minus(out1[1],out2[1])]];
         elif IsPrefix(out2[1],out1[1]) then
@@ -263,7 +263,7 @@ function(t)
           continue;
         fi;
         if newvertex[1] = newvertex[2] then
-           SetIsInjectiveTransducer(T, false);
+           SetIsInjectiveGNSTransducer(T, false);
            return false;
         fi;
         if not newvertex in CurrentDigraph[1] then
@@ -274,7 +274,7 @@ function(t)
    od;
    for vertex in CurrentDigraph[1] do
      for letter in InputAlphabet(T) do
-        out := TransducerFunction(T,[letter],vertex[2][1]);
+        out := GNSTransducerFunction(T,[letter],vertex[2][1]);
         if IsPrefix(vertex[2][2],out[1]) then
           newvertex := [vertex[1],[out[2],Minus(vertex[2][2],out[1])]];
         elif IsPrefix(out[1],vertex[2][2]) then
@@ -283,7 +283,7 @@ function(t)
           continue;
         fi;
         if newvertex[1] = newvertex[2] then
-           SetIsInjectiveTransducer(T, false);
+           SetIsInjectiveGNSTransducer(T, false);
            return false;
         fi;
         if not newvertex in CurrentDigraph[1] then
@@ -299,20 +299,20 @@ function(t)
      return false;
    fi;
  od;
- SetIsInjectiveTransducer(T, true);
+ SetIsInjectiveGNSTransducer(T, true);
  return true;
 end);
 
-InstallMethod(IsSurjectiveTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(IsSurjectiveGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local usefulstates, prefixcodes, imagetrees, completeblocks, finalimagetree,
   currentblocks, containsantichain, currentword, x, flag, y, minwords, tyx,
   pos, keys, subtree, check, pos2, prefix, block, state, imagekeys, outroots,
   minword, answer;
 
-  if IsDegenerateTransducer(T) then
-    ErrorNoReturn("aaa: IsSurjectiveTransducer: usage,\n",
+  if IsDegenerateGNSTransducer(T) then
+    ErrorNoReturn("aaa: IsSurjectiveGNSTransducer: usage,\n",
                   "the given transducer must be nondegenerate ");
     fi;
 
@@ -332,7 +332,7 @@ function(T)
     Add(prefixcodes, []);
     currentword := [];
     while flag do
-      while IsEmpty(TransducerFunction(T, currentword, x)[1]) do
+      while IsEmpty(GNSTransducerFunction(T, currentword, x)[1]) do
         Add(currentword, 0);
       od;
       Add(prefixcodes[Position(usefulstates, x)], StructuralCopy(currentword));
@@ -350,14 +350,14 @@ function(T)
       fi;
     od;
     for y in prefixcodes[Size(prefixcodes)] do;
-      tyx := TransducerFunction(T, y, x);
+      tyx := GNSTransducerFunction(T, y, x);
       if not tyx[2] in usefulstates then
          Add(usefulstates, tyx[2]);
       fi;
     od;
     imagetrees[x] := [];
     for y in prefixcodes[Position(usefulstates, x)] do
-      tyx := TransducerFunction(T, y, x);
+      tyx := GNSTransducerFunction(T, y, x);
       pos := Position(List(imagetrees[x], y -> y[1]), tyx[1]);
       if not pos = fail then
         AddSet(imagetrees[x][pos][2], tyx[2]);
@@ -434,12 +434,12 @@ function(T)
   od;
 
   answer := containsantichain(keys, NrOutputSymbols(T), outroots);
-  SetIsSurjectiveTransducer(T, answer);
+  SetIsSurjectiveGNSTransducer(T, answer);
   return answer;
 end);
 
-InstallMethod(TransducerImageAutomaton, "for a transducer", 
-[IsTransducer],
+InstallMethod(GNSTransducerImageAutomaton, "for a transducer", 
+[IsGNSTransducer],
 function(T)
   local numberofstates, i, transitiontable, currentnewstate, j, k, autalph, 
         writtenword, cyclestart;
@@ -475,7 +475,7 @@ function(T)
          od;
          if Size(Period(writtenword)) = 0 then
            AddSet(transitiontable[writtenword[Size(writtenword)] + 1][currentnewstate],
-                  TransducerFunction(T, [j], i)[2]);
+                  GNSTransducerFunction(T, [j], i)[2]);
          else
            cyclestart := currentnewstate;
            for k in [1 .. Size(Period(writtenword)) - 1] do
@@ -489,10 +489,10 @@ function(T)
          currentnewstate := currentnewstate + 1;
       fi;
       if Size(writtenword) = 1 then 
-          AddSet(transitiontable[writtenword[1]+1][i],TransducerFunction(T,[j],i)[2]);
+          AddSet(transitiontable[writtenword[1]+1][i],GNSTransducerFunction(T,[j],i)[2]);
       fi;
       if Size(writtenword) < 1 then 
-          AddSet(transitiontable[autalph + 1][i],TransducerFunction(T,[j],i)[2]);
+          AddSet(transitiontable[autalph + 1][i],GNSTransducerFunction(T,[j],i)[2]);
       fi;
     od;
   od;
@@ -501,8 +501,8 @@ function(T)
                    transitiontable, [1], [1 .. numberofstates]);
 end);
 
-InstallMethod(TransducerConstantStateOutputs, "for a transducer",
-[IsTransducer],
+InstallMethod(GNSTransducerConstantStateOutputs, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local constantstates, constantstateoutputs, currentstate, state,
   automatonhasbeenbuilt, stateisnotconstant, tuple, out1, out2, A, MinA,
@@ -515,8 +515,8 @@ function(T)
     stateisnotconstant := false;
     for tuple in UnorderedTuples([0 .. Size(OutputFunction(T)[state]) - 1], 2) do
        if not tuple[1] = tuple[2] then
-         out1 := TransducerFunction(T,[tuple[1]],state);
-         out2 := TransducerFunction(T,[tuple[2]],state);
+         out1 := GNSTransducerFunction(T,[tuple[1]],state);
+         out2 := GNSTransducerFunction(T,[tuple[2]],state);
          if not (IsPrefix(out1[1], out2[1]) or IsPrefix(out2[1], out1[1])) then
            stateisnotconstant:= true;
            break;
@@ -527,7 +527,7 @@ function(T)
       continue;
     fi;
     if not automatonhasbeenbuilt then
-      A := TransducerImageAutomaton(T);
+      A := GNSTransducerImageAutomaton(T);
       Adata := [NumberStatesOfAutomaton(A), AlphabetOfAutomaton(A), TransitionMatrixOfAutomaton(A)];
       automatonhasbeenbuilt := true;
     fi;
@@ -566,8 +566,8 @@ function(T)
   return [constantstates, constantstateoutputs];
 end);
 
-InstallMethod(IsDegenerateTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(IsDegenerateGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local D, state, i, reachablewithfiniteoutput, newstate;
   if not T!.ReachableWithInfiniteOutput = [] then
@@ -598,7 +598,7 @@ end);
 
 
 InstallMethod(FixedOutputDigraph, "for a transducer",
-[IsTransducer, IsDenseList],
+[IsGNSTransducer, IsDenseList],
 function(T, word)
 	local Out, OutNeigh;
 	Out := States(T);
@@ -606,8 +606,8 @@ function(T, word)
 		local Output, i;
 		Output := [];
 		for i in [0 .. Size(OutputFunction(T)[s]) - 1] do
-			if TransducerFunction(T,[i],s)[1] = word then
-				Add(Output,TransducerFunction(T,[i],s)[2]);
+			if GNSTransducerFunction(T,[i],s)[1] = word then
+				Add(Output,GNSTransducerFunction(T,[i],s)[2]);
 			fi;
 		od;
 		return Output;
@@ -617,7 +617,7 @@ function(T, word)
 end);
 
 
-QuotientTransducer := function(T, EqR, wantoutputs)
+QuotientGNSTransducer := function(T, EqR, wantoutputs)
   local Classes, class, i, Pi, Lambda, initialclass;
   Classes := ShallowCopy(EquivalenceRelationPartition(EquivalenceRelationByPairs(Domain(States(T)), EqR)));
 
@@ -655,11 +655,11 @@ QuotientTransducer := function(T, EqR, wantoutputs)
         Apply(i, class);
   od;
 
-  return Transducer(NrInputSymbols(T), NrOutputSymbols(T), Pi, Lambda);
+  return GNSTransducer(NrInputSymbols(T), NrOutputSymbols(T), Pi, Lambda);
 end;
 
 InstallMethod(CombineEquivalentStates, "for a transducer",
- [IsTransducer],
+ [IsGNSTransducer],
 function(T)
   local  x, EqRelation, i, tuple, NewTuple, b, flag;
   EqRelation := Filtered(UnorderedTuples(States(T), 2),
@@ -669,8 +669,8 @@ function(T)
     flag := false;
     for tuple in EqRelation do
       for i in InputAlphabet(T) do
-        NewTuple := [TransducerFunction(T, [i], tuple[1])[2],
-                     TransducerFunction(T, [i], tuple[2])[2]];
+        NewTuple := [GNSTransducerFunction(T, [i], tuple[1])[2],
+                     GNSTransducerFunction(T, [i], tuple[2])[2]];
         Sort(NewTuple);
         if not NewTuple in EqRelation then
           Remove(EqRelation, Position(EqRelation,tuple));
@@ -680,15 +680,15 @@ function(T)
       od;
     od;
   od;
-  return QuotientTransducer(T, EqRelation, true);
+  return QuotientGNSTransducer(T, EqRelation, true);
 end);
 
-InstallMethod(MinimalTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(MinimalGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local output;
-   if IsDegenerateTransducer(T) then
-    ErrorNoReturn("aaa: MinimalTransducer: usage,\n",
+   if IsDegenerateGNSTransducer(T) then
+    ErrorNoReturn("aaa: MinimalGNSTransducer: usage,\n",
                   "the given transducer must be nondegenerate ");
   fi;
   output := T;
@@ -696,12 +696,12 @@ function(T)
   output := RemoveIncompleteResponseFromStates(output);
   output := RemoveInaccessibleStates(output);
   output := CombineEquivalentStates(output);
-  SetIsMinimalTransducer(output, true);
+  SetIsMinimalGNSTransducer(output, true);
   return output;
 end);
 
-InstallMethod(IsomorphicInitialTransducers, "for a pair of transducer",
-[IsTransducer, IsTransducer],
+InstallMethod(IsomorphicInitialGNSTransducers, "for a pair of transducer",
+[IsGNSTransducer, IsGNSTransducer],
 function(T1,T2)
   local D1, D2, perm, Dtemp, i, orderedstates1, orderedstates2, state, target,
         inaccessiblestates1, inaccessiblestates2;
@@ -765,79 +765,79 @@ function(T1,T2)
   return false;
 end);
 
-InstallMethod(OmegaEquivalentTransducers, "for a pair of transducers",
-[IsTransducer, IsTransducer],
+InstallMethod(OmegaEquivalentGNSTransducers, "for a pair of transducers",
+[IsGNSTransducer, IsGNSTransducer],
 function(T1, T2)
   local M1, M2;
-  M1:= MinimalTransducer(T1);
-  M2:= MinimalTransducer(T2);
-  return IsomorphicInitialTransducers(M1, M2);
+  M1:= MinimalGNSTransducer(T1);
+  M2:= MinimalGNSTransducer(T2);
+  return IsomorphicInitialGNSTransducers(M1, M2);
 end);
 
 InstallMethod(\=, "for two transducers",
-[IsTransducer, IsTransducer],
-OmegaEquivalentTransducers);
+[IsGNSTransducer, IsGNSTransducer],
+OmegaEquivalentGNSTransducers);
 
-InstallMethod(IsBijectiveTransducer, "for a transducer",
-[IsTransducer], T -> IsInjectiveTransducer(T)
-                     and IsSurjectiveTransducer(T));
+InstallMethod(IsBijectiveGNSTransducer, "for a transducer",
+[IsGNSTransducer], T -> IsInjectiveGNSTransducer(T)
+                     and IsSurjectiveGNSTransducer(T));
 
-InstallMethod(IsMinimalTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(IsMinimalGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
-  return IsomorphicInitialTransducers(T, MinimalTransducer(T));
+  return IsomorphicInitialGNSTransducers(T, MinimalGNSTransducer(T));
 end);
 
-InstallMethod(IsSynchronousTransducer, "for a transducer",
-[IsTransducer], T -> ForAll(OutputFunction(T), x-> ForAll(x, y -> Size(y)=1)));
+InstallMethod(IsSynchronousGNSTransducer, "for a transducer",
+[IsGNSTransducer], T -> ForAll(OutputFunction(T), x-> ForAll(x, y -> Size(y)=1)));
 
-InstallMethod(TransducerOrder, "for a transducer",
-[IsTransducer],
+InstallMethod(GNSTransducerOrder, "for a transducer",
+[IsGNSTransducer],
 function(T)
   local temp, p;
 
   if not InputAlphabet(T) = OutputAlphabet(T) then
-    ErrorNoReturn("aaa: TransducerOrder: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducerOrder: usage,\n",
                   "the given transducer must have the same domain and range");
   fi;
 
-  if not IsBijectiveTransducer(T) then
-    ErrorNoReturn("aaa: TransducerOrder: usage,\n",
+  if not IsBijectiveGNSTransducer(T) then
+    ErrorNoReturn("aaa: GNSTransducerOrder: usage,\n",
                   "the given transducer must be bijective");
   fi;
 
-  temp := CopyTransducerWithInitialState(T, 1);
+  temp := CopyGNSTransducerWithInitialState(T, 1);
   p := 1;
   while not temp = T^0 do
-    temp := MinimalTransducer(temp * T);
+    temp := MinimalGNSTransducer(temp * T);
     p := p + 1;
   od;
   return p;
 end);
 
-InstallMethod(TransducerSynchronizingLength, "for a transducer", [IsTransducer],
+InstallMethod(GNSTransducerSynchronizingLength, "for a transducer", [IsGNSTransducer],
 function(T)
 	local count, CopyT, TempT, flag;
 	flag := true;
-        CopyT := CopyTransducerWithInitialState(T,1);
+        CopyT := CopyGNSTransducerWithInitialState(T,1);
 	count := -1;
 	while flag do
 		count := count + 1;
-		TempT := QuotientTransducer(CopyT,Filtered(Cartesian(States(CopyT), States(CopyT)),x-> TransitionFunction(CopyT)[x[1]]=TransitionFunction(CopyT)[x[2]]), false);
+		TempT := QuotientGNSTransducer(CopyT,Filtered(Cartesian(States(CopyT), States(CopyT)),x-> TransitionFunction(CopyT)[x[1]]=TransitionFunction(CopyT)[x[2]]), false);
 		flag := (States(CopyT) <> States(TempT));
 		CopyT := TempT;
 	od;
-        if IsTransducer(T) and States(CopyT) = [1] then
+        if IsGNSTransducer(T) and States(CopyT) = [1] then
 		return count;
 	fi;
 	return infinity;
 end);
 
-InstallMethod(IsSynchronizingTransducer, "for a transducer",
-[IsTransducer], T -> TransducerSynchronizingLength(T)<infinity);
+InstallMethod(IsSynchronizingGNSTransducer, "for a transducer",
+[IsGNSTransducer], T -> GNSTransducerSynchronizingLength(T)<infinity);
 
-InstallMethod(IsBisynchronizingTransducer, "for a transducer",
-[IsTransducer],
+InstallMethod(IsBisynchronizingGNSTransducer, "for a transducer",
+[IsGNSTransducer],
 function(T)
-  return IsBijectiveTransducer(T) and IsSynchronizingTransducer(T) and IsSynchronizingTransducer(InverseTransducer(T));
+  return IsBijectiveGNSTransducer(T) and IsSynchronizingGNSTransducer(T) and IsSynchronizingGNSTransducer(InverseGNSTransducer(T));
 end);

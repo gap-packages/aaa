@@ -12,25 +12,25 @@
 # that of objects that relate to this package. The appropiate ViewObj functions
 # are defined in the transducer.gi file.
 
-DeclareRepresentation("IsTransducer", IsComponentObjectRep and
+DeclareRepresentation("IsGNSTransducer", IsComponentObjectRep and
                       IsAttributeStoringRep,
                                              ["InputAlphabet",
                                               "OutputAlphabet",
                                               "States",
                                               "TransitionFunction",
                                               "OutputFunction",
-                                              "TransducerFunction"]);
-DeclareOperation("Transducer", [IsPosInt, IsPosInt, IsDenseList, IsDenseList]);
-DeclareOperation("TransducerFunction",
-                 [IsTransducer, IsList, IsPosInt]);
-DeclareOperation("OutputFunction", [IsTransducer]);
-DeclareOperation("TransitionFunction", [IsTransducer]);
-DeclareOperation("InputAlphabet", [IsTransducer]);
-DeclareOperation("OutputAlphabet", [IsTransducer]);
-DeclareOperation("States", [IsTransducer]);
-DeclareOperation("NrStates", [IsTransducer]);
-DeclareOperation("NrOutputSymbols", [IsTransducer]);
-DeclareOperation("NrInputSymbols", [IsTransducer]);
-DeclareOperation("IdentityTransducer", [IsPosInt]);
-DeclareOperation("AlphabetChangeTransducer", [IsPosInt, IsPosInt]);
-DeclareOperation("RandomTransducer", [IsPosInt, IsPosInt]);
+                                              "GNSTransducerFunction"]);
+DeclareOperation("GNSTransducer", [IsPosInt, IsPosInt, IsDenseList, IsDenseList]);
+DeclareOperation("GNSTransducerFunction",
+                 [IsGNSTransducer, IsList, IsPosInt]);
+DeclareOperation("OutputFunction", [IsGNSTransducer]);
+DeclareOperation("TransitionFunction", [IsGNSTransducer]);
+DeclareOperation("InputAlphabet", [IsGNSTransducer]);
+DeclareOperation("OutputAlphabet", [IsGNSTransducer]);
+DeclareOperation("States", [IsGNSTransducer]);
+DeclareOperation("NrStates", [IsGNSTransducer]);
+DeclareOperation("NrOutputSymbols", [IsGNSTransducer]);
+DeclareOperation("NrInputSymbols", [IsGNSTransducer]);
+DeclareOperation("IdentityGNSTransducer", [IsPosInt]);
+DeclareOperation("AlphabetChangeGNSTransducer", [IsPosInt, IsPosInt]);
+DeclareOperation("RandomGNSTransducer", [IsPosInt, IsPosInt]);

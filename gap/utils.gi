@@ -24,8 +24,8 @@ end);
 
 ################################################################################
 
-InstallMethod(DotTransducer, "for a transducer",
-[IsTransducer],   #The first version of this function was written by Michael Torpey
+InstallMethod(DotGNSTransducer, "for a transducer",
+[IsGNSTransducer],   #The first version of this function was written by Michael Torpey
 function(transducer)
   local i, j, label, m, n, out, st, str, verts;
 

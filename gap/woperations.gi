@@ -61,10 +61,10 @@ end);
 
 
 InstallMethod(PreimageConePrefixes, "for a den. list a pos. int. and a transd.",
-[IsDenseList, IsPosInt, IsTransducer],
+[IsDenseList, IsPosInt, IsGNSTransducer],
 function(word, state, tducer)
   local word2, x, wordset, pos, words, y, omit, n, newword;
-  if IsDegenerateTransducer(tducer) then
+  if IsDegenerateGNSTransducer(tducer) then
     ErrorNoReturn("aaa: PreimageConePrefixes: usage,\n",
                   "the given transducer must be nondegenerate ");
   fi;
@@ -139,7 +139,7 @@ function(word, state, tducer)
     Add(wordset, []);
   fi;
   for x in wordset do
-    if IsPrefix(TransducerFunction(tducer, x, state)[1], word) then
+    if IsPrefix(GNSTransducerFunction(tducer, x, state)[1], word) then
       Add(words, x);
     fi;
   od;
@@ -185,7 +185,7 @@ function(L)
 end);
 
 InstallMethod(ImageConeLongestPrefix, "for a dens. list a pos. int and a tdcr.",
-[IsDenseList, IsPosInt, IsTransducer],
+[IsDenseList, IsPosInt, IsGNSTransducer],
 function(w, q, T)
   local tducerf, flag, active, tactive, outputs, retired, v, b, k, y, x, word,
         common, common1, const, pos;
@@ -200,8 +200,8 @@ function(w, q, T)
   fi;
 
 
-  const := TransducerConstantStateOutputs(T);
-  tducerf := TransducerFunction(T, w, q);
+  const := GNSTransducerConstantStateOutputs(T);
+  tducerf := GNSTransducerFunction(T, w, q);
   v := tducerf[1];
   b := tducerf[2];
   flag := false;
@@ -220,7 +220,7 @@ function(w, q, T)
     outputs := [];
     active := Tuples(InputAlphabet(T), k);
     for x in active do
-      word := TransducerFunction(T, x, b)[1];
+      word := GNSTransducerFunction(T, x, b)[1];
       if not word in outputs then
         Add(outputs, word);
       fi;
@@ -240,7 +240,7 @@ function(w, q, T)
       common := ShallowCopy(common1);
       tactive := ShallowCopy(active);
       for x in active do
-        word := TransducerFunction(T, x, b)[1];
+        word := GNSTransducerFunction(T, x, b)[1];
         if (Size(word) > Size(common)) or ((not IsPrefix(word, common)) and
             (not IsPrefix(common, word))) then
           Remove(tactive, Position(tactive, x));
@@ -250,7 +250,7 @@ function(w, q, T)
       active := ShallowCopy(tactive);
       outputs := [];
       for x in retired do
-        word := TransducerFunction(T, x, b)[1];
+        word := GNSTransducerFunction(T, x, b)[1];
         if not word in outputs then
           Add(outputs, word);
         fi;

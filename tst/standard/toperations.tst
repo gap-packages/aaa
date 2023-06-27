@@ -10,42 +10,42 @@
 gap> START_TEST("aaa package: standard/toperations.tst");
 gap> LoadPackage("aaa", false);;
 
-#T# InverseTransducer
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+#T# InverseGNSTransducer
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> g := InverseTransducer(f);;
-gap> w := TransducerFunction(f, [0, 1], 1)[1];
+gap> g := InverseGNSTransducer(f);;
+gap> w := GNSTransducerFunction(f, [0, 1], 1)[1];
 [ 2, 0 ]
-gap> TransducerFunction(g, w, 1)[1];
+gap> GNSTransducerFunction(g, w, 1)[1];
 [ 0, 1 ]
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],  
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],  
 >  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
 >  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
 gap> T^-1;
 Error, aaa: ^: usage,
 the given transducer must be bijective
 
-#T# TransducerProduct
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+#T# GNSTransducerProduct
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 3 states.>
-gap> t := AlphabetChangeTransducer(2, 3);
+gap> t := AlphabetChangeGNSTransducer(2, 3);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 3 symbols, and 2 states.>
-gap> TransducerProduct(t, t);            
-Error, aaa: TransducerProduct: usage,
+gap> GNSTransducerProduct(t, t);            
+Error, aaa: GNSTransducerProduct: usage,
 the output alphabet of the first argument must be the input alphabet
 of the second argument,
 gap> t^2;
 Error, aaa: ^: usage,
 the given transducer must have the same domain and range
-gap> ff := TransducerProduct(f, f);
+gap> ff := GNSTransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 9 states.>
 
 #T# RemoveIncompleteResponseFromStates
-gap> T := Transducer(2, 2, [[2, 2], [3, 3], [3, 3]], [[[0], [1]], [[0], [1]], [[0], [0]]]);
+gap> T := GNSTransducer(2, 2, [[2, 2], [3, 3], [3, 3]], [[[0], [1]], [[0], [1]], [[0], [0]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 3 states.>
 gap> M:= RemoveIncompleteResponseFromStates(T);
@@ -55,25 +55,25 @@ gap> OutputFunction(M);
 [ [ [ 0 ], [ 1 ] ], [ [ 0 ], [ 1 ] ], [ [/ 0 ], [ 1, / 0 ] ], [ [  ], [  ] ] ]
 gap> TransitionFunction(M);
 [ [ 3, 3 ], [ 3, 3 ], [ 4, 4 ], [ 4, 4 ] ]
-gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
+gap> t := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 >                           [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 3 states.>
 gap> p := RemoveIncompleteResponseFromStates(t);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 4 states.>
-gap> TransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];
+gap> GNSTransducerFunction(t, [2], 1)[1]; GNSTransducerFunction(t, [1], 2)[1];
 [  ]
 [ 1 ]
-gap> TransducerFunction(p, [2], 2)[1];
+gap> GNSTransducerFunction(p, [2], 2)[1];
 [ 1 ]
-gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
 gap> R := RemoveIncompleteResponseFromStates(T);;
 gap> OutputFunction(R);
 [ [ [/ 1 ], [/ 1 ] ], [ [  ], [  ] ], [ [  ], [  ] ] ]
 gap> TransitionFunction(R);
 [ [ 2, 3 ], [ 2, 3 ], [ 3, 3 ] ]
-gap> T := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
+gap> T := GNSTransducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
 > [[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;
 gap> R := RemoveIncompleteResponseFromStates(T);;
 gap> OutputFunction(R);
@@ -81,191 +81,191 @@ gap> OutputFunction(R);
   [ [  ], [  ] ] ]
 gap> TransitionFunction(R);
 [ [ 3, 4 ], [ 3, 4 ], [ 3, 4 ], [ 3, 4 ] ]
-gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
+gap> T := GNSTransducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
 > [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
 gap> RemoveIncompleteResponseFromStates(T);
 Error, aaa: RemoveIncompleteResponseFromStates: usage,
 the given transducer must be nondegenerate 
 
 #T# RemoveInaccessibleStates
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 3 states.>
-gap> ff := TransducerProduct(f, f);
+gap> ff := GNSTransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 9 states.>
 gap> m := RemoveInaccessibleStates(ff);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 6 states.>
 
-#T# CopyTransducerWithInitialState
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+#T# CopyGNSTransducerWithInitialState
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> p := CopyTransducerWithInitialState(f, 3);;
-gap> TransducerFunction(f, [0, 1, 0], 3);
+gap> p := CopyGNSTransducerWithInitialState(f, 3);;
+gap> GNSTransducerFunction(f, [0, 1, 0], 3);
 [ [ 0, 2, 0, 2 ], 1 ]
-gap> TransducerFunction(p, [0, 1, 0], 1);
+gap> GNSTransducerFunction(p, [0, 1, 0], 1);
 [ [ 0, 2, 0, 2 ], 2 ]
-gap> p := CopyTransducerWithInitialState(f, 4);; 
+gap> p := CopyGNSTransducerWithInitialState(f, 4);; 
 Error, aaa: ChangeInitialState: usage,
 the second argument is not a state of the first argument,
 
-#T# IsInjectiveTransducer
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
+#T# IsInjectiveGNSTransducer
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
 >  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
 >  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 false
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 > [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> IsInjectiveTransducer(f);
+gap> IsInjectiveGNSTransducer(f);
 true
-gap> T := Transducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
+gap> T := GNSTransducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
 > [[0, 1], [1, 1]], [[0, 0], [1, 0]], [[0], [1]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
 > [[[0, 1, 0], []], [[1, 1], [0]], [[0, 1, 0], []], [[], [1, 0, 1, 0]],
 > [[1], [0]], [[], [1, 0]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
+gap> T := GNSTransducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
 > [[2], [3]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
 > [[1], [1, 0, 0, 1, 0, 1]], [[1, 1], [0, 1]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> IsInjectiveTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> IsInjectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
-gap> IsInjectiveTransducer(T);
-Error, aaa: IsInjectiveTransducer: usage,
+gap> T := GNSTransducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> IsInjectiveGNSTransducer(T);
+Error, aaa: IsInjectiveGNSTransducer: usage,
 the given transducer must be nondegenerate 
 
-#T# IsSurjectiveTransducer
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+#T# IsSurjectiveGNSTransducer
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsSurjectiveTransducer(T);
+gap> IsSurjectiveGNSTransducer(T);
 true
-gap> P := Transducer(2, 2, [[3, 4], [3, 2], [1, 3], [2, 4]], [[[1], [0]],
+gap> P := GNSTransducer(2, 2, [[3, 4], [3, 2], [1, 3], [2, 4]], [[[1], [0]],
 > [[], [1]], [[1], [0]], [[1, 0], [1]]]);;
-gap> IsSurjectiveTransducer(P);
+gap> IsSurjectiveGNSTransducer(P);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> IsSurjectiveTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> IsSurjectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
 > [[1], [1, 0, 0, 1, 0, 1]], [[1, 1], [0, 1]]]);;
-gap> IsSurjectiveTransducer(T);
+gap> IsSurjectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> IsSurjectiveTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> IsSurjectiveGNSTransducer(T);
 true
-gap> T := Transducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
+gap> T := GNSTransducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
 > [[[0], [1], [2, 0], [2, 1], [2, 2]], [[1], [2, 0], [2, 1],
 > [2, 2, 0], [2, 2]]]);;
-gap> IsSurjectiveTransducer(T);
+gap> IsSurjectiveGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
+gap> T := GNSTransducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
 > [[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;
-gap> IsSurjectiveTransducer(T);
+gap> IsSurjectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
-gap> IsSurjectiveTransducer(T);
-Error, aaa: IsSurjectiveTransducer: usage,
+gap> T := GNSTransducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> IsSurjectiveGNSTransducer(T);
+Error, aaa: IsSurjectiveGNSTransducer: usage,
 the given transducer must be nondegenerate 
 
-#T# TransducerImageAutomaton
-gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
+#T# GNSTransducerImageAutomaton
+gap> T := GNSTransducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
 > [[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",7,\"012@\",[ [ [ 2 ], [ ], [ 6 ], [ ], [ 1 ], [ ], [ 3 \
 ] ], [ [ 4 ], [ 1, 3 ], [ ], [ 3 ], [ ], [ 7 ], [ ] ], [ [ 3 ], [ ], [ 5 ], [ \
 ], [ ], [ ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 7\
  ]);;"
-gap> T := Transducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],
 > [[[0], [0]], [[0, 1, 0, 0, 0, 1], [0, 0, 0]], [[], [0]],
 > [[], []], [[0], [0]]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",12,\"01@\",[ [ [ 2, 3 ], [ 6, 11 ], [ 5 ], [ ], [ 3 ], \
 [ ], [ 8 ], [ 9 ], [ 10 ], [ ], [ 12 ], [ 1 ] ], [ [ ], [ ], [ ], [ ], [ ], [ \
 7 ], [ ], [ ], [ ], [ 5 ], [ ], [ ] ], [ [ ], [ ], [ 4 ], [ 2, 5 ], [ ], [ ], \
 [ ], [ ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 12 ]);;"
-gap> T := Transducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],
+gap> T := GNSTransducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],
 > [[[0], [1], []], [[2], [3,0], [3]], [[1], [2], [3]]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",4,\"0123@\",[ [ [ 1 ], [ ], [ ], [ 1 ] ], [ [ 1 ], [ ],\
  [ 1 ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ] ], [ [ ], [ 3, 4 ], [ 1 ], [ ] ], [ [ \
 2 ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 4 ]);;"
 
-#T# TransducerConstantStateOutputs
-gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
-gap> TransducerConstantStateOutputs(T);
+#T# GNSTransducerConstantStateOutputs
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
+gap> GNSTransducerConstantStateOutputs(T);
 [ [ 1, 2 ], [ [/ 1 ], [/ 1 ] ] ]
-gap> T := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
+gap> T := GNSTransducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
 > [[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;
-gap> TransducerConstantStateOutputs(T);
+gap> GNSTransducerConstantStateOutputs(T);
 [ [ 1, 2, 3 ], [ [ 2, / 0, 1, 1 ], [/ 1, 1, 0 ], [/ 0, 1, 1 ] ] ]
-gap> T := Transducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],
 > [[0, 1, 1, 1], [0]], [[0], [1]]]);;
-gap> TransducerConstantStateOutputs(T);
+gap> GNSTransducerConstantStateOutputs(T);
 [ [  ], [  ] ]
-gap> T := Transducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
+gap> T := GNSTransducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
 > [[[0], [1], [2, 0], [2, 1], [2, 2]], [[1], [2, 0], [2, 1],
 > [2, 2, 0], [2, 2]]]);;
-gap> TransducerConstantStateOutputs(T);
+gap> GNSTransducerConstantStateOutputs(T);
 [ [  ], [  ] ]
 
-#T# IsDegenerateTransducer
-gap> T := Transducer(2, 2, [[2, 2], [1, 3], [2, 1]], [[[0], [0]],
+#T# IsDegenerateGNSTransducer
+gap> T := GNSTransducer(2, 2, [[2, 2], [1, 3], [2, 1]], [[[0], [0]],
 > [[0, 1, 0, 0, 0, 1], []], [[0, 0, 0], [0]]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 false
-gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
+gap> T := GNSTransducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
 > [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 1, 3], [3, 1, 1], [2, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 1, 3], [3, 1, 1], [2, 3, 2]],
 > [[[0, 2, 2], [0], [2, 2]], [[], [0], [0]], [[2], [1, 2], []]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 true
-gap> T := Transducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
+gap> T := GNSTransducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
 > [[[0], [1], [2, 0], [2, 1], [2, 2]], [[1], [2, 0], [2, 1],
 > [2, 2, 0], [2, 2]]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 false
 
 #T# CombineEquivalentStates
-gap> T := Transducer(3, 4, [[1, 2, 2], [3, 2, 2], [3, 2, 2]],
+gap> T := GNSTransducer(3, 4, [[1, 2, 2], [3, 2, 2], [3, 2, 2]],
 > [[[1], [], [1, 0]], [[2], [2], [2]], [[1], [], [1, 0]]]);;
 gap> CombineEquivalentStates(T);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 4 symbols, and 2 states.>
-gap> T := Transducer(3, 3, [[2, 3, 2], [2, 1, 4], [1, 4, 2], [4, 2, 3]],
+gap> T := GNSTransducer(3, 3, [[2, 3, 2], [2, 1, 4], [1, 4, 2], [4, 2, 3]],
 > [[[2], [], [2]], [[2], [0, 1], [1, 2, 0]], [[0], [], [1]], [[], [1], [0]]]);;
 gap> CombineEquivalentStates(T);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 4 states.>
-gap> T := Transducer(2, 2, [[2, 4], [3, 2], [5, 4], [1, 5], [1, 4]],
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 2], [5, 4], [1, 5], [1, 4]],
 > [[[0], [1, 0]], [[], [1]], [[0], [1 , 0]], [[], [1]], [[], [1]]]);;
 gap> CombineEquivalentStates(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 2 states.>
-gap> T := Transducer(2, 2, [[1, 4], [3, 2], [5, 4], [3, 5], [1, 4]],
+gap> T := GNSTransducer(2, 2, [[1, 4], [3, 2], [5, 4], [3, 5], [1, 4]],
 > [[[0], [1, 0]], [[], [1]], [[0], [1 , 0]], [[], [1]], [[], [1]]]);;
 gap> CombineEquivalentStates(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 5 states.>
 
-#T# MinimalTransducer
-gap> T := Transducer(3, 3, [[2, 2, 1], [4, 3, 1], [4, 2, 3], [1, 1, 4]],
+#T# MinimalGNSTransducer
+gap> T := GNSTransducer(3, 3, [[2, 2, 1], [4, 3, 1], [4, 2, 3], [1, 1, 4]],
 > [[[2], [2, 0], [2]], [[2, 2, 0], [], [0, 1]], [[], [0], [2]],
 > [[2, 1], [1, 0, 1], [1, 2]]]);;
-gap> M := MinimalTransducer(T);
+gap> M := MinimalGNSTransducer(T);
 <transducer with input alphabet on 3 symbols, output alphabet on 
 3 symbols, and 5 states.>
 gap> OutputFunction(M);
@@ -274,265 +274,265 @@ gap> OutputFunction(M);
   [ [  ], [ 0 ], [ 2 ] ] ]
 gap> TransitionFunction(M);
 [ [ 2, 2, 3 ], [ 4, 5, 3 ], [ 2, 2, 3 ], [ 3, 3, 4 ], [ 4, 2, 5 ] ]
-gap> T := Transducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
 > [[[1, 0], [0, 0]], [[1], []], [[0], [1]], [[1], [1]], [[], [0, 0]]]);;
-gap> M := MinimalTransducer(T);
+gap> M := MinimalGNSTransducer(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 3 states.>
 gap> OutputFunction(M);
 [ [ [ 1, 0 ], [ 0, 0 ] ], [ [ 1 ], [  ] ], [ [ 0 ], [ 1 ] ] ]
 gap> TransitionFunction(M);
 [ [ 2, 2 ], [ 3, 1 ], [ 3, 3 ] ]
-gap> T := Transducer(2, 2, [[1, 1]], [[[], []]]);;
-gap> MinimalTransducer(T);
-Error, aaa: MinimalTransducer: usage,
+gap> T := GNSTransducer(2, 2, [[1, 1]], [[[], []]]);;
+gap> MinimalGNSTransducer(T);
+Error, aaa: MinimalGNSTransducer: usage,
 the given transducer must be nondegenerate 
-gap> T := Transducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
+gap> T := GNSTransducer(2, 2, [[2, 2], [2, 2]], [[[], []], [[0],[0]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 2 states.>
-gap> M := MinimalTransducer(T);
+gap> M := MinimalGNSTransducer(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 
 2 symbols, and 2 states.>
 
-#T# IsomorphicInitialTransducers
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+#T# IsomorphicInitialGNSTransducers
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> T5 := Transducer(2, 2, [[1, 1], [2, 2], [3, 3]], [[[], []], [[], []], [[], []]]);;
-gap> T6 := Transducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]], [[[], [], []], [[], [], []], [[], [], []]]);;
-gap> IsomorphicInitialTransducers(T, T2);
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> T5 := GNSTransducer(2, 2, [[1, 1], [2, 2], [3, 3]], [[[], []], [[], []], [[], []]]);;
+gap> T6 := GNSTransducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]], [[[], [], []], [[], [], []], [[], [], []]]);;
+gap> IsomorphicInitialGNSTransducers(T, T2);
 true
-gap> IsomorphicInitialTransducers(T, T3);
+gap> IsomorphicInitialGNSTransducers(T, T3);
 false
-gap> IsomorphicInitialTransducers(T, T4);
+gap> IsomorphicInitialGNSTransducers(T, T4);
 true
-gap> IsomorphicInitialTransducers(T, T5);
+gap> IsomorphicInitialGNSTransducers(T, T5);
 false
-gap> IsomorphicInitialTransducers(T, T6);
+gap> IsomorphicInitialGNSTransducers(T, T6);
 false
 
 #T# OmegaEquivalentTransduces "="
-gap> T := Transducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
 > [[[1, 0], [0, 0]], [[1], []], [[0], [1]], [[1], [1]], [[], [0, 0]]]);;
-gap> M := MinimalTransducer(T);;
-gap> OmegaEquivalentTransducers(T, M);
+gap> M := MinimalGNSTransducer(T);;
+gap> OmegaEquivalentGNSTransducers(T, M);
 true
 gap> T = M;
 true
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> OmegaEquivalentTransducers(T, T2);
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> OmegaEquivalentGNSTransducers(T, T2);
 true
-gap> OmegaEquivalentTransducers(T, T3);
+gap> OmegaEquivalentGNSTransducers(T, T3);
 false
-gap> OmegaEquivalentTransducers(T, T4);
+gap> OmegaEquivalentGNSTransducers(T, T4);
 true
 gap> T = T4;
 true
-gap> T := Transducer(3, 4, [[1, 3, 2], [2, 1, 4], [1, 1, 1], [3, 2, 1]],
+gap> T := GNSTransducer(3, 4, [[1, 3, 2], [2, 1, 4], [1, 1, 1], [3, 2, 1]],
 > [[[1], [3], [0]], [[1, 1], [], [3, 0]], [[1, 3], [2], [3, 2]],
 > [[0], [0], [0]]]);;
-gap> T2 := Transducer(3, 4, [[1, 2, 2], [2, 1, 4], [1, 1, 1], [3, 2, 1]],
+gap> T2 := GNSTransducer(3, 4, [[1, 2, 2], [2, 1, 4], [1, 1, 1], [3, 2, 1]],
 > [[[1], [3], [0]], [[1, 1], [], [3, 0]], [[1, 3], [2], [3, 2]],
 > [[0], [0], [0]]]);;
-gap> OmegaEquivalentTransducers(T, T2);
+gap> OmegaEquivalentGNSTransducers(T, T2);
 false
 gap> T = T2;
 false
 
-#T# EqualTransducers
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+#T# EqualGNSTransducers
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> EqualTransducers(T, T2);
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> EqualGNSTransducers(T, T2);
 true
-gap> EqualTransducers(T, T3);
+gap> EqualGNSTransducers(T, T3);
 false
-gap> EqualTransducers(T, T4);
+gap> EqualGNSTransducers(T, T4);
 false
 
-#T# IsBijectiveTransducer
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
+#T# IsBijectiveGNSTransducer
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
 >  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
 >  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 false
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 > [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> IsBijectiveTransducer(f);
+gap> IsBijectiveGNSTransducer(f);
 true
-gap> T := Transducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
+gap> T := GNSTransducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
 > [[0, 1], [1, 1]], [[0, 0], [1, 0]], [[0], [1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
 > [[[0, 1, 0], []], [[1, 1], [0]], [[0, 1, 0], []], [[], [1, 0, 1, 0]],
 > [[1], [0]], [[], [1, 0]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
+gap> T := GNSTransducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
 > [[2], [3]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
 > [[1], [1, 0, 0, 1, 0, 1]], [[1, 1], [0, 1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> IsBijectiveTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> IsBijectiveGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 true
-gap> P := Transducer(2, 2, [[3, 4], [3, 2], [1, 3], [2, 4]], [[[1], [0]],
+gap> P := GNSTransducer(2, 2, [[3, 4], [3, 2], [1, 3], [2, 4]], [[[1], [0]],
 > [[], [1]], [[1], [0]], [[1, 0], [1]]]);;
-gap> IsBijectiveTransducer(P);
+gap> IsBijectiveGNSTransducer(P);
 false
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> IsBijectiveTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> IsBijectiveGNSTransducer(T);
 false
 
 #T# Powers
-gap> T := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
+gap> T := GNSTransducer(2, 4, [[1, 2], [1, 3], [1, 1]], [[[0], []], [[1], []],
 > [[2], [3]]]);;
-gap> EqualTransducers(T^1, T);
+gap> EqualGNSTransducers(T^1, T);
 true
 gap> T^-1;
 <transducer with input alphabet on 4 symbols, output alphabet on 
 2 symbols, and 1 state.>
-gap> T := Transducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
-gap> T2 := Transducer(2, 2, [[1, 4], [1, 3], [1, 1], [2, 2]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 1]], [[[0], [1]], [[], []]]);;
+gap> T2 := GNSTransducer(2, 2, [[1, 4], [1, 3], [1, 1], [2, 2]],
 > [[[0], [1]], [[], []], [[], []], [[], []]]);;
-gap> EqualTransducers(T^2, T2);
+gap> EqualGNSTransducers(T^2, T2);
 true
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 > [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
 gap> f^-3 * f^2 = f^-1;
 true
 
-#T# IsMinimalTransducer
-gap> T := Transducer(3, 3, [[3, 4, 3], [1, 3, 1], [1, 3, 3], [2, 2, 3]],
+#T# IsMinimalGNSTransducer
+gap> T := GNSTransducer(3, 3, [[3, 4, 3], [1, 3, 1], [1, 3, 3], [2, 2, 3]],
 > [[[2], [2], [0]], [[2, 0, 2, 1], [0, 0], []], [[], [2, 0], [1]],
 > [[], [2], [1, 1, 0, 1, 0]]]);;
-gap> IsMinimalTransducer(T);
+gap> IsMinimalGNSTransducer(T);
 true
-gap> M := MinimalTransducer(T);;
-gap> IsMinimalTransducer(M);
+gap> M := MinimalGNSTransducer(T);;
+gap> IsMinimalGNSTransducer(M);
 true
-gap> IsMinimalTransducer(CopyTransducerWithInitialState(M, 2));
+gap> IsMinimalGNSTransducer(CopyGNSTransducerWithInitialState(M, 2));
 true
-gap> T := Transducer(3, 3, [[3, 2, 1], [3, 3, 1], [2, 2, 1]],
+gap> T := GNSTransducer(3, 3, [[3, 2, 1], [3, 3, 1], [2, 2, 1]],
 > [[[1, 0], [], [0]], [[], [], [0]], [[2], [2, 2, 1], [2, 2]]]);;
-gap> IsMinimalTransducer(T);
+gap> IsMinimalGNSTransducer(T);
 false
 
-#T# IsSynchronousTransducer
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+#T# IsSynchronousGNSTransducer
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2]], [[0], [0], [1]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
 > [[[1], [1]], [[1], [0]], [[0], [0]], [[1], [0]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
 > [[[], [1]], [[1], [0]], [[0], [1]], [[0], [0]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 false
 
 #T# Conjugation
-gap> T := Transducer(3, 3, [[2, 3, 2], [1, 2, 1], [1, 2, 1]],
+gap> T := GNSTransducer(3, 3, [[2, 3, 2], [1, 2, 1], [1, 2, 1]],
 > [[[1, 1], [0], [2]], [[2, 0], [0, 1, 0], []], [[1], [1], []]]);;
-gap> 3to2 := AlphabetChangeTransducer(3, 2);;
-gap> 2to3 := AlphabetChangeTransducer(2, 3);;
+gap> 3to2 := AlphabetChangeGNSTransducer(3, 2);;
+gap> 2to3 := AlphabetChangeGNSTransducer(2, 3);;
 gap> (T^3to2)^2to3 = T;
 true
-gap> C1 := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> C1 := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 > [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> C2 := Transducer(3, 3, [[1, 1, 1]], [[[0], [2], [1]]]);;
+gap> C2 := GNSTransducer(3, 3, [[1, 1, 1]], [[[0], [2], [1]]]);;
 gap> T^(C1*C2)= (T^C1)^C2;
 true
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
 >  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
 >  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
 gap> T^T;
 fail
 
-#T# TransducerOrder
-gap> T := IdentityTransducer(5);;
-gap> TransducerOrder(T);
+#T# GNSTransducerOrder
+gap> T := IdentityGNSTransducer(5);;
+gap> GNSTransducerOrder(T);
 1
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> TransducerOrder(T);
+gap> GNSTransducerOrder(T);
 2
-gap> T := Transducer(5, 5, [[1, 1, 1, 1, 1]], [[[1], [0], [3], [4], [2]]]);;
-gap> TransducerOrder(T);
+gap> T := GNSTransducer(5, 5, [[1, 1, 1, 1, 1]], [[[1], [0], [3], [4], [2]]]);;
+gap> GNSTransducerOrder(T);
 6
-gap> TransducerOrder(T^-1);
+gap> GNSTransducerOrder(T^-1);
 6
-gap> TransducerOrder(T^-2);
+gap> GNSTransducerOrder(T^-2);
 3
-gap> T := Transducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [2, 3], [3, 2]], [[[0, 1], []],
 > [[1], [1, 0, 0, 1, 0, 1]], [[1, 1], [0, 1]]]);;
-gap> TransducerOrder(T);
-Error, aaa: TransducerOrder: usage,
+gap> GNSTransducerOrder(T);
+Error, aaa: GNSTransducerOrder: usage,
 the given transducer must be bijective
 
-#T# TransducerSynchronizingLength
-gap> T := IdentityTransducer(4);;
-gap> TransducerSynchronizingLength(T);
+#T# GNSTransducerSynchronizingLength
+gap> T := IdentityGNSTransducer(4);;
+gap> GNSTransducerSynchronizingLength(T);
 0
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> TransducerSynchronizingLength(T);
+gap> GNSTransducerSynchronizingLength(T);
 2
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> TransducerSynchronizingLength(T);
+gap> GNSTransducerSynchronizingLength(T);
 infinity
 
-#T# IsSynchronizingTransducer
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+#T# IsSynchronizingGNSTransducer
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
 > [[[1], [1, 0, 1]], [[1], []], [[1], [0, 1]], [[1], [0]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 false
 
-#T# IsBisynchronizingTransducer
-gap> T := IdentityTransducer(4);;
-gap> IsBisynchronizingTransducer(T);
+#T# IsBisynchronizingGNSTransducer
+gap> T := IdentityGNSTransducer(4);;
+gap> IsBisynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
 > [[[1], [1, 0, 1]], [[1], []], [[1], [0, 1]], [[1], [0]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 false
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 false
 
 #

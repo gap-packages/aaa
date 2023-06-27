@@ -10,9 +10,9 @@
 gap> START_TEST("aaa package: standard/utils.tst");
 gap> LoadPackage("aaa", false);;
 
-#T# DotTransducer
-gap> T := IdentityTransducer(3);;
-gap> DotTransducer(T);
+#T# DotGNSTransducer
+gap> T := IdentityGNSTransducer(3);;
+gap> DotGNSTransducer(T);
 "//dot\ndigraph finite_state_machine{\nrankdir=LR;\nnode [shape=circle]\n1\n1 \
 -> 1 [label=\"0|0\"]\n1 -> 1 [label=\"1|1\"]\n1 -> 1 [label=\"2|2\"]\n}\n"
 

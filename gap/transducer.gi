@@ -12,7 +12,7 @@
 # including appropiate ViewObj functions.
 
 InstallMethod(ViewObj, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   local state, sym1, sym2;
   if T!.States = 1 then
@@ -36,29 +36,29 @@ function(T)
         T!.States, " ", state, ".>");
 end);
 
-InstallMethod(Transducer, "for two positive integers and two dense lists",
+InstallMethod(GNSTransducer, "for two positive integers and two dense lists",
 [IsPosInt, IsPosInt, IsDenseList, IsDenseList],
 function(inalph, outalph, tranfunc, outfunc)
   local transducer, T, outputfinstates, i, j, state;
 
   if IsEmpty(tranfunc) or IsEmpty(outfunc) then
-    ErrorNoReturn("aaa: Transducer: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                   "the third and fourth arguments must be non-empty,");
   elif Size(tranfunc) <> Size(outfunc) then
-    ErrorNoReturn("aaa: Transducer: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                   "the size of the third and fourth arguments must coincide,");
   elif ForAny(tranfunc, x -> not IsDenseList(x) or
               ForAny(x, y -> not y in [1 .. Size(tranfunc)])) then
-    ErrorNoReturn("aaa: Transducer: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                   "the third argument contains invalid states,");
   elif ForAny(outfunc, x -> not IsDenseList(x) or
               ForAny(x, y -> not (IsDenseList(y) or IsPeriodicList(y)) or
                      ForAny(y, z -> not z in [0 .. outalph - 1]))) then
-    ErrorNoReturn("aaa: Transducer: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                   "the fourth argument contains invalid output,");
   elif ForAny(tranfunc, x -> Size(x) <> inalph) or
        ForAny(outfunc, x -> Size(x) <> inalph) then
-    ErrorNoReturn("aaa: Transducer: usage,\n",
+    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                   "the size of the elements of the third or fourth argument ",
                   "does not coincide\nwith the first argument,");
   fi;
@@ -76,7 +76,7 @@ function(inalph, outalph, tranfunc, outfunc)
 
   for state in outputfinstates do
     if ForAny(outfunc[state], x -> not x = []) then
-       ErrorNoReturn("aaa: Transducer: usage,\n",
+       ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                 "the given object has output after an infinite ",
                 "periodic output,");
     fi;
@@ -97,19 +97,19 @@ function(inalph, outalph, tranfunc, outfunc)
                   output := PeriodicList([]);
 
                   if not (IsDenseList(input) or IsPeriodicList(input)) then
-                    ErrorNoReturn("aaa: Transducer: usage,\n",
+                    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                                   "the first argument must be a dense list\n",
 				  "or a periodic list");
                   elif not IsPosInt(state) then
-                    ErrorNoReturn("aaa: Transducer: usage,\n",
+                    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                                   "the second argument must be a positive ",
                                   "integer,");
                   elif state > Size(tfunc) then
-                    ErrorNoReturn("aaa: Transducer: usage,\n",
+                    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                                   "the second argument must not be greater ",
                                   "than ", Size(tfunc), ",");
                   elif ForAny(input, x -> not x in ialph) then
-                    ErrorNoReturn("aaa: Transducer: usage,\n",
+                    ErrorNoReturn("aaa: GNSTransducer: usage,\n",
                                   "the first argument must be a list of ",
                                   "integers in ", ialph, ",");
                   fi;
@@ -142,98 +142,98 @@ function(inalph, outalph, tranfunc, outfunc)
                   return [output, state];
                 end;
 
-  T := Objectify(NewType(NewFamily("Transducer"), IsTransducer and
+  T :=Objectify(NewType(NewFamily("GNSTransducer"), IsGNSTransducer and
                  IsAttributeStoringRep), rec(InputAlphabet := inalph,
                                              OutputAlphabet := outalph,
                                              States := Size(tranfunc),
                                              TransitionFunction := tranfunc,
 					     ReachableWithInfiniteOutput := outputfinstates,
                                              OutputFunction := outfunc,
-                                             TransducerFunction := transducer));
+                                             GNSTransducerFunction := transducer));
 
   return T;
 end);
 
-InstallMethod(TransducerFunction, "for a transducer, a dense list and a posint",
-[IsTransducer, IsList, IsPosInt],
+InstallMethod(GNSTransducerFunction, "for a transducer, a dense list and a posint",
+[IsGNSTransducer, IsList, IsPosInt],
 function(T, input, state)
-  return T!.TransducerFunction(input, state);
+  return T!.GNSTransducerFunction(input, state);
 end);
 
 InstallMethod(TransitionFunction, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return T!.TransitionFunction;
 end);
 
 InstallMethod(OutputFunction, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return T!.OutputFunction;
 end);
 
 InstallMethod(States, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return [1 .. T!.States];
 end);
 
 InstallMethod(NrStates, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return T!.States;
 end);
 
 InstallMethod(InputAlphabet, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return [0 .. T!.InputAlphabet - 1];
 end);
 
 InstallMethod(OutputAlphabet, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return [0 .. T!.OutputAlphabet - 1];
 end);
 
 InstallMethod(NrOutputSymbols, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return T!.OutputAlphabet;
 end);
 
 InstallMethod(NrInputSymbols, "for a transducer",
-[IsTransducer],
+[IsGNSTransducer],
 function(T)
   return T!.InputAlphabet;
 end);
 
-InstallMethod(IdentityTransducer, "for a positive integer",
+InstallMethod(IdentityGNSTransducer, "for a positive integer",
 [IsPosInt],
 function(AlphSize)
-  return Transducer(AlphSize,AlphSize,[List([1 .. AlphSize], x -> 1)],
+  return GNSTransducer(AlphSize,AlphSize,[List([1 .. AlphSize], x -> 1)],
                     [List([0 .. AlphSize - 1], x-> [x])]);
 end);
 
-InstallMethod(AlphabetChangeTransducer, "for two positive integers",
+InstallMethod(AlphabetChangeGNSTransducer, "for two positive integers",
 [IsPosInt, IsPosInt],
 function(n,m)
   local 2tok;
   2tok := function(k)
     local i, outputfunction, transitionfunction;
     if k = 2 then
-      return IdentityTransducer(2);
+      return IdentityGNSTransducer(2);
     fi;
     transitionfunction := List([2 .. k], x-> [1, x]);
     transitionfunction[k - 1][2] := 1;
     outputfunction := List([0 .. k - 2], x -> [[x],[]]);
     outputfunction[k-1][2] := [k-1];
-    return Transducer(2, k, transitionfunction, outputfunction);
+    return GNSTransducer(2, k, transitionfunction, outputfunction);
   end;
-  return InverseTransducer(2tok(n)) * 2tok(m);
+  return InverseGNSTransducer(2tok(n)) * 2tok(m);
 end);
 
-InstallMethod(RandomTransducer,"gives random transducers",
+InstallMethod(RandomGNSTransducer,"gives random transducers",
 [IsPosInt,IsPosInt],
 function(AlphSize,NrStates)
 	local i, j, k, OutputLength, Pi, Lambda;
@@ -257,5 +257,5 @@ function(AlphSize,NrStates)
 		od;
 	   od;
 	od;
-	return Transducer(AlphSize,AlphSize,Pi,Lambda);
+	return GNSTransducer(AlphSize,AlphSize,Pi,Lambda);
 end);

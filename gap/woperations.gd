@@ -14,10 +14,10 @@
 DeclareOperation("IsPrefix", [IsList, IsList]);
 DeclareOperation("Minus", [IsList, IsList]);
 DeclareOperation("PreimageConePrefixes", [IsDenseList, IsPosInt,
-                                          IsTransducer]);
+                                          IsGNSTransducer]);
 DeclareOperation("GreatestCommonPrefix", [IsDenseList]);
 DeclareOperation("ImageConeLongestPrefix", [IsDenseList, IsPosInt,
-                                            IsTransducer]);
+                                            IsGNSTransducer]);
 DeclareOperation("MinimalWords", [IsDenseList]);
 DeclareOperation("MaximalWords", [IsDenseList]);
 DeclareOperation("IsCompleteAntichain", [IsDenseList, IsPosInt, IsPosInt]);
