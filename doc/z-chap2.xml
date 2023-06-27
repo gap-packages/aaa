@@ -23,7 +23,7 @@
     <#Include Label = "GreatestCommonPrefix">
     <#Include Label = "PreimageConePrefixes">
     <#Include Label = "ImageConeLongestPrefix">
-    <#Include Label = "TransducerImageAutomaton">
+    <#Include Label = "GNSTransducerImageAutomaton">
 
   </Section>
 

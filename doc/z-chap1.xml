@@ -1,7 +1,7 @@
-<Chapter Label = "Transducers">
+<Chapter Label = "GNSTransducers">
 
   <Heading>
-    Transducers
+    GNSTransducers
   </Heading>
 
   In this chapter we decribe how to create an &aaa; transducer.
@@ -17,40 +17,40 @@
 
     The &aaa; package provides a method to represent transducers in &GAP;.
 
-    <#Include Label = "Transducer">
-    <#Include Label = "TransducerFunction">
+    <#Include Label = "GNSTransducer">
+    <#Include Label = "GNSTransducerFunction">
     <#Include Label = "XFunction">
     <#Include Label = "XAlphabet">
     <#Include Label = "NrXSymbols">
     <#Include Label = "States">
     <#Include Label = "NrStates">
-    <#Include Label = "IdentityTransducer">
-    <#Include Label = "AlphabetChangeTransducer">
-    <#Include Label = "RandomTransducer">
+    <#Include Label = "IdentityGNSTransducer">
+    <#Include Label = "AlphabetChangeGNSTransducer">
+    <#Include Label = "RandomGNSTransducer">
   </Section>
 
   <!--**********************************************************************-->
   <!--**********************************************************************-->
 
-  <Section Label = "Attributes of Transducers">
+  <Section Label = "Attributes of GNSTransducers">
 
     <Heading>
-      Attributes of Transducers
+      Attributes of GNSTransducers
     </Heading>
 
     In this section we explain the different transducer attributes that the
     &aaa; package can compute.
 
-    <#Include Label = "IsDegenerateTransducer">
-    <#Include Label = "IsInjectiveTransducer">
-    <#Include Label = "IsSurjectiveTransducer">
-    <#Include Label = "IsBijectiveTransducer">
-    <#Include Label = "IsMinimalTransducer">
-    <#Include Label = "IsSynchronousTransducer">
-    <#Include Label = "IsomorphicInitialTransducers">
-    <#Include Label = "OmegaEquivalentTransducers">
-    <#Include Label = "EqualTransducers">
-    <#Include Label = "TransducerOrder">
+    <#Include Label = "IsDegenerateGNSTransducer">
+    <#Include Label = "IsInjectiveGNSTransducer">
+    <#Include Label = "IsSurjectiveGNSTransducer">
+    <#Include Label = "IsBijectiveGNSTransducer">
+    <#Include Label = "IsMinimalGNSTransducer">
+    <#Include Label = "IsSynchronousGNSTransducer">
+    <#Include Label = "IsomorphicInitialGNSTransducers">
+    <#Include Label = "OmegaEquivalentGNSTransducers">
+    <#Include Label = "EqualGNSTransducers">
+    <#Include Label = "GNSTransducerOrder">
     
   </Section>
 

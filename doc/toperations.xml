@@ -8,38 +8,38 @@
 #############################################################################
 ##
 
-<#GAPDoc Label="InverseTransducer">
+<#GAPDoc Label="InverseGNSTransducer">
 <ManSection>
-  <Oper Name = "InverseTransducer" Arg = "T"/>
+  <Oper Name = "InverseGNSTransducer" Arg = "T"/>
   <Returns>A transducer.</Returns>
   <Description>
     For an invertible transducer <A>T</A> whose first state is a homeomorphism
-    state, the operation <C>InverseTransducer(<A>T</A>)</C> returns the minimal
+    state, the operation <C>InverseGNSTransducer(<A>T</A>)</C> returns the minimal
     transducer whose initial state (state 1) defines the inverse of this 
     homeomorphism. Please note that it is the user's responsibility to ensure that
     the first state is a homeomorphism state.
     <Example><![CDATA[
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> g := InverseTransducer(f);;
-gap> w := TransducerFunction(f, [0, 1], 1)[1];
+gap> g := InverseGNSTransducer(f);;
+gap> w := GNSTransducerFunction(f, [0, 1], 1)[1];
 [ 2, 0 ]
-gap> TransducerFunction(g, w, 1)[1];
+gap> GNSTransducerFunction(g, w, 1)[1];
 [ 0, 1 ]
 ]]></Example>
    In the figure one can see images of the transducers <C>f</C> and <C>g</C> respectively from the above example. 
-  These images can be generated with the commands <C>Splash(DotTransducer(f))</C> and <C>Splash(DotTransducer(g))</C> respectively.
+  These images can be generated with the commands <C>Splash(DotGNSTransducer(f))</C> and <C>Splash(DotTransducer(g))</C> respectively.
  <Alt Only="LaTeX">
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=7cm]{inversetransducerexamplepreinverse.pdf}
-    \caption{Transducer f.}
+    \caption{GNSTransducer f.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
   \includegraphics[width=7cm]{inversetransducerexamplepostinverse.pdf}
-    \caption{Transducer g.}
+    \caption{GNSTransducer g.}
   \end{minipage}
 \end{figure}
  </Alt>
@@ -47,13 +47,13 @@ gap> TransducerFunction(g, w, 1)[1];
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="TransducerProduct">
+<#GAPDoc Label="GNSTransducerProduct">
 <ManSection>
-  <Oper Name = "TransducerProduct" Arg = "T, P"/>
+  <Oper Name = "GNSTransducerProduct" Arg = "T, P"/>
   <Returns>A transducer.</Returns>
   <Description>
     For two transducers <A>T</A> and <A>P</A>, the operation
-    <C>TransducerProduct(<A>T, P</A>)</C> returns the product of the 
+    <C>GNSTransducerProduct(<A>T, P</A>)</C> returns the product of the 
     transducers <A>T</A> and <A>P</A>. The product command can also be
     run with *.
 
@@ -62,30 +62,30 @@ gap> TransducerFunction(g, w, 1)[1];
     invertible). If <A>T</A> is invertible, then the product 
     <A>T</A>^-1*<A>P</A>*<A>T</A> can be input as <A>P</A>^<A>T</A>.
     <Example><![CDATA[
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 3 states.>
-gap> ff := TransducerProduct(f, f);
+gap> ff := GNSTransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 9 states.>
 ]]></Example>
    In the figure one can see images of the transducers <C>f</C> and <C>ff</C> 
   respectively from the above example. 
   These images can be generated with the commands 
-  <C>Splash(DotTransducer(f))</C> and <C>Splash(DotTransducer(ff))</C>
+  <C>Splash(DotGNSTransducer(f))</C> and <C>Splash(DotTransducer(ff))</C>
   respectively.
  <Alt Only="LaTeX">
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=7cm]{inversetransducerexamplepreinverse.pdf}
-    \caption{Transducer f.}
+    \caption{GNSTransducer f.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
   \includegraphics[width=7cm]{transducerproductexample.pdf}
-    \caption{Transducer ff.}
+    \caption{GNSTransducer ff.}
   \end{minipage}
 \end{figure}
  </Alt>
@@ -105,35 +105,35 @@ gap> ff := TransducerProduct(f, f);
     State <C>s</C> of the transducer <A>T</A> is state
     <C>s + 1</C> of the transducer <C>P</C>.
     <Example><![CDATA[
-gap> t := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
+gap> t := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], []],
 >                           [[1, 0, 0], [1], [1]], [[0, 2], [2], [0]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 3 states.>
 gap> p := RemoveIncompleteResponseFromStates(t);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 4 states.>
-gap> TransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];
+gap> GNSTransducerFunction(t, [2], 1)[1]; TransducerFunction(t, [1], 2)[1];
 [  ]
 [ 1 ]
-gap> TransducerFunction(p, [2], 2)[1];
+gap> GNSTransducerFunction(p, [2], 2)[1];
 [ 1 ]
 ]]></Example>
    In the figure one can see images of the transducers <C>t</C> and <C>p</C>
   respectively from the above example.
   These images can be generated with the commands
-  <C>Splash(DotTransducer(t))</C> and <C>Splash(DotTransducer(p))</C>
+  <C>Splash(DotGNSTransducer(t))</C> and <C>Splash(DotTransducer(p))</C>
   respectively.
 <Alt Only="LaTeX">
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=7cm]{incompleteresponceexamplepre.pdf}
-    \caption{Transducer t.}
+    \caption{GNSTransducer t.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
   \includegraphics[width=7cm]{incompleteresponceexamplepost.pdf}
-    \caption{Transducer p.}
+    \caption{GNSTransducer p.}
   \end{minipage}
 \end{figure}
  </Alt>
@@ -150,11 +150,11 @@ gap> TransducerFunction(p, [2], 2)[1];
     <C>RemoveInaccessibleStates(<A>T</A>)</C> returns the transducer that is
     obtained by removing the states that are not accesssible from state 1.
     <Example><![CDATA[
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 3 states.>
-gap> ff := TransducerProduct(f, f);
+gap> ff := GNSTransducerProduct(f, f);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
   and 9 states.>
 gap> m := RemoveInaccessibleStates(ff);
@@ -174,7 +174,7 @@ gap> m := RemoveInaccessibleStates(ff);
     <C>CombineEquivalentStates(<A>T</A>)</C> returns the transducer that is
     obtained by identifying states from which all finite words write the same word.
     <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],
+gap> T := GNSTransducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],
 > 			   [[1, 1], [0]], [[0], [0, 1]], [[0], [0]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
 and 4 states.>
@@ -189,9 +189,9 @@ gap> TransitionFunction(T);
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="MinimalTransducer">
+<#GAPDoc Label="MinimalGNSTransducer">
 <ManSection>
-  <Oper Name = "MinimalTransducer" Arg = "T"/>
+  <Oper Name = "MinimalGNSTransducer" Arg = "T"/>
   <Returns>A transducer.</Returns>
   <Description>
 	  Every transducer has a minimal omega-equivalent form (this transducer
@@ -199,15 +199,15 @@ gap> TransitionFunction(T);
 	  One arrives at this form by first removing inaccessible states, removing 
 	  incomplete response from all states, and combining equivalent states. Those
 	  three operations are described above. For a transducer <A>T</A>, the operation
-          <C>MinimalTransducer(<A>T</A>)</C> returns the transducer's minimal
+          <C>MinimalGNSTransducer(<A>T</A>)</C> returns the transducer's minimal
 	  omega-equivalent form.
 
         <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],
+gap> T := GNSTransducer(2, 2, [[1, 3], [2, 1], [1, 1], [1, 3]], [[[0], [0]],
 >                          [[1, 1], [0]], [[0], [0, 1]], [[0], [0]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
 and 4 states.>
-gap> M := MinimalTransducer(T);
+gap> M := MinimalGNSTransducer(T);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols, 
 and 3 states.>
 gap> OutputFunction(M);
@@ -219,59 +219,59 @@ gap> TransitionFunction(M);
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="CopyTransducerWithInitialState">
+<#GAPDoc Label="CopyGNSTransducerWithInitialState">
 <ManSection>
-  <Oper Name = "CopyTransducerWithInitialState" Arg = "T, m"/>
+  <Oper Name = "CopyGNSTransducerWithInitialState" Arg = "T, m"/>
   <Returns>A transducer.</Returns>
   <Description>
     For a transducer <A>T</A> and a positive integer <A>m</A>, the operation
-    <C>CopyTransducerWithInitialState(<A>T, m</A>)</C> returns the transducer
+    <C>CopyGNSTransducerWithInitialState(<A>T, m</A>)</C> returns the transducer
     that is obtained by relabeling the states of <A>T</A> such that state
     <A>m</A> becomes state 1, but is otherwise equivalent to <A>T</A>.
     More specifically, the states 1, 2, ..., m are permuteded cyclically (so
     the the order of the states other than m is preserved).
     <Example><![CDATA[
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 >                      [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> p := CopyTransducerWithInitialState(f, 3);;
-gap> TransducerFunction(f, [0, 1, 0], 3);
+gap> p := CopyGNSTransducerWithInitialState(f, 3);;
+gap> GNSTransducerFunction(f, [0, 1, 0], 3);
 [ [ 0, 2, 0, 2 ], 1 ]
-gap> TransducerFunction(p, [0, 1, 0], 1);
+gap> GNSTransducerFunction(p, [0, 1, 0], 1);
 [ [ 0, 2, 0, 2 ], 2 ]
 ]]></Example>
   </Description>
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IsInjectiveTransducer">
+<#GAPDoc Label="IsInjectiveGNSTransducer">
 <ManSection>
-  <Attr Name="IsInjectiveTransducer" Arg="T"/>
+  <Attr Name="IsInjectiveGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     For a transducer <A>T</A>, the attribute
-    <C>IsInjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if the map 
+    <C>IsInjectiveGNSTransducer(<A>T</A>)</C> returns <C>true</C> if the map 
     <A>T</A> defined by its initial state (the state labelled 1) is 
     injective, and <C>false</C> otherwise.
 
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4],
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4],
 >      [6, 6], [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1],
 >      [1, 0]], [[0, 0], [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]],
 >      [[0], [1]]]);;
-gap> IsInjectiveTransducer(T);
+gap> IsInjectiveGNSTransducer(T);
 false
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],
 >      [0], [1]], [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> IsInjectiveTransducer(f);
+gap> IsInjectiveGNSTransducer(f);
 true
 ]]></Example>
   </Description>
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="TransducerConstantStateOutputs">
+<#GAPDoc Label="GNSTransducerConstantStateOutputs">
 <ManSection>
-  <Oper Name = "TransducerConstantStateOutputs" Arg = "T"/>
+  <Oper Name = "GNSTransducerConstantStateOutputs" Arg = "T"/>
   <Returns>A list.</Returns>
   <Description>
     A state of a trasducer is called constant if it induces a constant map 
@@ -279,7 +279,7 @@ true
     infinite words in its output alphabet.
 
     For a non-degenerate transducer <A>T</A>, the operation 
-    <C>TransducerConstantStateOutputs(<A>T</A>)</C> returns a list containing
+    <C>GNSTransducerConstantStateOutputs(<A>T</A>)</C> returns a list containing
     two lists. The first is a list of the constant states of <A>T</A>. The 
     second is a list of the values taken by those states.
     
@@ -288,38 +288,38 @@ true
     the infinite word vwwwwww... (v and w are always chosen to be as short as
     possible).
     <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
-gap> TransducerConstantStateOutputs(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 2]], [[[1], [1, 1]], [[1], [1, 1]]]);;
+gap> GNSTransducerConstantStateOutputs(T);
 [ [ 1, 2 ], [ "(1)*", "(1)*" ] ]
-gap> T := Transducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
+gap> T := GNSTransducer(2, 3, [[2, 3], [2, 3], [2, 3]], [[[2, 0], [2]],
 > [[1, 1, 0], [1, 1]], [[0], [0, 1, 1]]]);;
-gap> T := Transducer(2, 2, [[1, 2], [2, 2]], [[[0], [1, 1]], [[1], [1, 1]]]);;
-gap> TransducerConstantStateOutputs(T);                                       
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 2]], [[[0], [1, 1]], [[1], [1, 1]]]);;
+gap> GNSTransducerConstantStateOutputs(T);                                       
 [ [ 2 ], [ "(1)*" ] ]
-gap> TransducerConstantStateOutputs(T);
+gap> GNSTransducerConstantStateOutputs(T);
 [ [ 1, 2, 3 ], [ "2(011)*", "(110)*", "(011)*" ] ]
-gap> T := Transducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],
+gap> T := GNSTransducer(2, 2, [[3, 3], [1, 1], [2, 1]], [[[1], []],
 > [[0, 1, 1, 1], [0]], [[0], [1]]]);;
-gap> TransducerConstantStateOutputs(T);
+gap> GNSTransducerConstantStateOutputs(T);
 [ [  ], [  ] ]
 ]]></Example>
   </Description>
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IsSurjectiveTransducer">
+<#GAPDoc Label="IsSurjectiveGNSTransducer">
 <ManSection>
-  <Attr Name="IsSurjectiveTransducer" Arg="T"/>
+  <Attr Name="IsSurjectiveGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     For a transducer <A>T</A>, the attribute
-    <C>IsSurjectiveTransducer(<A>T</A>)</C> returns <C>true</C> if the map
+    <C>IsSurjectiveGNSTransducer(<A>T</A>)</C> returns <C>true</C> if the map
     <A>T</A> defined by its initial state (the state labelled 1) is
     surjective, and <C>false</C> otherwise.
 <Example><![CDATA[
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2],
 >      [0], [1]], [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> IsSurjectiveTransducer(f);
+gap> IsSurjectiveGNSTransducer(f);
 true
 ]]></Example>
   </Description>
@@ -327,74 +327,74 @@ true
 <#/GAPDoc>
 
 
-<#GAPDoc Label="IsBijectiveTransducer">
+<#GAPDoc Label="IsBijectiveGNSTransducer">
 <ManSection>
-  <Attr Name="IsBijectiveTransducer" Arg="T"/>
+  <Attr Name="IsBijectiveGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
-    For a transducer <A>T</A>, the attribute <C>IsBijectiveTransducer(<A>T</A>)</C>
+    For a transducer <A>T</A>, the attribute <C>IsBijectiveGNSTransducer(<A>T</A>)</C>
     returns <C>true</C> if <A>T</A> is a bijective transducer, and <C>false</C> otherwise.
 
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
+gap> T := GNSTransducer(2, 2, [[2, 4], [3, 6], [3, 2], [5, 7], [5, 4], [6, 6],
 >  [7, 7]], [[[0], []], [[0, 1], [1, 0, 1]], [[1, 1, 1], [1, 0]], [[0, 0],
 >  [0, 1, 0]], [[0, 0, 0], [1, 1]], [[0], [1]], [[0], [1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 false
-gap> f := Transducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
+gap> f := GNSTransducer(3, 3, [[1, 1, 2], [1, 3, 2], [1, 1, 2]], [[[2], [0], [1]],
 > [[0, 0], [], [1]], [[0, 2], [2], [0, 1]]]);;
-gap> IsBijectiveTransducer(f);
+gap> IsBijectiveGNSTransducer(f);
 true
-gap> T := Transducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
+gap> T := GNSTransducer(2, 2, [[3, 2], [4, 4], [4, 4], [4, 4]], [[[], []],
 > [[0, 1], [1, 1]], [[0, 0], [1, 0]], [[0], [1]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [3, 4], [1, 5], [1, 6], [3, 4], [1, 6]],
 > [[[0, 1, 0], []], [[1, 1], [0]], [[0, 1, 0], []], [[], [1, 0, 1, 0]],
 > [[1], [0]], [[], [1, 0]]]);;
-gap> IsBijectiveTransducer(T);
+gap> IsBijectiveGNSTransducer(T);
 false
 ]]></Example>
   </Description>
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IsSynchronousTransducer">
+<#GAPDoc Label="IsSynchronousGNSTransducer">
 <ManSection>
-  <Attr Name="IsSynchronousTransducer" Arg="T"/>
+  <Attr Name="IsSynchronousGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     A transducer is called "Synchronous" if when it reads a finite word from any state, 
     it always outputs a finite word of the same length.
 
-    For a transducer <A>T</A>, the attribute <C>IsSynchronousTransducer(<A>T</A>)</C>
+    For a transducer <A>T</A>, the attribute <C>IsSynchronousGNSTransducer(<A>T</A>)</C>
     returns <C>true</C> if <A>T</A> is a synchronous transducer, and <C>false</C> otherwise.
 
 <Example><![CDATA[
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2]], [[0], [0], [1]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 false
-gap> T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
 > [[[1], [1]], [[1], [0]], [[0], [0]], [[1], [0]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[1, 2], [4, 3], [1, 2], [2, 1]],
 > [[[], [1]], [[1], [0]], [[0], [1]], [[0], [0]]]);;
-gap> IsSynchronousTransducer(T);
+gap> IsSynchronousGNSTransducer(T);
 false
 ]]></Example>
   </Description>
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IsMinimalTransducer">
+<#GAPDoc Label="IsMinimalGNSTransducer">
 <ManSection>
-  <Attr Name="IsMinimalTransducer" Arg="T"/>
+  <Attr Name="IsMinimalGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     A non-degenerate transducer <A>T</A> is called "minimal" if it satisfies the following
@@ -409,7 +409,7 @@ false
     3. All the states of <A>T</A> define different maps from the space of infinite words in the input alphabet
     of <A>T</A> to the space of infinite words in the output alphabet of <A>T</A>.
      <Alt Only="LaTeX">\\  </Alt>
-    For a transducer <A>T</A>, the attribute <C>IsMinimalTransducer(<A>T</A>)</C>
+    For a transducer <A>T</A>, the attribute <C>IsMinimalGNSTransducer(<A>T</A>)</C>
     returns <C>true</C> if <A>T</A> is a minimal transducer, and <C>false</C> otherwise (with the following caveat).
 
      <Alt Only="LaTeX">\\  </Alt>
@@ -421,22 +421,22 @@ false
     of the infinite word when any letter is read.
      <Alt Only="LaTeX">\\  </Alt>
     Each non-degenerate transducer has a unique minimal omega-equivalent form (modulo the above caveat) which can be computed with the 
-    operation "MinimalTransducer".
+    operation "MinimalGNSTransducer".
 
 <Example><![CDATA[
-gap> T := Transducer(3, 3, [[3, 4, 3], [1, 3, 1], [1, 3, 3], [2, 2, 3]],
+gap> T := GNSTransducer(3, 3, [[3, 4, 3], [1, 3, 1], [1, 3, 3], [2, 2, 3]],
 > [[[2], [2], [0]], [[2, 0, 2, 1], [0, 0], []], [[], [2, 0], [1]],
 > [[], [2], [1, 1, 0, 1, 0]]]);;
-gap> IsMinimalTransducer(T);
+gap> IsMinimalGNSTransducer(T);
 true
-gap> M := MinimalTransducer(T);;
-gap> IsMinimalTransducer(M);
+gap> M := MinimalGNSTransducer(T);;
+gap> IsMinimalGNSTransducer(M);
 true
-gap> IsMinimalTransducer(CopyTransducerWithInitialState(M, 2));
+gap> IsMinimalGNSTransducer(CopyTransducerWithInitialState(M, 2));
 true
-gap> T := Transducer(3, 3, [[3, 2, 1], [3, 3, 1], [2, 2, 1]],
+gap> T := GNSTransducer(3, 3, [[3, 2, 1], [3, 3, 1], [2, 2, 1]],
 > [[[1, 0], [], [0]], [[], [], [0]], [[2], [2, 2, 1], [2, 2]]]);;
-gap> IsMinimalTransducer(T);
+gap> IsMinimalGNSTransducer(T);
 false
 ]]></Example>
   </Description>
@@ -446,35 +446,35 @@ false
 
 
 
-<#GAPDoc Label="IsDegenerateTransducer">
+<#GAPDoc Label="IsDegenerateGNSTransducer">
 <ManSection>
-  <Attr Name="IsDegenerateTransducer" Arg="T"/>
+  <Attr Name="IsDegenerateGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
     A transducer is said to be "degenerate" if there is an infinite word in the
     input alphaber which can be read from its initial state (state 1) such that
     the resulting output is finite.
     For a transducer <A>T</A>, the attribute
-    <C>IsDegenerateTransducer(<A>T</A>)</C> returns <C>true</C> if <A>T</A> is
+    <C>IsDegenerateGNSTransducer(<A>T</A>)</C> returns <C>true</C> if <A>T</A> is
     a degenerate transducer, and <C>false</C> otherwise.
 
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[2, 2], [1, 3], [2, 1]], [[[0], [0]],
+gap> T := GNSTransducer(2, 2, [[2, 2], [1, 3], [2, 1]], [[[0], [0]],
 > [[0, 1, 0, 0, 0, 1], []], [[0, 0, 0], [0]]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 false
-gap> T := Transducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
+gap> T := GNSTransducer(3, 3, [[1, 2, 2], [3, 2, 3], [1, 3, 3]], [[[2, 2],
 > [2, 2, 2, 2, 1, 1, 0, 1], [2, 0]], [[], [0, 1], [2]], [[1], [1], []]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 1, 3], [3, 1, 1], [2, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 1, 3], [3, 1, 1], [2, 3, 2]],
 > [[[0, 2, 2], [0], [2, 2]], [[], [0], [0]], [[2], [1, 2], []]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 true
-gap> T := Transducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
+gap> T := GNSTransducer(5, 3, [[1, 1, 1, 1, 1], [1, 1, 1, 1, 2]],
 > [[[0], [1], [2, 0], [2, 1], [2, 2]], [[1], [2, 0], [2, 1],
 > [2, 2, 0], [2, 2]]]);;
-gap> IsDegenerateTransducer(T);
+gap> IsDegenerateGNSTransducer(T);
 false
 ]]></Example>
   </Description>
@@ -482,46 +482,46 @@ false
 <#/GAPDoc>
 
 
-<#GAPDoc Label="TransducerImageAutomaton">
+<#GAPDoc Label="GNSTransducerImageAutomaton">
 <ManSection>
-  <Oper Name = "TransducerImageAutomaton" Arg = "T"/>
+  <Oper Name = "GNSTransducerImageAutomaton" Arg = "T"/>
   <Returns>An Automaton.</Returns>
   <Description>
 	  For a transducer <A>T</A>, the operation 
-	  <C>TransducerImageAutomaton(<A>T</A>)</C> returns an automaton object
+	  <C>GNSTransducerImageAutomaton(<A>T</A>)</C> returns an automaton object
 	  (https://docs.gap-system.org/pkg/automata/doc/chap2_mj.html#X821C3B3687B1F2FF)
 	  which accepts the language of finite words which are prefixes of the
 	  words which can be written from the initial state 1 of <A>T</A>.
     <Example><![CDATA[
-gap> T := Transducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
+gap> T := GNSTransducer(3, 3, [[3, 2, 3], [1, 3, 1], [1, 3, 1]],
 > [[[1, 1], [0], [2]], [[1], [1], []], [[2, 0], [0, 1, 0], []]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",7,\"012@\",[ [ [ 2 ], [ ], [ 6 ], [ ], [ 1 ], [ ], [ 3 \
 ] ], [ [ 4 ], [ 1, 3 ], [ ], [ 3 ], [ ], [ 7 ], [ ] ], [ [ 3 ], [ ], [ 5 ], [ \
 ], [ ], [ ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 7\
  ]);;"
-gap> T := Transducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [5, 1], [4, 5], [2, 5], [3, 3]],
 > [[[0], [0]], [[0, 1, 0, 0, 0, 1], [0, 0, 0]], [[], [0]],
 > [[], []], [[0], [0]]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",12,\"01@\",[ [ [ 2, 3 ], [ 6, 11 ], [ 5 ], [ ], [ 3 ], \
 [ ], [ 8 ], [ 9 ], [ 10 ], [ ], [ 12 ], [ 1 ] ], [ [ ], [ ], [ ], [ ], [ ], [ \
 7 ], [ ], [ ], [ ], [ 5 ], [ ], [ ] ], [ [ ], [ ], [ 4 ], [ 2, 5 ], [ ], [ ], \
 [ ], [ ], [ ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 12 ]);;"
-gap> T := Transducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],
+gap> T := GNSTransducer(3, 4, [[1, 1, 2], [1, 1, 3], [1, 1, 1]],
 > [[[0], [1], []], [[2], [3,0], [3]], [[1], [2], [3]]]);;
-gap> String(TransducerImageAutomaton(T));
+gap> String(GNSTransducerImageAutomaton(T));
 "Automaton(\"epsilon\",4,\"0123@\",[ [ [ 1 ], [ ], [ ], [ 1 ] ], [ [ 1 ], [ ],\
  [ 1 ], [ ] ], [ [ ], [ 1 ], [ 1 ], [ ] ], [ [ ], [ 3, 4 ], [ 1 ], [ ] ], [ [ \
 2 ], [ ], [ ], [ ] ] ],[ 1 ],[ 1 .. 4 ]);;"
 ]]></Example>
-The following images correspond to the first of the transducers in the above example and can be generated with the commands "Splash(DotTransducer(T))" and "DrawAutomaton(TransducerImageAutomaton(T))" respectively.
+The following images correspond to the first of the transducers in the above example and can be generated with the commands "Splash(DotGNSTransducer(T))" and "DrawAutomaton(TransducerImageAutomaton(T))" respectively.
 <Alt Only="LaTeX">
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=7cm]{imageautomatontransducer.pdf}
-    \caption{Transducer.}
+    \caption{GNSTransducer.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.4\textwidth}
@@ -534,35 +534,35 @@ The following images correspond to the first of the transducers in the above exa
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IsomorphicInitialTransducers">
+<#GAPDoc Label="IsomorphicInitialGNSTransducers">
 <ManSection>
-  <Attr Name="IsomorphicInitialTransducers" Arg="T1, T2"/>
+  <Attr Name="IsomorphicInitialGNSTransducers" Arg="T1, T2"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
 	  For transducers <A>T1</A> and <A>T2</A>, with the same input and output
-	  alphabets, the operation <C>IsomorphicInitialTransducers(<A>T1</A>, <A>T2</A>)</C>
+	  alphabets, the operation <C>IsomorphicInitialGNSTransducers(<A>T1</A>, <A>T2</A>)</C>
 	  returns <C>true</C> if and only if there is a bijection from the states of
 	  <A>T1</A> to the states of <A>T2</A> which preserves transitions, outputs and the
 	  initial state 1.
 <Example><![CDATA[
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> T5 := Transducer(2, 2, [[1, 1], [2, 2], [3, 3]],
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> T5 := GNSTransducer(2, 2, [[1, 1], [2, 2], [3, 3]],
 > [[[], []], [[], []],[[], []]]);;
-gap> T6 := Transducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]],
+gap> T6 := GNSTransducer(3, 2, [[1, 1, 1], [2, 2, 2], [3, 3, 3]],
 > [[[], [], []], [[], [], []], [[], [], []]]);;
-gap> IsomorphicInitialTransducers(T, T2);
+gap> IsomorphicInitialGNSTransducers(T, T2);
 true
-gap> IsomorphicInitialTransducers(T, T3);
+gap> IsomorphicInitialGNSTransducers(T, T3);
 false
-gap> IsomorphicInitialTransducers(T, T4);
+gap> IsomorphicInitialGNSTransducers(T, T4);
 true
-gap> IsomorphicInitialTransducers(T, T5);
+gap> IsomorphicInitialGNSTransducers(T, T5);
 false
-gap> IsomorphicInitialTransducers(T, T6);
+gap> IsomorphicInitialGNSTransducers(T, T6);
 false
 ]]></Example>
   </Description>
@@ -570,38 +570,38 @@ false
 <#/GAPDoc>
 
 
-<#GAPDoc Label="OmegaEquivalentTransducers">
+<#GAPDoc Label="OmegaEquivalentGNSTransducers">
 <ManSection>
-  <Attr Name="OmegaEquivalentTransducers" Arg="T1, T2"/>
+  <Attr Name="OmegaEquivalentGNSTransducers" Arg="T1, T2"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
 	  For non-degenerate transducers <A>T1</A> and <A>T2</A>, with the same input
 	  and output alphabets, the operation 
-	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
+	  <C>OmegaEquivalentGNSTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
 	  if and only if <A>T1</A> and <A>T2</A> induce the same continuous maps
 	  from the infinite words in their input alphabets to the infinite words in
 	  their output alphabets (recall that the states we use to define these maps
 	  are the states labelled 1).
 
 	  Alternatively one can write <A>T1</A>=<A>T2</A> instead of 
-	  <C>OmegaEquivalentTransducers(<A>T1</A>, <A>T2</A>)</C>.
+	  <C>OmegaEquivalentGNSTransducers(<A>T1</A>, <A>T2</A>)</C>.
 
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
+gap> T := GNSTransducer(2, 2, [[2, 2], [3, 1], [3, 3], [5, 2], [2, 1]],
 > [[[1, 0], [0, 0]], [[1], []], [[0], [1]], [[1], [1]], [[], [0, 0]]]);;
-gap> M := MinimalTransducer(T);;
-gap> OmegaEquivalentTransducers(T, M);
+gap> M := MinimalGNSTransducer(T);;
+gap> OmegaEquivalentGNSTransducers(T, M);
 true
 gap> T = M;
 true
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> OmegaEquivalentTransducers(T, T2);
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> OmegaEquivalentGNSTransducers(T, T2);
 true
-gap> OmegaEquivalentTransducers(T, T3);
+gap> OmegaEquivalentGNSTransducers(T, T3);
 false
 gap> T = T4;
 true
@@ -610,13 +610,13 @@ true
 </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="EqualTransducers">
+<#GAPDoc Label="EqualGNSTransducers">
 <ManSection>
-  <Attr Name="EqualTransducers" Arg="T1, T2"/>
+  <Attr Name="EqualGNSTransducers" Arg="T1, T2"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
           For transducers <A>T1</A> and <A>T2</A>, the operation
-          <C>EqualTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
+          <C>EqualGNSTransducers(<A>T1</A>, <A>T2</A>)</C> returns <C>true</C>
 	  if and only if <A>T1</A> and <A>T2</A> have the same input alphabets,
 	  output alphabets, states, transition function and write function.
 
@@ -624,16 +624,16 @@ true
 	  this operation.
 	  
 <Example><![CDATA[
-gap> T := Transducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
+gap> T := GNSTransducer(2, 3, [[1, 3], [2, 3], [3, 3]], [[[1], [2]], [[1], [2]],
 > [[0, 0], [1, 0]]]);;
-gap> T2 := CopyTransducerWithInitialState(T, 2);;
-gap> T3 := CopyTransducerWithInitialState(T, 3);;
-gap> T4 := CopyTransducerWithInitialState(T3, 3);;
-gap> EqualTransducers(T, T2);
+gap> T2 := CopyGNSTransducerWithInitialState(T, 2);;
+gap> T3 := CopyGNSTransducerWithInitialState(T, 3);;
+gap> T4 := CopyGNSTransducerWithInitialState(T3, 3);;
+gap> EqualGNSTransducers(T, T2);
 true
-gap> EqualTransducers(T, T3);
+gap> EqualGNSTransducers(T, T3);
 false
-gap> EqualTransducers(T, T4);
+gap> EqualGNSTransducers(T, T4);
 false
 ]]></Example>
   </Description>
@@ -642,9 +642,9 @@ false
 
 
 
-<#GAPDoc Label="TransducerOrder">
+<#GAPDoc Label="GNSTransducerOrder">
 <ManSection>
-  <Attr Name="TransducerOrder" Arg="T"/>
+  <Attr Name="GNSTransducerOrder" Arg="T"/>
   <Returns> A positive integer.</Returns>
   <Description>
 	  The input must be a transducer <A>T</A> with the same input and 
@@ -655,15 +655,15 @@ false
 	  If this homeomorphism has infinite order, the operation will
 	  not terminate.
 <Example><![CDATA[
-gap> T := IdentityTransducer(5);;
-gap> TransducerOrder(T);
+gap> T := IdentityGNSTransducer(5);;
+gap> GNSTransducerOrder(T);
 1
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> TransducerOrder(T);
+gap> GNSTransducerOrder(T);
 2
-gap> T := Transducer(5, 5, [[1, 1, 1, 1, 1]], [[[1], [0], [3], [4], [2]]]);;
-gap> TransducerOrder(T);
+gap> T := GNSTransducer(5, 5, [[1, 1, 1, 1, 1]], [[[1], [0], [3], [4], [2]]]);;
+gap> GNSTransducerOrder(T);
 6
 ]]></Example>
   </Description>
@@ -672,13 +672,13 @@ gap> TransducerOrder(T);
 
 
 
-<#GAPDoc Label="IsSynchronizingTransducer">
+<#GAPDoc Label="IsSynchronizingGNSTransducer">
 <ManSection>
-  <Attr Name="IsSynchronizingTransducer" Arg="T"/>
+  <Attr Name="IsSynchronizingGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
 	  For a transducer <A>T</A>, the operation 
-	  <C>IsSynchronizingTransducer(<A>T</A>)</C> returns <C>true</C>
+	  <C>IsSynchronizingGNSTransducer(<A>T</A>)</C> returns <C>true</C>
 	  if <A>T</A> is synchronizing and <C>false</C> otherwise.	  
 	
 	  A transducer <A>T</A> is said to be synchronizing if there is a
@@ -687,17 +687,17 @@ gap> TransducerOrder(T);
 	  when w is read from q is dependant only on the last k letters of w
 	  (the reached state is independant of q and the other letters of w).
 	  <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
 > [[[1], [1, 0, 1]], [[1], []], [[1], [0, 1]], [[1], [0]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsSynchronizingTransducer(T);
+gap> IsSynchronizingGNSTransducer(T);
 false
 ]]></Example>
   </Description>
@@ -706,13 +706,13 @@ false
 
 
 
-<#GAPDoc Label="TransducerSynchronizingLength">
+<#GAPDoc Label="GNSTransducerSynchronizingLength">
 <ManSection>
-  <Attr Name="TransducerSynchronizingLength" Arg="T"/>
+  <Attr Name="GNSTransducerSynchronizingLength" Arg="T"/>
   <Returns>A non-negative integer.</Returns>
   <Description>
 	  For a synchronizing transducer <A>T</A>, the operation 
-	  <C>TransducerSynchronizingLength(<A>T</A>)</C> returns the 
+	  <C>GNSTransducerSynchronizingLength(<A>T</A>)</C> returns the 
 	  synchronzing length of <A>T</A>. If <A>T</A> is not sychronizing,
 	  then the operation instead returns infinity.	  
 	
@@ -723,16 +723,16 @@ false
 	  (the reached state is independant of q and the other letters of w).
 	  This minmum such k is called the synchronizing length of <A>T</A>. 
 <Example><![CDATA[
-gap> T := IdentityTransducer(4);;
-gap> TransducerSynchronizingLength(T);
+gap> T := IdentityGNSTransducer(4);;
+gap> GNSTransducerSynchronizingLength(T);
 0
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> TransducerSynchronizingLength(T);
+gap> GNSTransducerSynchronizingLength(T);
 2
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> TransducerSynchronizingLength(T);
+gap> GNSTransducerSynchronizingLength(T);
 infinity
 ]]></Example>
   </Description>
@@ -741,13 +741,13 @@ infinity
 
 
 
-<#GAPDoc Label="IsBisynchronizingTransducer">
+<#GAPDoc Label="IsBisynchronizingGNSTransducer">
 <ManSection>
-  <Attr Name="IsBisynchronizingTransducer" Arg="T"/>
+  <Attr Name="IsBisynchronizingGNSTransducer" Arg="T"/>
   <Returns><C>true</C> or <C>false</C>.</Returns>
   <Description>
           For a transducer <A>T</A>, the operation 
-	  <C>IsBisynchronizingTransducer(<A>T</A>)</C> returns <C>true</C>
+	  <C>IsBisynchronizingGNSTransducer(<A>T</A>)</C> returns <C>true</C>
 	  if <A>T</A> is bisynchronizing and <C>false</C> otherwise.	  
 
 	  A transducer <A>T</A> is said to be bisynchronizing if it is 
@@ -758,20 +758,20 @@ infinity
 	  size, one can show that all bisynchronizing transducers do have a 
 	  common input and output alphabet size.
 <Example><![CDATA[
-gap> T := IdentityTransducer(4);;
-gap> IsBisynchronizingTransducer(T);
+gap> T := IdentityGNSTransducer(4);;
+gap> IsBisynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
+gap> T := GNSTransducer(2, 2, [[1, 2], [1, 3], [1, 3]], [[[1, 0], []], [[0],
 > [1, 1]], [[0], [1]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 true
-gap> T := Transducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [3, 4], [3, 2], [3, 4]],
 > [[[1], [1, 0, 1]], [[1], []], [[1], [0, 1]], [[1], [0]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 false
-gap> T := Transducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
+gap> T := GNSTransducer(3, 3, [[1, 2, 1], [3, 3, 3], [1, 3, 2]],
 > [[[1], [2], [1]], [[0], [1], [2, 1]], [[0], [0], [1]]]);;
-gap> IsBisynchronizingTransducer(T);
+gap> IsBisynchronizingGNSTransducer(T);
 false
 ]]></Example>
   </Description>

@@ -31,7 +31,7 @@
  
   In the following sections we will work with the following transducers and demonstrate various aspects of the algorithms in <Cite Key = "GNS"/>.
 <Example><![CDATA[	
-gap> T := Transducer(2, 2, [[2, 3], [2, 3], [2, 3]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [2, 3], [2, 3]],
 >                          [[[], []], [[0], [0]], [[1], [1]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
   and 3 states.>
@@ -51,7 +51,7 @@ The following image is a representation of the transducer in the above example.
  </Alt>
 
 
-This image can be generated with the command: "Splash(DotTransducer(T))".
+This image can be generated with the command: "Splash(DotGNSTransducer(T))".
 
 The example above  represents an inefficient transducer representing the identity homeomorphism on the two letter alphabet Cantor space.
 In this document we will show how to check that the transducer represents a bijection on Cantor space, how to replace this transducer by a smaller transducer representing the same transformation, how to invert the transducer, how to take products of transducers, and in general, carry out the methods described in <Cite Key = "GNS"/>. <P/>

@@ -1,7 +1,7 @@
-<Chapter Label = "Visualising Transducers">
+<Chapter Label = "Visualising GNSTransducers">
 
   <Heading>
-    Visualising Transducers
+    Visualising GNSTransducers
   </Heading>
 
   We provide the <Ref Func = "Splash"/> function written by A. Egry-Nay. 
@@ -37,7 +37,7 @@
     The operations described in this section return strings, which
     can be viewed using <Ref Func = "Splash"/>.
 
-    <#Include Label = "DotTransducer"/>
+    <#Include Label = "DotGNSTransducer"/>
 
   </Section>
 

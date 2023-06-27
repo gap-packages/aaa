@@ -8,16 +8,16 @@
 #############################################################################
 ##
 
-<#GAPDoc Label="Transducer">
+<#GAPDoc Label="GNSTransducer">
 <ManSection>
-  <Oper Name = "Transducer" Arg = "m, n, P, L"/>
+  <Oper Name = "GNSTransducer" Arg = "m, n, P, L"/>
   <Returns>A transducer.</Returns>
   <Description>
     For two positive integers <A>m</A>, and <A>n</A>, a dense list of dense
     lists of integers <A>P</A>, and a dense list of dense lists of lists
     of integers <A>L</A>, such that <A>P</A> and <A>L</A> have the same size,
     and each of their elements have size equal to <A>m</A>, the operation
-    <C>Transducer(<A>m, n, P, L</A>)</C> returns a transducer with input
+    <C>GNSTransducer(<A>m, n, P, L</A>)</C> returns a transducer with input
     alphabet <C>[0 .. m - 1]</C>, output alphabet <C>[0 .. n - 1]</C>,
     transition function <A>P</A>, and output function <A>L</A>. 
     This list <A>P</A> has the property that 
@@ -38,7 +38,7 @@
     can be written.
 
     <Example><![CDATA[
-gap> T := Transducer(2, 2, [[2, 3], [2, 3], [2, 3]],
+gap> T := GNSTransducer(2, 2, [[2, 3], [2, 3], [2, 3]],
 > 			   [[[], []], [[0], [0]], [[1], [1]]]);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
   and 3 states.>
@@ -48,21 +48,21 @@ gap> T := Transducer(2, 2, [[2, 3], [2, 3], [2, 3]],
 <#/GAPDoc>
 
 
-<#GAPDoc Label="TransducerFunction">
+<#GAPDoc Label="GNSTransducerFunction">
 <ManSection>
-  <Oper Name = "TransducerFunction" Arg = "T, word, m"/>
+  <Oper Name = "GNSTransducerFunction" Arg = "T, word, m"/>
   <Returns>A list.</Returns>
   <Description>
     For a transducer <A>T</A>, a dense or periodic list <A>word</A>, and a 
     positive integer <A>m</A> such that it is a state of the transducer, the 
-    operation <C>TransducerFunction(<A>T, word, m</A>)</C> returns a list 
+    operation <C>GNSTransducerFunction(<A>T, word, m</A>)</C> returns a list 
     containing the word obtained when <A>word</A> is read by <A>T</A> from
     state <A>m</A>, and the state that is reached after reading <A>word</A>
     from state <A>m</A> (the function returns 0 instead of a state when an
     infinite word is read).
     <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
-gap> TransducerFunction(T, [0, 1, 0], 1);
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> GNSTransducerFunction(T, [0, 1, 0], 1);
 [ [ 0, 1 ], 2 ]
 ]]></Example>
   </Description>
@@ -82,7 +82,7 @@ gap> TransducerFunction(T, [0, 1, 0], 1);
       <C>OutputFunction(<A>T</A>)</C> displays the list representing the output
       function of <A>T</A>.
       <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
 gap> TransitionFunction(T);
 [ [ 1, 2 ], [ 2, 1 ] ]
 gap> OutputFunction(T);
@@ -104,7 +104,7 @@ gap> OutputFunction(T);
       <C>OutputAlphabet(<A>T</A>)</C> returns the list representing the output
       alphabet of <A>T</A>.
       <Example><![CDATA[
-gap> P := Transducer(2, 3, [[1, 2], [2, 1]], [[[0], [2]], [[1], [0, 1]]]);;
+gap> P := GNSTransducer(2, 3, [[1, 2], [2, 1]], [[[0], [2]], [[1], [0, 1]]]);;
 gap> InputAlphabet(P);
 [ 0, 1 ]
 gap> OutputAlphabet(P);
@@ -122,7 +122,7 @@ gap> OutputAlphabet(P);
       For a transducer <A>T</A>, the operation <C>NrStates(<A>T</A>)</C> returns
       the number of states of the transducer <A>T</A>.
       <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
 gap> NrStates(T);
 2
 ]]></Example>
@@ -138,7 +138,7 @@ gap> NrStates(T);
       For a transducer <A>T</A>, the operation <C>States(<A>T</A>)</C> returns
       a list representing the set of states of the transducer <A>T</A>.
       <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
 gap> States(T);
 [ 1, 2 ]
 ]]></Example>
@@ -158,7 +158,7 @@ gap> States(T);
       of the output alphabet of <A>T</A>.
 
       <Example><![CDATA[
-gap> T := Transducer(2, 3, [[1, 2], [2, 1]], [[[0], []], [[1], [2, 1]]]);;
+gap> T := GNSTransducer(2, 3, [[1, 2], [2, 1]], [[[0], []], [[1], [2, 1]]]);;
 gap> NrInputSymbols(T); NrOutputSymbols(T);
 2
 3
@@ -167,20 +167,20 @@ gap> NrInputSymbols(T); NrOutputSymbols(T);
   </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="IdentityTransducer">
+<#GAPDoc Label="IdentityGNSTransducer">
   <ManSection>
-    <Oper Name = "IdentityTransducer" Arg = "n"/>
+    <Oper Name = "IdentityGNSTransducer" Arg = "n"/>
     <Returns>A transducer</Returns>
     <Description>
       For a positive integer <A>n</A>, the operation 
-      <C>IdentityTransducer(<A>n</A>)</C> returns a transducer with input and 
+      <C>IdentityGNSTransducer(<A>n</A>)</C> returns a transducer with input and 
       output alphabet size <A>n</A>. The transducer has 1 state and when a word
       is read from this state, the same word is output.
       <Example><![CDATA[
-gap> T := IdentityTransducer(3);
+gap> T := IdentityGNSTransducer(3);
 <transducer with input alphabet on 3 symbols, output alphabet on
 3 symbols, and 1 state.>
-gap> EqualTransducers(T, Transducer(3, 3, [[1, 1, 1]], [[[0], [1], [2]]]));
+gap> EqualGNSTransducers(T, GNSTransducer(3, 3, [[1, 1, 1]], [[[0], [1], [2]]]));
 true
 ]]></Example>
    </Description>
@@ -188,13 +188,13 @@ true
 <#/GAPDoc>
 
 
-<#GAPDoc Label="AlphabetChangeTransducer">
+<#GAPDoc Label="AlphabetChangeGNSTransducer">
   <ManSection>
-    <Oper Name = "AlphabetChangeTransducer" Arg = "m, n"/>
+    <Oper Name = "AlphabetChangeGNSTransducer" Arg = "m, n"/>
     <Returns>A transducer</Returns>
     <Description>
       For two positive integers <A>m, n</A>, the operation 
-      <C>AlphabetChangeTransducer(<A>m, n</A>)</C> returns a transducer with
+      <C>AlphabetChangeGNSTransducer(<A>m, n</A>)</C> returns a transducer with
       input alphabet size <A>m</A> and output alphabet size <A>n</A>.
      <Alt Only="LaTeX">\\  </Alt>
 
@@ -213,18 +213,18 @@ true
       Generally, the homeomorphism h_{m, n} is then the composite of the 
       inverse of h_{2, m} with h_{2, n}.
       <Example><![CDATA[
-gap> T := Transducer(2, 4, [[1, 2], [1, 3], [1, 1]],
+gap> T := GNSTransducer(2, 4, [[1, 2], [1, 3], [1, 1]],
 > [[[0], []], [[1], []], [[2], [3]]]);;
-gap> EqualTransducers(T, AlphabetChangeTransducer(2, 4));
+gap> EqualGNSTransducers(T, AlphabetChangeGNSTransducer(2, 4));
 true
-gap> T:= Transducer(2, 2, [ [ 3, 1 ], [ 2, 3 ], [ 1, 1 ] ],    
+gap> T:= GNSTransducer(2, 2, [ [ 3, 1 ], [ 2, 3 ], [ 1, 1 ] ],    
 > [ [ [ 1 ], [ 0 ] ], [ [ 1 ], [ 1 ] ], [ [ 0 ], [ 1 ] ] ]);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
  and 3 states.>
-gap> TConjugate := T^AlphabetChangeTransducer(2, 3);
+gap> TConjugate := T^AlphabetChangeGNSTransducer(2, 3);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
  and 6 states.>
-gap> TConjugate2 := TConjugate^AlphabetChangeTransducer(3, 2);
+gap> TConjugate2 := TConjugate^AlphabetChangeGNSTransducer(3, 2);
 <transducer with input alphabet on 2 symbols, output alphabet on 2 symbols,
  and 12 states.>
 gap> TConjugate2 = T;
@@ -235,13 +235,13 @@ true
 <#/GAPDoc>
 
 
-<#GAPDoc Label="RandomTransducer">
+<#GAPDoc Label="RandomGNSTransducer">
   <ManSection>
-    <Oper Name = "RandomTransducer" Arg = "m, n"/>
+    <Oper Name = "RandomGNSTransducer" Arg = "m, n"/>
     <Returns>A transducer</Returns>
     <Description>
       For positive integers <A>m, n</A>, the operation 
-      <C>RandomTransducer(<A>m, n</A>)</C> returns a random transducer with
+      <C>RandomGNSTransducer(<A>m, n</A>)</C> returns a random transducer with
       input and output alphabet of size <A>m</A> and <A>n</A> states.
 
       All transition functions are equally likely. For each state and letter
@@ -249,7 +249,7 @@ true
       q has length 0, 1, 2, 3, ... are 1/4, 3/8, 3/16, 3/32 ... respectively.
       Each word of a fixed length has the same chance of being written.
       <Example><![CDATA[
-gap> RandomTransducer(3, 5);
+gap> RandomGNSTransducer(3, 5);
 <transducer with input alphabet on 3 symbols, output alphabet on 3 symbols,
  and 5 states.>
 ]]></Example>

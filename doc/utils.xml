@@ -39,21 +39,21 @@ gap> AaaMakeDoc();
       <URL>http://www.graphviz.org</URL>.<P/>
 
       This function is provided to allow convenient, immediate viewing of the
-      pictures produced by <Ref Oper="DotTransducer"/>.<P/>
+      pictures produced by <Ref Oper="DotGNSTransducer"/>.<P/>
 
       This function was written by Attila Egri-Nagy and Manuel Delgado with some
       minor changes by J. D. Mitchell.<P/>
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
-gap> Splash(DotTransducer(T));
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> Splash(DotGNSTransducer(T));
 ]]></Example>
     </Description>
   </ManSection>
 <#/GAPDoc>
 
-<#GAPDoc Label="DotTransducer">
+<#GAPDoc Label="DotGNSTransducer">
   <ManSection>
-    <Oper Name="DotTransducer" Arg="T"/>
+    <Oper Name="DotGNSTransducer" Arg="T"/>
     <Returns>A string.</Returns>
     <Description>
       For a transducer <A>T</A>, this operation produces a graphical
@@ -62,8 +62,8 @@ gap> Splash(DotTransducer(T));
       about this file format, and information about how to display or edit this
       format see <URL>http://www.graphviz.org</URL>.<P/>
 <Example><![CDATA[
-gap> T := Transducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
-gap> DotTransducer(T);
+gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
+gap> DotGNSTransducer(T);
 "//dot\n
 digraph finite_state_machine{\n
 rankdir=LR;\n
