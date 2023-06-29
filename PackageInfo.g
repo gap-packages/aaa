@@ -64,9 +64,11 @@ Persons := [
     Institution := "University of Aberdeen",
   ),
   rec(
-    IsAuthor := false,
-    IsMaintainer := true,
-    FirstNames := "the GAP team",
+      LastName      := "GAP Team",
+      FirstNames    := "The",
+      IsAuthor      := false,
+      IsMaintainer  := true,
+      Email         := "support@gap-system.org",
   ),
 ],
 
