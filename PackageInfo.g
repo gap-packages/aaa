@@ -63,6 +63,11 @@ Persons := [
     Place := "Aberdeen",
     Institution := "University of Aberdeen",
   ),
+  rec(
+    IsAuthor := false,
+    IsMaintainer := true,
+    FirstNames := "the GAP team",
+  ),
 ],
 
 SourceRepository := rec(
