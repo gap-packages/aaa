@@ -35,8 +35,8 @@ gap> AaaMakeDoc();
       The string <A>str</A> must correspond to a valid <C>dot</C> text file and
       you must have <C>GraphViz</C> and <C>pdflatex</C> installed on your
       computer.  For details about these file formats, see
-      <URL>http://www.latex-project.org</URL> and
-      <URL>http://www.graphviz.org</URL>.<P/>
+      <URL>https://www.latex-project.org</URL> and
+      <URL>https://www.graphviz.org</URL>.<P/>
 
       This function is provided to allow convenient, immediate viewing of the
       pictures produced by <Ref Oper="DotGNSTransducer"/>.<P/>
@@ -60,7 +60,7 @@ gap> Splash(DotGNSTransducer(T));
       representation of the transducer as an automaton. The output is in
       <C>dot</C> format (also known as <C>GraphViz</C> format). For details
       about this file format, and information about how to display or edit this
-      format see <URL>http://www.graphviz.org</URL>.<P/>
+      format see <URL>https://www.graphviz.org</URL>.<P/>
 <Example><![CDATA[
 gap> T := GNSTransducer(2, 2, [[1, 2], [2, 1]], [[[0], []], [[1], [0, 1]]]);;
 gap> DotGNSTransducer(T);

@@ -21,7 +21,7 @@
   We will use the word "transducer" to represent a machine which reads infinite strings according to the transitions of an automaton, but when transitioning over an edge the machine will write a finite word (possibly empty) which depends on the current state and input letter.
   A transducer will represent a group element in R if when reading from the initial state it induces a bijection on Cantor space (in our package the initial state is the state labelled ``1").<P/>
 
-  This package is built over the framework provided by the automata package in GAP (https://www.gap-system.org/Packages/automata.html).<P/>
+  This package is built over the framework provided by the <URL Text="automata package in GAP">https://www.gap-system.org/Packages/automata.html</URL>.<P/>
  </Section>
 
  <Section Label = "Examples">
