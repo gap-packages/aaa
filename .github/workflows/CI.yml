@@ -2,8 +2,11 @@ name: CI
 
 # Trigger the workflow on push or pull request
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
 
 # the `concurrency` settings ensure that not too many CI jobs run in parallel
 concurrency:
